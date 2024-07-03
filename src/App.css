@@ -1,0 +1,594 @@
+/* Navbar container */
+.navbar {
+  background-color: #cc0000; /* Adjusted to a darker red */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px; /* Increased padding for a more spacious look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for a modern look */
+  position: fixed; /* Fixed navbar at the top */
+  top: 0; /* Ensure it's at the top */
+  left: 0; /* Ensure it starts from the left */
+  right: 0; /* Ensure it stretches to the right */
+  width: 100%; /* Full width */
+  z-index: 1000; /* Ensure it stays on top */
+}
+
+/* Container for the title and nav buttons */
+.navbar-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+/* Style for the title */
+.title {
+  color: white;
+  font-size: 26px; /* Slightly larger font */
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: 1px; /* Added spacing between letters */
+  margin-right: 30px; /* Space between title and nav buttons */
+}
+
+/* Style for the navigation buttons */
+.nav-buttons {
+  display: flex;
+  gap: 20px; /* Added gap between buttons */
+  list-style-type: none; /* Remove bullet points */
+  margin: 0; /* Remove default margin */
+  padding: 0;
+}
+
+.nav-button {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 18px;
+  font-family: "Arial", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+  border-radius: 4px; /* Rounded corners */
+}
+
+.nav-button:hover {
+  background-color: #990000; /* Darker shade on hover */
+  color: #ffffff; /* Ensure text color remains white on hover */
+}
+
+/* Add styles to the active button if needed */
+.active {
+  background-color: #990000; /* Darker shade for active button */
+  color: #ffffff;
+}
+
+/* Add margin to body to prevent content overlap with fixed navbar */
+body {
+  margin-top: 70px; /* Adjust this value based on the navbar height */
+}
+
+/* Theme toggle button */
+.theme-toggle-button {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  border-radius: 25px; /* More rounded corners */
+  padding: 10px 20px; /* Increased padding for a more substantial look */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 16px; /* Adjusted font size */
+  font-family: "Arial", sans-serif; /* Ensure consistent font */
+  margin-right: 35px; /* Add margin to the right */
+}
+
+.theme-toggle-button:hover {
+  background-color: white;
+  color: #cc0000;
+}
+
+/* Default values for light mode */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --navbar-background-color: #cc0000;
+  --hero-background-color: linear-gradient(to right, #cc0000, #ff6666);
+}
+
+/* Apply the variables to elements */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Define styles for dark mode */
+[data-theme='dark'] {
+  --background-color: #1c1c1c; /* Lighter black for background */
+  --text-color: #ffffff;
+  --navbar-background-color: #333; /* Darker shade for navbar */
+  --hero-background-color: linear-gradient(to right, #333, #555); /* Adjusted gradient for hero section */
+}
+
+.navbar {
+  background-color: var(--navbar-background-color);
+}
+
+.hero-section {
+  background: var(--hero-background-color);
+  color: var(--text-color);
+}
+/* Second navbar styles */
+.second-navbar {
+  background-color: #f8f9fa;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  border-bottom: 1px solid #ddd;
+  margin-top: 70px; /* To ensure it doesn't overlap with the main navbar */
+}
+
+.second-nav-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-family: "Arial", sans-serif;
+  color: #333;
+  cursor: pointer;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.second-nav-button:hover {
+  background-color: #ddd;
+  color: #000;
+}
+/* Overall container for the games */
+.upcoming-games-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px; /* Adjust the gap size as needed */
+  padding: 20px;
+}
+
+/* Style for individual game items */
+.game-item {
+  background-color: #fff; /* White background for the game item */
+  border: 1px solid #ddd; /* Light grey border around the game item */
+  border-radius: 8px; /* Rounded corners for the border */
+  padding: 15px; /* Padding inside the game item */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s; /* Add a transition effect */
+  cursor: pointer; /* Add a pointer cursor for better UX */
+}
+
+/* Style for the game header */
+.game-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style for game details such as time and score */
+.game-details {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* Style for the team logos */
+.team-logo {
+  width: 60px; /* Adjust based on your preference */
+  height: 60px; /* Adjust based on your preference */
+  margin-bottom: 10px;
+}
+
+/* Style for the team names and "vs" */
+.team-name, .vs {
+  margin: 0 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Style for the score and time */
+.game-score, .game-time {
+  color: #888;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .upcoming-games-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .upcoming-games-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.games-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* This creates a responsive grid */
+  grid-gap: 20px; /* This is the gap between grid items */
+  padding: 0; /* Resets default padding */
+  list-style-type: none; /* Removes default list styling */
+}
+
+/* Hover effect */
+.game-item:hover {
+  transform: scale(1.02); /* Slight scale up on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
+}
+
+.scorecards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.scorecard {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 45%; /* Adjust the width as needed */
+}
+
+.scorecard-time {
+  font-size: 1.2em;
+  color: #888;
+}
+
+.scorecard-network {
+  font-size: 1.2em;
+  color: #888;
+}
+
+.scorecard-competitors {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.scorecard-competitor {
+  text-align: center;
+}
+
+.scorecard-logo {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 10px;
+}
+
+.scorecard-team-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.scorecard-record {
+  color: #888;
+}
+
+.week-filter {
+  padding: 10px 15px;
+  background-color: white;
+  color: red;
+  font-size: 18px;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.week-filter:hover {
+  background-color: #cc0000; /* Change to your desired hover color */
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Add styles for .scorecard-top-info as needed */
+.scorecard-media-type {
+  display: flex;
+  align-items: center;
+}
+
+.scorecard-media-type svg {
+  margin-right: 5px; /* Space between icon and text */
+}
+
+/* Styles for the Home Component */
+.home {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--background-color); /* Use background color variable */
+  color: var(--text-color); /* Use text color variable */
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(to right, #cc0000, #ff6666);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.hero-section h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* Statistics Section */
+#statistics {
+  padding: 2rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+#statistics h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#statistics p {
+  font-size: 1rem;
+}
+
+/* Latest News Section */
+#news {
+  padding: 2rem 1rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+#news h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#news p {
+  font-size: 1rem;
+}
+
+/* Footer Section */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+footer p {
+  margin: 0.5rem 0;
+}
+/* Teams container styles */
+.teams-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.team-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.team-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Section titles */
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+/* News and articles section */
+.news-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.news-item {
+  display: flex;
+  margin-bottom: 20px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.news-item:hover {
+  transform: translateY(-5px);
+}
+
+.news-item img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 8px;
+}
+
+.news-content {
+  flex: 1;
+}
+
+.news-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.news-description {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.news-link-button {
+  display: inline-block;
+  background-color: #cc0000;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.news-link-button:hover {
+  background-color: #990000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .news-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .news-item img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+}
+/* Modal styles */
+.Modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh; /* Added to limit the height and allow scrolling */
+  overflow-y: auto; /* Added to allow scrolling for large content */
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* Team logo in modal */
+.modal-team-logo {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+/* Buttons in modal */
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.modal-button {
+  background: #cc0000;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.modal-button:hover {
+  background: #990000;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  color: #cc0000;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #990000;
+}
+
+/* Roster container styles */
+.roster-container {
+  margin-top: 20px;
+  max-height: 50vh; /* Limit the height of the roster container */
+  overflow-y: auto; /* Allow scrolling within the roster container */
+}
+
+.roster-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.roster-container li {
+  margin-bottom: 10px;
+}
