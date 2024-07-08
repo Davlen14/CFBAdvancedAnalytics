@@ -57,3 +57,4 @@ export async function getRecords(year = 2023) {
 export async function getGamesMedia() {
   return makeGetRequest('/api/college-football/games/media');
 }
+
