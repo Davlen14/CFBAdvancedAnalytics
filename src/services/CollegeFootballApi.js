@@ -58,3 +58,4 @@ export async function getGamesMedia() {
   return makeGetRequest('/api/college-football/games/media');
 }
 
+
