@@ -17,11 +17,28 @@ app.options('*', cors(corsOptions)); // Handle preflight requests
 
 // Setup axios instance with the base URL and headers for the College Football Data API
 const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://api.collegefootballdata.com', // Using environment variable
+  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://api.collegefootballdata.com',
   headers: {
     'Authorization': 'Bearer XB5Eui0++wuuyh5uZ2c+UJY4jmLKQ2jxShzJXZaM9ET21a1OgubV4/mFlCxzsBIQ',
     'Content-Type': 'application/json',
   },
+});
+
+// Proxy endpoint to forward requests to the Heroku CDN
+app.use('/proxy/heroku-cdn/*', async (req, res) => {
+  try {
+    const url = `https://my-betting-bot-davlen.herokuapp.com/${req.params[0]}`;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: 'Bearer XB5Eui0++wuuyh5uZ2c+UJY4jmLKQ2jxShzJXZaM9ET21a1OgubV4/mFlCxzsBIQ',
+        'Content-Type': 'application/json',
+      },
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error proxying request:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Endpoint to get upcoming games
@@ -144,6 +161,7 @@ app.get('/api/college-football/roster', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
