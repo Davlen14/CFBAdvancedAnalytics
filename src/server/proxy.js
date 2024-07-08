@@ -8,8 +8,10 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'https://swaincfbanalytics.netlify.app', // replace with your Netlify domain
-  optionsSuccessStatus: 200,
+  origin: 'https://swaincfbanalytics.netlify.app', // Replace with your Netlify domain
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 };
 
 app.use(cors(corsOptions)); // Enable CORS with specific options for all routes
