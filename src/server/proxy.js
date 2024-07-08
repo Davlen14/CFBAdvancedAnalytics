@@ -17,7 +17,7 @@ app.options('*', cors(corsOptions)); // Handle preflight requests
 
 // Setup axios instance with the base URL and headers for the College Football Data API
 const apiClient = axios.create({
-  baseURL: 'https://api.collegefootballdata.com',
+  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://api.collegefootballdata.com', // Using environment variable
   headers: {
     'Authorization': 'Bearer XB5Eui0++wuuyh5uZ2c+UJY4jmLKQ2jxShzJXZaM9ET21a1OgubV4/mFlCxzsBIQ',
     'Content-Type': 'application/json',
@@ -144,6 +144,7 @@ app.get('/api/college-football/roster', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
