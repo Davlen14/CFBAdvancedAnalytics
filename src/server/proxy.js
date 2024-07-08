@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios').default;
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -160,9 +161,15 @@ app.get('/api/college-football/roster', async (req, res) => {
   }
 });
 
+// Test endpoint to verify environment variable
+app.get('/test-env', (req, res) => {
+  res.send(`REACT_APP_API_BASE_URL: ${process.env.REACT_APP_API_BASE_URL}`);
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
