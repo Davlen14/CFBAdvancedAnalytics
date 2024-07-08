@@ -1,7 +1,9 @@
 const express = require('express');
 const axios = require('axios').default;
 const cors = require('cors');
-require('dotenv').config();
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -22,7 +24,7 @@ app.options('*', cors(corsOptions)); // Handle preflight requests
 const apiClient = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL || 'https://api.collegefootballdata.com',
   headers: {
-    'Authorization': 'Bearer XB5Eui0++wuuyh5uZ2c+UJY4jmLKQ2jxShzJXZaM9ET21a1OgubV4/mFlCxzsBIQ',
+    'Authorization': `Bearer ${process.env.REACT_APP_CFB_API_KEY}`,
     'Content-Type': 'application/json',
   },
 });
@@ -33,7 +35,7 @@ app.use('/proxy/heroku-cdn/*', async (req, res) => {
     const url = `https://my-betting-bot-davlen.herokuapp.com/${req.params[0]}`;
     const response = await axios.get(url, {
       headers: {
-        Authorization: 'Bearer XB5Eui0++wuuyh5uZ2c+UJY4jmLKQ2jxShzJXZaM9ET21a1OgubV4/mFlCxzsBIQ',
+        Authorization: `Bearer ${process.env.REACT_APP_CFB_API_KEY}`,
         'Content-Type': 'application/json',
       },
     });
