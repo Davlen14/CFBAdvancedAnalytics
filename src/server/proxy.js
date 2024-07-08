@@ -1,6 +1,6 @@
 const express = require('express');
 const axios = require('axios').default;
-const cors = require('cors'); // Import CORS module
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -17,6 +17,9 @@ const apiClient = axios.create({
   },
 });
 
+// Middleware to handle CORS preflight requests
+app.options('*', cors());
+
 // Endpoint to get upcoming games
 app.get('/api/college-football/upcoming-games', async (req, res) => {
   try {
@@ -27,7 +30,7 @@ app.get('/api/college-football/upcoming-games', async (req, res) => {
     const [gamesResponse, teamsResponse] = await Promise.all([
       apiClient.get('/games', {
         params: {
-          year, // Include the year parameter
+          year,
           seasonType,
           week,
         },
@@ -50,7 +53,6 @@ app.get('/api/college-football/upcoming-games', async (req, res) => {
         ...game,
         home_team: homeTeamData,
         away_team: awayTeamData,
-        // Include score details
         homeScore: game.home_points, // Replace with actual field name if different
         awayScore: game.away_points  // Replace with actual field name if different
       };
@@ -84,7 +86,7 @@ app.get('/api/college-football/records', async (req, res) => {
 // Endpoint to get FBS teams
 app.get('/api/college-football/teams-fbs', async (_req, res) => {
   try {
-    const response = await apiClient.get('/teams/fbs'); 
+    const response = await apiClient.get('/teams/fbs');
     res.json(response.data);
   } catch (error) {
     console.error('Error fetching data from College Football Data API:', error);
