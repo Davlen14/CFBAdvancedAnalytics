@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-// Axios instance for making requests to your Node.js server
+// Base URL for your API
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5001',
+  baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:5001', // Fallback to localhost for development
 });
 
 async function makeGetRequest(endpoint) {
@@ -49,6 +49,7 @@ export async function getUpcomingGamesForWeek(week) {
     throw error;
   }
 }
+
 export async function getRecords(year = 2023) {
   return makeGetRequest(`/api/college-football/records?year=${year}`);
 }
@@ -56,4 +57,3 @@ export async function getRecords(year = 2023) {
 export async function getGamesMedia() {
   return makeGetRequest('/api/college-football/games/media');
 }
-
