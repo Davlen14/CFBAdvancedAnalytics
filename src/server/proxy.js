@@ -6,7 +6,14 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 app.use(express.json());
-app.use(cors()); // Enable CORS for all routes
+
+const corsOptions = {
+  origin: 'https://swaincfbanalytics.netlify.app', // replace with your Netlify domain
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions)); // Enable CORS with specific options for all routes
+app.options('*', cors(corsOptions)); // Handle preflight requests
 
 // Setup axios instance with the base URL and headers for the College Football Data API
 const apiClient = axios.create({
@@ -16,9 +23,6 @@ const apiClient = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
-// Middleware to handle CORS preflight requests
-app.options('*', cors());
 
 // Endpoint to get upcoming games
 app.get('/api/college-football/upcoming-games', async (req, res) => {
