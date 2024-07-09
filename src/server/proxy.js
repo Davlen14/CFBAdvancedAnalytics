@@ -22,48 +22,11 @@ app.options('*', cors(corsOptions)); // Handle preflight requests
 
 // Setup axios instance with the base URL and headers for the College Football Data API
 const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || 'https://api.collegefootballdata.com',
+  baseURL: 'https://api.collegefootballdata.com',
   headers: {
     'Authorization': `Bearer ${process.env.REACT_APP_CFB_API_KEY}`,
     'Content-Type': 'application/json',
   },
-});
-
-// Proxy endpoint to forward requests to the Heroku CDN
-app.use('/proxy/heroku-cdn/*', async (req, res) => {
-  try {
-    const url = `https://my-betting-bot-davlen.herokuapp.com/${req.params[0]}`;
-    const response = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_CFB_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    res.json(response.data);
-  } catch (error) {
-    console.error('Error proxying request:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-// Your existing routes
-app.use('/api', async (req, res) => {
-  const apiUrl = `https://api.collegefootballdata.com${req.url}`;
-  try {
-    const response = await axios({
-      url: apiUrl,
-      method: req.method,
-      headers: {
-        'Authorization': `Bearer ${process.env.REACT_APP_CFB_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      data: req.body
-    });
-    res.json(response.data);
-  } catch (error) {
-    console.error('Error proxying request:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
 });
 
 // Endpoint to get upcoming games
@@ -75,11 +38,7 @@ app.get('/api/college-football/upcoming-games', async (req, res) => {
 
     const [gamesResponse, teamsResponse] = await Promise.all([
       apiClient.get('/games', {
-        params: {
-          year,
-          seasonType,
-          week,
-        },
+        params: { year, seasonType, week },
       }),
       apiClient.get('/teams/fbs'),
     ]);
@@ -89,18 +48,13 @@ app.get('/api/college-football/upcoming-games', async (req, res) => {
       return acc;
     }, {});
 
-    const enrichedGames = gamesResponse.data.map(game => {
-      const homeTeamData = teamsMap[game.home_team] || null;
-      const awayTeamData = teamsMap[game.away_team] || null;
-
-      return {
-        ...game,
-        home_team: homeTeamData,
-        away_team: awayTeamData,
-        homeScore: game.home_points, // Replace with actual field name if different
-        awayScore: game.away_points  // Replace with actual field name if different
-      };
-    });
+    const enrichedGames = gamesResponse.data.map(game => ({
+      ...game,
+      home_team: teamsMap[game.home_team] || null,
+      away_team: teamsMap[game.away_team] || null,
+      homeScore: game.home_points,
+      awayScore: game.away_points,
+    }));
 
     res.json(enrichedGames);
   } catch (error) {
@@ -144,11 +98,7 @@ app.get('/api/college-football/games/media', async (req, res) => {
     const week = req.query.week || 1;
 
     const response = await apiClient.get('/games/media', {
-      params: {
-        year,
-        seasonType,
-        week,
-      },
+      params: { year, seasonType, week },
     });
 
     res.json(response.data);
