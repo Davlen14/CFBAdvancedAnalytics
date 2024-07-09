@@ -26,6 +26,33 @@
   .navbar-content {
     flex-direction: column;
   }
+
+  .nav-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px 20px;
+  }
+
+  .title {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+
+  .nav-button {
+    font-size: 16px;
+    padding: 8px 10px;
+  }
+
+  .theme-toggle-button {
+    font-size: 12px;
+    padding: 6px 12px;
+    margin-right: 10px;
+  }
 }
 
 /* Style for the title */
@@ -94,6 +121,23 @@ body {
   color: #cc0000;
 }
 
+/* Responsive adjustments for theme toggle button */
+@media (max-width: 768px) {
+  .theme-toggle-button {
+    font-size: 14px;
+    padding: 8px 16px;
+    margin-right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .theme-toggle-button {
+    font-size: 12px;
+    padding: 6px 12px;
+    margin-right: 10px;
+  }
+}
+
 /* Default values for light mode */
 :root {
   --background-color: #ffffff;
@@ -138,6 +182,7 @@ body[data-theme='dark'] {
   background: var(--hero-background-color);
   color: var(--text-color);
 }
+
 
 /* Second navbar styles */
 .second-navbar {
