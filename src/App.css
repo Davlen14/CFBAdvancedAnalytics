@@ -21,6 +21,13 @@
   flex: 1;
 }
 
+/* Responsive adjustments for the navbar */
+@media (max-width: 768px) {
+  .navbar-content {
+    flex-direction: column;
+  }
+}
+
 /* Style for the title */
 .title {
   color: white;
@@ -101,14 +108,6 @@ body {
   color: var(--text-color);
 }
 
-/* Define styles for dark mode */
-[data-theme='dark'] {
-  --background-color: #1c1c1c; /* Lighter black for background */
-  --text-color: #ffffff;
-  --navbar-background-color: #333; /* Darker shade for navbar */
-  --hero-background-color: linear-gradient(to right, #333, #555); /* Adjusted gradient for hero section */
-}
-
 .navbar {
   background-color: var(--navbar-background-color);
 }
@@ -117,6 +116,29 @@ body {
   background: var(--hero-background-color);
   color: var(--text-color);
 }
+
+/* Define styles for dark mode */
+[data-theme='dark'] {
+  --background-color: #1c1c1c; /* Lighter black for background */
+  --text-color: #ffffff;
+  --navbar-background-color: #333; /* Darker shade for navbar */
+  --hero-background-color: linear-gradient(to right, #333, #555); /* Adjusted gradient for hero section */
+}
+
+body[data-theme='dark'] {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.navbar[data-theme='dark'] {
+  background-color: var(--navbar-background-color);
+}
+
+.hero-section[data-theme='dark'] {
+  background: var(--hero-background-color);
+  color: var(--text-color);
+}
+
 /* Second navbar styles */
 .second-navbar {
   background-color: #f8f9fa;
@@ -143,14 +165,28 @@ body {
   background-color: #ddd;
   color: #000;
 }
+
 /* Overall container for the games */
 .upcoming-games-container {
   max-width: 1200px;
   margin: 20px auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 20px; /* Adjust the gap size as needed */
+  grid-gap: 20px;
   padding: 20px;
+}
+
+/* Responsive adjustments for the upcoming games container */
+@media (max-width: 768px) {
+  .upcoming-games-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .upcoming-games-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Style for individual game items */
@@ -198,27 +234,6 @@ body {
 /* Style for the score and time */
 .game-score, .game-time {
   color: #888;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .upcoming-games-container {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
-}
-
-@media (max-width: 480px) {
-  .upcoming-games-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-.games-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* This creates a responsive grid */
-  grid-gap: 20px; /* This is the gap between grid items */
-  padding: 0; /* Resets default padding */
-  list-style-type: none; /* Removes default list styling */
 }
 
 /* Hover effect */
@@ -387,6 +402,7 @@ footer {
 footer p {
   margin: 0.5rem 0;
 }
+
 /* Teams container styles */
 .teams-container {
   max-width: 1200px;
@@ -508,6 +524,7 @@ footer p {
     margin-right: 0;
   }
 }
+
 /* Modal styles */
 .Modal {
   position: absolute;
@@ -592,3 +609,4 @@ footer p {
 .roster-container li {
   margin-bottom: 10px;
 }
+
