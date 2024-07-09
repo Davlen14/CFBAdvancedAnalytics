@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5001;
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'https://swaincfbanalytics.netlify.app', // Replace with your Netlify domain
+  origin: 'https://swaincfbanalytics.netlify.app', // Allow requests from your Netlify domain
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   preflightContinue: false,
   optionsSuccessStatus: 204
@@ -46,6 +46,26 @@ app.use('/proxy/heroku-cdn/*', async (req, res) => {
   }
 });
 
+// Your existing routes
+app.use('/api', async (req, res) => {
+  const apiUrl = `https://api.collegefootballdata.com${req.url}`;
+  try {
+    const response = await axios({
+      url: apiUrl,
+      method: req.method,
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_CFB_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      data: req.body
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error proxying request:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Endpoint to get upcoming games
 app.get('/api/college-football/upcoming-games', async (req, res) => {
   try {
@@ -64,13 +84,11 @@ app.get('/api/college-football/upcoming-games', async (req, res) => {
       apiClient.get('/teams/fbs'),
     ]);
 
-    // Create a map of teams keyed by team name
     const teamsMap = teamsResponse.data.reduce((acc, team) => {
       acc[team.school] = team;
       return acc;
     }, {});
 
-    // Enrich the games data with team details and include scores
     const enrichedGames = gamesResponse.data.map(game => {
       const homeTeamData = teamsMap[game.home_team] || null;
       const awayTeamData = teamsMap[game.away_team] || null;
@@ -94,15 +112,13 @@ app.get('/api/college-football/upcoming-games', async (req, res) => {
 // Endpoint to get records
 app.get('/api/college-football/records', async (req, res) => {
   try {
-    const year = req.query.year || 2023; // Use the provided year or set a default (2023 in this case)
+    const year = req.query.year || 2023;
 
     const response = await apiClient.get('/records', {
-      params: {
-        year, // Include the year parameter
-      },
+      params: { year },
     });
 
-    res.json(response.data); // Send the fetched data back to the client
+    res.json(response.data);
   } catch (error) {
     console.error('Error fetching records:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -150,13 +166,11 @@ app.get('/api/college-football/roster', async (req, res) => {
       return res.status(400).json({ error: 'teamId query parameter is required' });
     }
 
-    const response = await apiClient.get(`/roster`, {
-      params: {
-        team: teamId, // Include the teamId parameter
-      },
+    const response = await apiClient.get('/roster', {
+      params: { team: teamId },
     });
 
-    res.json(response.data); // Send the fetched data back to the client
+    res.json(response.data);
   } catch (error) {
     console.error('Error fetching roster:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -171,6 +185,7 @@ app.get('/test-env', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
