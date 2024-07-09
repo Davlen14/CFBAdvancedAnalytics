@@ -53,6 +53,14 @@ function TeamsComponent() {
     }
   };
 
+  const groupedTeams = teams.reduce((acc, team) => {
+    if (!acc[team.conference]) {
+      acc[team.conference] = [];
+    }
+    acc[team.conference].push(team);
+    return acc;
+  }, {});
+
   return (
     <div>
       <div className="second-navbar">
@@ -62,18 +70,24 @@ function TeamsComponent() {
         <button className="second-nav-button">Football Power Index</button>
       </div>
 
-      <div className="teams-container">
-        {isLoading && <div>Loading...</div>}
-        {error && <div>Error: {error}</div>}
-        {teams.map((team) => (
-          <div key={team.id} className="team-card" onClick={() => openModal(team)}>
-            {team.logos && team.logos.length > 0 && (
-              <img src={team.logos[0]} alt={`${team.school} logo`} className="team-logo" />
-            )}
-            <span className="team-name">{team.school}</span>
+      {isLoading && <div>Loading...</div>}
+      {error && <div>Error: {error}</div>}
+      
+      {Object.keys(groupedTeams).map((conference) => (
+        <div key={conference}>
+          <h2>{conference}</h2>
+          <div className="teams-container">
+            {groupedTeams[conference].map((team) => (
+              <div key={team.id} className="team-card" onClick={() => openModal(team)}>
+                {team.logos && team.logos.length > 0 && (
+                  <img src={team.logos[0]} alt={`${team.school} logo`} className="team-logo" />
+                )}
+                <span className="team-name">{team.school}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
 
       <Modal
         isOpen={modalIsOpen}
@@ -114,36 +128,37 @@ function TeamsComponent() {
         )}
       </Modal>
 
-{/* News and Articles Section */}
-<div className="news-container">
-  <h2 className="section-title">Latest News</h2>
-  <div className="news-item">
-    <img src={`${process.env.PUBLIC_URL}/quinn.jpg`} alt="News" className="news-image" />
-    <div className="news-content">
-      <div className="news-title">College Football News</div>
-      <div className="news-description">
-        Check out the latest news on ESPN.
+      {/* News and Articles Section */}
+      <div className="news-container">
+        <h2 className="section-title">Latest News</h2>
+        <div className="news-item">
+          <img src={`${process.env.PUBLIC_URL}/quinn.jpg`} alt="News" className="news-image" />
+          <div className="news-content">
+            <div className="news-title">College Football News</div>
+            <div className="news-description">
+              Check out the latest news on ESPN.
+            </div>
+            <a href="https://www.espn.com/college-football/" target="_blank" rel="noopener noreferrer" className="news-link-button">Read more</a>
+          </div>
+        </div>
+        <div className="news-item">
+          <img src={`${process.env.PUBLIC_URL}/Ryan.jpg`} alt="News" className="news-image" />
+          <div className="news-content">
+            <div className="news-title">Ohio State HC Ryan Day Under Extreme Pressure Heading into 2024</div>
+            <div className="news-description">
+              Read about the latest updates on Ohio State's head coach Ryan Day.
+            </div>
+            <a href="https://www.yardbarker.com/college_football/articles/ohio_state_hc_ryan_day_under_extreme_pressure_heading_into_2024/s1_13132_40563228" target="_blank" rel="noopener noreferrer" className="news-link-button">Read more</a>
+          </div>
+        </div>
+        {/* Add more news items as needed */}
       </div>
-      <a href="https://www.espn.com/college-football/" target="_blank" rel="noopener noreferrer" className="news-link-button">Read more</a>
-    </div>
-  </div>
-  <div className="news-item">
-    <img src={`${process.env.PUBLIC_URL}/Ryan.jpg`} alt="News" className="news-image" />
-    <div className="news-content">
-      <div className="news-title">Ohio State HC Ryan Day Under Extreme Pressure Heading into 2024</div>
-      <div className="news-description">
-        Read about the latest updates on Ohio State's head coach Ryan Day.
-      </div>
-      <a href="https://www.yardbarker.com/college_football/articles/ohio_state_hc_ryan_day_under_extreme_pressure_heading_into_2024/s1_13132_40563228" target="_blank" rel="noopener noreferrer" className="news-link-button">Read more</a>
-    </div>
-  </div>
-  {/* Add more news items as needed */}
-</div>
     </div>
   );
 }
 
 export default TeamsComponent;
+
 
 
 
