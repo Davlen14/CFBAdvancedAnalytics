@@ -121,8 +121,13 @@ export async function getWinProbabilityChartData() {
 }
 
 // Function to get pregame win probability data
-export async function getPregameWinProbabilityData() {
-  return makeGetRequest('/api/metrics/wp/pregame');
+export async function getPregameWinProbabilityData(year, week, team, seasonType) {
+  const params = {};
+  if (year) params.year = year;
+  if (week) params.week = week;
+  if (team) params.team = team;
+  if (seasonType) params.seasonType = seasonType;
+  return makeGetRequest('/api/metrics/wp/pregame', params);
 }
 
 // Function to get team statistics by season
