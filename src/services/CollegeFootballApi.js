@@ -5,9 +5,9 @@ const apiClient = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:5001', // Fallback to localhost for development
 });
 
-async function makeGetRequest(endpoint) {
+async function makeGetRequest(endpoint, params = {}) {
   try {
-    const response = await apiClient.get(endpoint);
+    const response = await apiClient.get(endpoint, { params });
     return response.data;
   } catch (error) {
     console.error(`Error fetching data from ${endpoint}:`, error);
@@ -67,86 +67,86 @@ export async function getSpRatings(year, team) {
 
 // Function to get historical SRS ratings
 export async function getHistoricalSRSRatings() {
-  return makeGetRequest('/ratings/srs');
+  return makeGetRequest('/api/ratings/srs');
 }
 
 // Function to get historical SP+ ratings by conference
 export async function getHistoricalSPRatingsByConference() {
-  return makeGetRequest('/ratings/sp/conferences');
+  return makeGetRequest('/api/ratings/sp/conferences');
 }
 
 // Function to get historical Elo ratings
 export async function getHistoricalEloRatings() {
-  return makeGetRequest('/ratings/elo');
+  return makeGetRequest('/api/ratings/elo');
 }
 
 // Function to get historical FPI ratings
 export async function getHistoricalFPIRatings() {
-  return makeGetRequest('/ratings/fpi');
+  return makeGetRequest('/api/ratings/fpi');
 }
 
 // Function to get predicted points (EP)
 export async function getPredictedPoints() {
-  return makeGetRequest('/ppa/predicted');
+  return makeGetRequest('/api/ppa/predicted');
 }
 
 // Function to get Predicted Points Added (PPA/EPA) data by team
 export async function getPPATeamData() {
-  return makeGetRequest('/ppa/teams');
+  return makeGetRequest('/api/ppa/teams');
 }
 
 // Function to get Team Predicted Points Added (PPA/EPA) by game
 export async function getPPAGameData() {
-  return makeGetRequest('/ppa/games');
+  return makeGetRequest('/api/ppa/games');
 }
 
 // Function to get Player Predicted Points Added (PPA/EPA) by game
 export async function getPPAPlayerGameData() {
-  return makeGetRequest('/ppa/players/games');
+  return makeGetRequest('/api/ppa/players/games');
 }
 
 // Function to get Player Predicted Points Added (PPA/EPA) by season
 export async function getPPAPlayerSeasonData() {
-  return makeGetRequest('/ppa/players/season');
+  return makeGetRequest('/api/ppa/players/season');
 }
 
 // Function to get field goal expected points
 export async function getFieldGoalEP() {
-  return makeGetRequest('/metrics/fg/ep');
+  return makeGetRequest('/api/metrics/fg/ep');
 }
 
 // Function to get win probability chart data
 export async function getWinProbabilityChartData() {
-  return makeGetRequest('/metrics/wp');
+  return makeGetRequest('/api/metrics/wp');
 }
 
 // Function to get pregame win probability data
 export async function getPregameWinProbabilityData() {
-  return makeGetRequest('/metrics/wp/pregame');
+  return makeGetRequest('/api/metrics/wp/pregame');
 }
 
 // Function to get team statistics by season
 export async function getTeamStatsBySeason() {
-  return makeGetRequest('/stats/season');
+  return makeGetRequest('/api/stats/season');
 }
 
 // Function to get advanced team metrics by season
 export async function getAdvancedTeamMetricsBySeason() {
-  return makeGetRequest('/stats/season/advanced');
+  return makeGetRequest('/api/stats/season/advanced');
 }
 
 // Function to get advanced team metrics by game
 export async function getAdvancedTeamMetricsByGame() {
-  return makeGetRequest('/stats/game/advanced');
+  return makeGetRequest('/api/stats/game/advanced');
 }
 
 // Function to get team stat categories
 export async function getTeamStatCategories() {
-  return makeGetRequest('/stats/categories');
+  return makeGetRequest('/api/stats/categories');
 }
 
 // Function to get historical polls and rankings
 export async function getHistoricalRankings() {
-  return makeGetRequest('/rankings');
+  return makeGetRequest('/api/rankings');
 }
 
