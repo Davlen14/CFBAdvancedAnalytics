@@ -55,3 +55,98 @@ export async function getGamesMedia() {
   return makeGetRequest('/api/college-football/games/media');
 }
 
+// New functions for fetching additional metrics and ratings data
+
+// Function to get SP+ ratings
+export async function getSpRatings(year, team) {
+  const params = {};
+  if (year) params.year = year;
+  if (team) params.team = team;
+  return makeGetRequest('/api/ratings/sp', params);
+}
+
+// Function to get historical SRS ratings
+export async function getHistoricalSRSRatings() {
+  return makeGetRequest('/ratings/srs');
+}
+
+// Function to get historical SP+ ratings by conference
+export async function getHistoricalSPRatingsByConference() {
+  return makeGetRequest('/ratings/sp/conferences');
+}
+
+// Function to get historical Elo ratings
+export async function getHistoricalEloRatings() {
+  return makeGetRequest('/ratings/elo');
+}
+
+// Function to get historical FPI ratings
+export async function getHistoricalFPIRatings() {
+  return makeGetRequest('/ratings/fpi');
+}
+
+// Function to get predicted points (EP)
+export async function getPredictedPoints() {
+  return makeGetRequest('/ppa/predicted');
+}
+
+// Function to get Predicted Points Added (PPA/EPA) data by team
+export async function getPPATeamData() {
+  return makeGetRequest('/ppa/teams');
+}
+
+// Function to get Team Predicted Points Added (PPA/EPA) by game
+export async function getPPAGameData() {
+  return makeGetRequest('/ppa/games');
+}
+
+// Function to get Player Predicted Points Added (PPA/EPA) by game
+export async function getPPAPlayerGameData() {
+  return makeGetRequest('/ppa/players/games');
+}
+
+// Function to get Player Predicted Points Added (PPA/EPA) by season
+export async function getPPAPlayerSeasonData() {
+  return makeGetRequest('/ppa/players/season');
+}
+
+// Function to get field goal expected points
+export async function getFieldGoalEP() {
+  return makeGetRequest('/metrics/fg/ep');
+}
+
+// Function to get win probability chart data
+export async function getWinProbabilityChartData() {
+  return makeGetRequest('/metrics/wp');
+}
+
+// Function to get pregame win probability data
+export async function getPregameWinProbabilityData() {
+  return makeGetRequest('/metrics/wp/pregame');
+}
+
+// Function to get team statistics by season
+export async function getTeamStatsBySeason() {
+  return makeGetRequest('/stats/season');
+}
+
+// Function to get advanced team metrics by season
+export async function getAdvancedTeamMetricsBySeason() {
+  return makeGetRequest('/stats/season/advanced');
+}
+
+// Function to get advanced team metrics by game
+export async function getAdvancedTeamMetricsByGame() {
+  return makeGetRequest('/stats/game/advanced');
+}
+
+// Function to get team stat categories
+export async function getTeamStatCategories() {
+  return makeGetRequest('/stats/categories');
+}
+
+// Function to get historical polls and rankings
+export async function getHistoricalRankings() {
+  return makeGetRequest('/rankings');
+}
+
