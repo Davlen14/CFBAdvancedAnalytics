@@ -127,6 +127,22 @@ app.get('/api/college-football/roster', async (req, res) => {
   }
 });
 
+// New endpoint to get SP+ ratings
+app.get('/api/ratings/sp', async (req, res) => {
+  try {
+    const { year, team } = req.query;
+    const params = {};
+    if (year) params.year = year;
+    if (team) params.team = team;
+
+    const response = await apiClient.get('/ratings/sp', { params });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching SP+ ratings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Test endpoint to verify environment variable
 app.get('/test-env', (req, res) => {
   res.send(`REACT_APP_API_BASE_URL: ${process.env.REACT_APP_API_BASE_URL}`);
