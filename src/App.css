@@ -24,12 +24,14 @@
 /* Responsive adjustments for the navbar */
 @media (max-width: 768px) {
   .navbar-content {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allows the navbar items to wrap to the next line if needed */
   }
 
   .nav-buttons {
-    flex-direction: column;
-    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allows the buttons to wrap to the next line if needed */
+    width: auto;
   }
 }
 
