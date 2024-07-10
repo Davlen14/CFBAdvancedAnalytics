@@ -269,7 +269,10 @@ app.get('/api/metrics/wp', async (req, res) => {
 // Endpoint to get pregame win probability data
 app.get('/api/metrics/wp/pregame', async (req, res) => {
   try {
-    const response = await apiClient.get('/metrics/wp/pregame');
+    const { year, week, seasonType } = req.query;
+    const response = await apiClient.get('/metrics/wp/pregame', {
+      params: { year, week, seasonType },
+    });
     res.json(response.data);
   } catch (error) {
     console.error('Error fetching pregame win probability data:', error);
