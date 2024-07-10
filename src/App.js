@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
@@ -17,18 +18,18 @@ function App() {
     <Router>
       <div className="navbar">
         <div className="navbar-content">
-          <div className="title" style={{ textAlign: menuOpen ? 'center' : 'left' }}>NCAAF</div>
+          <div className="title">NCAAF</div>
           <button className="hamburger-menu" onClick={toggleMenu}>
-            ☰
+            &#9776;
           </button>
           <div className={`nav-buttons ${menuOpen ? 'active' : ''}`}>
-            <Link to="/" className="nav-button" onClick={() => setMenuOpen(false)}>Home</Link>
-            <Link to="/projections" className="nav-button" onClick={() => setMenuOpen(false)}>Projections</Link>
-            <Link to="/teams" className="nav-button" onClick={() => setMenuOpen(false)}>Teams</Link>
-            <Link to="/games" className="nav-button" onClick={() => setMenuOpen(false)}>Games</Link>
+            <Link to="/" className="nav-button" onClick={toggleMenu}>Home</Link>
+            <Link to="/projections" className="nav-button" onClick={toggleMenu}>Projections</Link>
+            <Link to="/teams" className="nav-button" onClick={toggleMenu}>Teams</Link>
+            <Link to="/games" className="nav-button" onClick={toggleMenu}>Games</Link>
+            <ThemeToggle />
           </div>
         </div>
-        <ThemeToggle />
       </div>
 
       <Routes>
@@ -42,6 +43,7 @@ function App() {
 }
 
 export default App;
+
 
 
 

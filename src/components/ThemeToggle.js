@@ -27,7 +27,7 @@ function ThemeToggle() {
 
   return (
     <button className="theme-toggle-button" onClick={toggleTheme}>
-      {isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      {isDarkMode ? 'Light Mode' : 'Dark Mode'}
     </button>
   );
 }

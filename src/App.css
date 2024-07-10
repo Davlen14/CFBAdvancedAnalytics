@@ -1,17 +1,17 @@
 /* Navbar container */
 .navbar {
-  background-color: #cc0000;
+  background-color: #cc0000; /* Adjusted to a darker red */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 1000;
+  padding: 15px 30px; /* Increased padding for a more spacious look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for a modern look */
+  position: fixed; /* Fixed navbar at the top */
+  top: 0; /* Ensure it's at the top */
+  left: 0; /* Ensure it starts from the left */
+  right: 0; /* Ensure it stretches to the right */
+  width: 100%; /* Full width */
+  z-index: 1000; /* Ensure it stays on top */
 }
 
 /* Container for the title and nav buttons */
@@ -22,7 +22,6 @@
   justify-content: space-between;
 }
 
-/* Title style */
 .title {
   color: white;
   font-size: 26px;
@@ -34,7 +33,6 @@
   margin-right: 30px;
 }
 
-/* Hamburger menu button */
 .hamburger-menu {
   display: none;
   font-size: 28px;
@@ -44,13 +42,11 @@
   cursor: pointer;
 }
 
-/* Nav buttons container */
 .nav-buttons {
   display: flex;
   gap: 20px;
 }
 
-/* Nav button style */
 .nav-button {
   color: white;
   text-decoration: none;
@@ -66,7 +62,6 @@
   color: #ffffff;
 }
 
-/* Theme toggle button style */
 .theme-toggle-button {
   background: transparent;
   border: 2px solid white;
@@ -89,7 +84,7 @@
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 60px;
+    top: 60px; /* Adjust based on your navbar height */
     left: 0;
     right: 0;
     background-color: #cc0000;
@@ -104,10 +99,6 @@
     padding: 10px 15px;
     text-align: center;
     width: 100%;
-  }
-
-  .navbar-content {
-    justify-content: center;
   }
 }
 
@@ -126,6 +117,7 @@
     padding: 6px 12px;
   }
 }
+
 
 
 
