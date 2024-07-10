@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import WeekFilter from './WeekFilter';
-import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia } from '../services/CollegeFootballApi';
+import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,11 +14,12 @@ const UpcomingGamesComponent = ({ conference }) => {
     const fetchGamesAndLogos = async () => {
       setLoading(true);
       try {
-        const [gamesData, fbsTeams, recordsData, gamesMediaData] = await Promise.all([
+        const [gamesData, fbsTeams, recordsData, gamesMediaData, winProbabilityData] = await Promise.all([
           getUpcomingGamesForWeek(currentWeek),
           getFBSTeams(),
           getRecords(),
-          getGamesMedia() // Fetching the media information
+          getGamesMedia(), // Fetching the media information
+          getPregameWinProbabilityData({ season: 2023, week: currentWeek }) // Fetching pregame win probability data
         ]);
 
         const teamLogosMap = fbsTeams.reduce((acc, team) => {
@@ -31,16 +32,19 @@ const UpcomingGamesComponent = ({ conference }) => {
           return acc;
         }, {});
 
-        // Create a map for games media for easy lookup
         const gamesMediaMap = gamesMediaData.reduce((acc, media) => {
           acc[media.id] = media;
           return acc;
         }, {});
 
-        // Extend gamesWithDetails to include new data
+        const winProbabilityMap = winProbabilityData.reduce((acc, prob) => {
+          acc[prob.gameId] = prob;
+          return acc;
+        }, {});
+
         const gamesWithDetails = gamesData.map((game) => {
-          // Lookup media information using the game id
           const mediaInfo = gamesMediaMap[game.id];
+          const winProb = winProbabilityMap[game.id] || {};
           return {
             ...game,
             homeTeamLogo: teamLogosMap[game.home_id], // Adjust if necessary
@@ -49,15 +53,11 @@ const UpcomingGamesComponent = ({ conference }) => {
             awayTeamRecord: teamRecordsMap[game.away_id]?.winsLosses, // Adjust if necessary
             outlet: mediaInfo ? mediaInfo.outlet : 'Unknown Outlet',
             location: game.venue || 'Unknown Location', // Use venue from the game as the location
-            homeWinProbability: game.home_post_win_prob || 'N/A',
-            awayWinProbability: game.away_post_win_prob || 'N/A',
+            homeWinProbability: winProb.homeWinProb || 'N/A',
+            awayWinProbability: winProb.awayWinProb || 'N/A',
           };
         }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
 
-        // Log the gamesWithDetails for debugging
-        console.log(gamesWithDetails);
-
-        // Set the updated gamesWithDetails in state
         setGames(gamesWithDetails);
       } catch (err) {
         setError(err);
@@ -78,7 +78,7 @@ const UpcomingGamesComponent = ({ conference }) => {
 
   return (
     <div>
-      <h2> Week {currentWeek}</h2>
+      <h2>Week {currentWeek}</h2>
       <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
       <div className="scorecards-container">
         {games.map((game) => (
@@ -125,3 +125,4 @@ const UpcomingGamesComponent = ({ conference }) => {
 };
 
 export default UpcomingGamesComponent;
+
