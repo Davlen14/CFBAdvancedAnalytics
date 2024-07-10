@@ -5,13 +5,27 @@ import { getFBSTeams, getTeamRosters } from '../services/CollegeFootballApi';
 
 Modal.setAppElement('#root'); // For accessibility
 
+const conferenceLogos = {
+  "ACC": "/conference-logos/ACC.png",
+  "American Athletic": "/conference-logos/American Athletic.png",
+  "Big 12": "/conference-logos/Big 12.png",
+  "Big Ten": "/conference-logos/Big Ten.png",
+  "Conference USA": "/conference-logos/Conference USA.png",
+  "FBS Independents": "/conference-logos/FBS Independents.png",
+  "Mid-American": "/conference-logos/Mid-American.png",
+  "Mountain West": "/conference-logos/Mountain West.png",
+  "Pac-12": "/conference-logos/Pac-12.png",
+  "SEC": "/conference-logos/SEC.png",
+  "Sun Belt": "/conference-logos/Sun Belt.png"
+};
+
 function TeamsComponent() {
   const [teams, setTeams] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [currentView, setCurrentView] = useState(''); // New state to track the current view in the modal
+  const [currentView, setCurrentView] = useState('');
   const [roster, setRoster] = useState([]);
 
   const year = 2023; // You can make this dynamic as needed
@@ -29,7 +43,7 @@ function TeamsComponent() {
     };
 
     fetchData();
-  }, [year]); // Year is now a dependency
+  }, [year]);
 
   const openModal = (team) => {
     setSelectedTeam(team);
@@ -53,20 +67,6 @@ function TeamsComponent() {
     }
   };
 
-  const conferenceLogos = {
-    'ACC': `${process.env.PUBLIC_URL}/Conference-Logos/ACC.png`,
-    'American Athletic': `${process.env.PUBLIC_URL}/Conference-Logos/American Athletic.png`,
-    'Big 12': `${process.env.PUBLIC_URL}/Conference-Logos/Big 12.png`,
-    'Big Ten': `${process.env.PUBLIC_URL}/Conference-Logos/Big Ten.png`,
-    'Conference USA': `${process.env.PUBLIC_URL}/Conference-Logos/Conference USA.png`,
-    'FBS Independents': `${process.env.PUBLIC_URL}/Conference-Logos/FBS Independents.png`,
-    'Mid-American': `${process.env.PUBLIC_URL}/Conference-Logos/Mid-American.png`,
-    'Mountain West': `${process.env.PUBLIC_URL}/Conference-Logos/Mountain West.png`,
-    'Pac-12': `${process.env.PUBLIC_URL}/Conference-Logos/Pac-12.png`,
-    'SEC': `${process.env.PUBLIC_URL}/Conference-Logos/SEC.png`,
-    'Sun Belt': `${process.env.PUBLIC_URL}/Conference-Logos/Sun Belt.png`
-  };
-
   const groupedTeams = teams.reduce((acc, team) => {
     if (!acc[team.conference]) {
       acc[team.conference] = [];
@@ -83,13 +83,15 @@ function TeamsComponent() {
         <button className="second-nav-button">Rankings</button>
         <button className="second-nav-button">Football Power Index</button>
       </div>
-
+  
       {isLoading && <div>Loading...</div>}
       {error && <div>Error: {error}</div>}
       
       {Object.keys(groupedTeams).map((conference) => (
-        <div key={conference}>
-          <img src={conferenceLogos[conference]} alt={`${conference} logo`} className="conference-logo" />
+        <div key={conference} className="conference-section">
+          <div className="conference-header">
+            <img src={conferenceLogos[conference]} alt={`${conference} logo`} className="conference-logo" />
+          </div>
           <div className="teams-container">
             {groupedTeams[conference].map((team) => (
               <div key={team.id} className="team-card" onClick={() => openModal(team)}>
@@ -102,7 +104,7 @@ function TeamsComponent() {
           </div>
         </div>
       ))}
-
+  
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -141,7 +143,7 @@ function TeamsComponent() {
           </div>
         )}
       </Modal>
-
+  
       {/* News and Articles Section */}
       <div className="news-container">
         <h2 className="section-title">Latest News</h2>
@@ -169,9 +171,11 @@ function TeamsComponent() {
       </div>
     </div>
   );
+  
 }
 
 export default TeamsComponent;
+
 
 
 
