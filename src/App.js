@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
@@ -8,28 +7,28 @@ import ThemeToggle from './components/ThemeToggle';
 import HomeComponent from './components/HomeComponent';
 
 function App() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
     <Router>
       <div className="navbar">
         <div className="navbar-content">
-          <div className="title">NCAAF</div>
-          <button className="hamburger-menu" onClick={toggleMobileMenu}>
-            &#9776;
+          <div className="title" style={{ textAlign: menuOpen ? 'center' : 'left' }}>NCAAF</div>
+          <button className="hamburger-menu" onClick={toggleMenu}>
+            ☰
           </button>
-          <div className={`nav-buttons ${isMobileMenuOpen ? 'active' : ''}`}>
-            <Link to="/" className="nav-button">Home</Link>
-            <Link to="/projections" className="nav-button">Projections</Link>
-            <Link to="/teams" className="nav-button">Teams</Link>
-            <Link to="/games" className="nav-button">Games</Link>
-            <ThemeToggle />
+          <div className={`nav-buttons ${menuOpen ? 'active' : ''}`}>
+            <Link to="/" className="nav-button" onClick={() => setMenuOpen(false)}>Home</Link>
+            <Link to="/projections" className="nav-button" onClick={() => setMenuOpen(false)}>Projections</Link>
+            <Link to="/teams" className="nav-button" onClick={() => setMenuOpen(false)}>Teams</Link>
+            <Link to="/games" className="nav-button" onClick={() => setMenuOpen(false)}>Games</Link>
           </div>
         </div>
+        <ThemeToggle />
       </div>
 
       <Routes>
@@ -43,6 +42,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
