@@ -9,21 +9,23 @@ const UpcomingGamesComponent = ({ conference }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentWeek, setCurrentWeek] = useState(1);
+  const [year] = useState(2023); // Assuming year is 2023, adjust as needed
+  const [seasonType] = useState('regular'); // Assuming seasonType is 'regular', adjust as needed
 
   useEffect(() => {
     const fetchGamesAndLogos = async () => {
       setLoading(true);
       try {
-        const [gamesData, fbsTeams, recordsData, gamesMediaData, winProbabilityData] = await Promise.all([
+        const [gamesData, fbsTeams, recordsData, gamesMediaData, pregameWinProbData] = await Promise.all([
           getUpcomingGamesForWeek(currentWeek),
           getFBSTeams(),
           getRecords(),
-          getGamesMedia(), // Fetching the media information
-          getPregameWinProbabilityData({ season: 2023, week: currentWeek }) // Fetching pregame win probability data
+          getGamesMedia(),
+          getPregameWinProbabilityData(year, currentWeek, null, seasonType) // Fetch pregame win probabilities
         ]);
 
         const teamLogosMap = fbsTeams.reduce((acc, team) => {
-          acc[team.id] = team.logos[0]; // Assuming the first logo is the primary one
+          acc[team.id] = team.logos[0];
           return acc;
         }, {});
 
@@ -37,26 +39,28 @@ const UpcomingGamesComponent = ({ conference }) => {
           return acc;
         }, {});
 
-        const winProbabilityMap = winProbabilityData.reduce((acc, prob) => {
-          acc[prob.gameId] = prob;
+        const pregameWinProbMap = pregameWinProbData.reduce((acc, game) => {
+          acc[game.gameId] = game;
           return acc;
         }, {});
 
         const gamesWithDetails = gamesData.map((game) => {
           const mediaInfo = gamesMediaMap[game.id];
-          const winProb = winProbabilityMap[game.id] || {};
+          const pregameWinProb = pregameWinProbMap[game.id];
           return {
             ...game,
-            homeTeamLogo: teamLogosMap[game.home_id], // Adjust if necessary
-            awayTeamLogo: teamLogosMap[game.away_id], // Adjust if necessary
-            homeTeamRecord: teamRecordsMap[game.home_id]?.winsLosses, // Adjust if necessary
-            awayTeamRecord: teamRecordsMap[game.away_id]?.winsLosses, // Adjust if necessary
+            homeTeamLogo: teamLogosMap[game.home_id],
+            awayTeamLogo: teamLogosMap[game.away_id],
+            homeTeamRecord: teamRecordsMap[game.home_id]?.winsLosses,
+            awayTeamRecord: teamRecordsMap[game.away_id]?.winsLosses,
             outlet: mediaInfo ? mediaInfo.outlet : 'Unknown Outlet',
-            location: game.venue || 'Unknown Location', // Use venue from the game as the location
-            homeWinProbability: winProb.homeWinProb || 'N/A',
-            awayWinProbability: winProb.awayWinProb || 'N/A',
+            location: game.venue || 'Unknown Location',
+            homeWinProbability: pregameWinProb ? pregameWinProb.homeWinProb : 'N/A',
+            awayWinProbability: pregameWinProb ? pregameWinProb.awayWinProb : 'N/A',
           };
         }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
+
+        console.log(gamesWithDetails);
 
         setGames(gamesWithDetails);
       } catch (err) {
@@ -67,7 +71,7 @@ const UpcomingGamesComponent = ({ conference }) => {
     };
 
     fetchGamesAndLogos();
-  }, [currentWeek]);
+  }, [currentWeek, year, seasonType]);
 
   const handleWeekChange = (week) => {
     setCurrentWeek(week);
@@ -78,7 +82,7 @@ const UpcomingGamesComponent = ({ conference }) => {
 
   return (
     <div>
-      <h2>Week {currentWeek}</h2>
+      <h2> Week {currentWeek}</h2>
       <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
       <div className="scorecards-container">
         {games.map((game) => (
@@ -125,4 +129,5 @@ const UpcomingGamesComponent = ({ conference }) => {
 };
 
 export default UpcomingGamesComponent;
+
 
