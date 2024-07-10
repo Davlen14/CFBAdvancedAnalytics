@@ -143,6 +143,195 @@ app.get('/api/ratings/sp', async (req, res) => {
   }
 });
 
+// New endpoints for additional metrics and ratings data
+
+// Endpoint to get historical SRS ratings
+app.get('/api/ratings/srs', async (req, res) => {
+  try {
+    const response = await apiClient.get('/ratings/srs');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching SRS ratings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get historical SP+ ratings by conference
+app.get('/api/ratings/sp/conferences', async (req, res) => {
+  try {
+    const response = await apiClient.get('/ratings/sp/conferences');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching SP+ ratings by conference:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get historical Elo ratings
+app.get('/api/ratings/elo', async (req, res) => {
+  try {
+    const response = await apiClient.get('/ratings/elo');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching Elo ratings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get historical FPI ratings
+app.get('/api/ratings/fpi', async (req, res) => {
+  try {
+    const response = await apiClient.get('/ratings/fpi');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching FPI ratings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get predicted points (EP)
+app.get('/api/ppa/predicted', async (req, res) => {
+  try {
+    const response = await apiClient.get('/ppa/predicted');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching predicted points:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get Predicted Points Added (PPA/EPA) data by team
+app.get('/api/ppa/teams', async (req, res) => {
+  try {
+    const response = await apiClient.get('/ppa/teams');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching PPA data by team:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get Team Predicted Points Added (PPA/EPA) by game
+app.get('/api/ppa/games', async (req, res) => {
+  try {
+    const response = await apiClient.get('/ppa/games');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching PPA data by game:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get Player Predicted Points Added (PPA/EPA) by game
+app.get('/api/ppa/players/games', async (req, res) => {
+  try {
+    const response = await apiClient.get('/ppa/players/games');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching player PPA data by game:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get Player Predicted Points Added (PPA/EPA) by season
+app.get('/api/ppa/players/season', async (req, res) => {
+  try {
+    const response = await apiClient.get('/ppa/players/season');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching player PPA data by season:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get field goal expected points
+app.get('/api/metrics/fg/ep', async (req, res) => {
+  try {
+    const response = await apiClient.get('/metrics/fg/ep');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching field goal expected points:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get win probability chart data
+app.get('/api/metrics/wp', async (req, res) => {
+  try {
+    const response = await apiClient.get('/metrics/wp');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching win probability chart data:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get pregame win probability data
+app.get('/api/metrics/wp/pregame', async (req, res) => {
+  try {
+    const response = await apiClient.get('/metrics/wp/pregame');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching pregame win probability data:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get team statistics by season
+app.get('/api/stats/season', async (req, res) => {
+  try {
+    const response = await apiClient.get('/stats/season');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching team statistics by season:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get advanced team metrics by season
+app.get('/api/stats/season/advanced', async (req, res) => {
+  try {
+    const response = await apiClient.get('/stats/season/advanced');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching advanced team metrics by season:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get advanced team metrics by game
+app.get('/api/stats/game/advanced', async (req, res) => {
+  try {
+    const response = await apiClient.get('/stats/game/advanced');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching advanced team metrics by game:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get team stat categories
+app.get('/api/stats/categories', async (req, res) => {
+  try {
+    const response = await apiClient.get('/stats/categories');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching team stat categories:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Endpoint to get historical polls and rankings
+app.get('/api/rankings', async (req, res) => {
+  try {
+    const response = await apiClient.get('/rankings');
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching historical rankings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Test endpoint to verify environment variable
 app.get('/test-env', (req, res) => {
   res.send(`REACT_APP_API_BASE_URL: ${process.env.REACT_APP_API_BASE_URL}`);
