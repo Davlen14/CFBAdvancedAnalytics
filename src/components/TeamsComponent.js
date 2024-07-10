@@ -53,6 +53,20 @@ function TeamsComponent() {
     }
   };
 
+  const conferenceLogos = {
+    'ACC': `${process.env.PUBLIC_URL}/Conference-Logos/ACC.png`,
+    'American Athletic': `${process.env.PUBLIC_URL}/Conference-Logos/American Athletic.png`,
+    'Big 12': `${process.env.PUBLIC_URL}/Conference-Logos/Big 12.png`,
+    'Big Ten': `${process.env.PUBLIC_URL}/Conference-Logos/Big Ten.png`,
+    'Conference USA': `${process.env.PUBLIC_URL}/Conference-Logos/Conference USA.png`,
+    'FBS Independents': `${process.env.PUBLIC_URL}/Conference-Logos/FBS Independents.png`,
+    'Mid-American': `${process.env.PUBLIC_URL}/Conference-Logos/Mid-American.png`,
+    'Mountain West': `${process.env.PUBLIC_URL}/Conference-Logos/Mountain West.png`,
+    'Pac-12': `${process.env.PUBLIC_URL}/Conference-Logos/Pac-12.png`,
+    'SEC': `${process.env.PUBLIC_URL}/Conference-Logos/SEC.png`,
+    'Sun Belt': `${process.env.PUBLIC_URL}/Conference-Logos/Sun Belt.png`
+  };
+
   const groupedTeams = teams.reduce((acc, team) => {
     if (!acc[team.conference]) {
       acc[team.conference] = [];
@@ -75,7 +89,7 @@ function TeamsComponent() {
       
       {Object.keys(groupedTeams).map((conference) => (
         <div key={conference}>
-          <h2>{conference}</h2>
+          <img src={conferenceLogos[conference]} alt={`${conference} logo`} className="conference-logo" />
           <div className="teams-container">
             {groupedTeams[conference].map((team) => (
               <div key={team.id} className="team-card" onClick={() => openModal(team)}>
@@ -158,6 +172,7 @@ function TeamsComponent() {
 }
 
 export default TeamsComponent;
+
 
 
 
