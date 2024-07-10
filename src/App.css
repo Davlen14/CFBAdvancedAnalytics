@@ -4,25 +4,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 1000;
+  padding: 15px 30px; /* Increased padding for a more spacious look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for a modern look */
+  position: fixed; /* Fixed navbar at the top */
+  top: 0; /* Ensure it's at the top */
+  left: 0; /* Ensure it starts from the left */
+  right: 0; /* Ensure it stretches to the right */
+  width: 100%; /* Full width */
+  z-index: 1000; /* Ensure it stays on top */
 }
 
-/* Container for the title, search bar, and nav buttons */
+/* Container for the title and nav buttons */
 .navbar-content {
   display: flex;
   align-items: center;
-  flex: 1;
+  width: 100%;
   justify-content: space-between;
 }
 
-/* Style for the logo/title */
 .title {
   color: white;
   font-size: 26px;
@@ -31,30 +30,21 @@
   text-transform: uppercase;
   font-style: italic;
   letter-spacing: 1px;
+  margin-right: 30px;
 }
 
-/* Style for the search bar */
-.search-bar {
-  flex: 1;
-  margin: 0 20px;
-  display: flex;
-  align-items: center;
-}
-
-.search-bar input {
-  width: 100%;
-  padding: 8px 12px;
+.hamburger-menu {
+  display: none;
+  font-size: 28px;
+  color: white;
+  background: none;
   border: none;
-  border-radius: 4px;
+  cursor: pointer;
 }
 
-/* Style for the navigation buttons */
 .nav-buttons {
   display: flex;
   gap: 20px;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 
 .nav-button {
@@ -72,7 +62,6 @@
   color: #ffffff;
 }
 
-/* Theme toggle button */
 .theme-toggle-button {
   background: transparent;
   border: 2px solid white;
@@ -87,18 +76,29 @@
 
 /* Responsive adjustments for the navbar */
 @media (max-width: 768px) {
-  .navbar-content {
-    flex-direction: column;
+  .hamburger-menu {
+    display: block;
   }
 
   .nav-buttons {
+    display: none;
     flex-direction: column;
-    width: 100%;
+    position: absolute;
+    top: 60px; /* Adjust based on your navbar height */
+    left: 0;
+    right: 0;
+    background-color: #cc0000;
+    z-index: 999;
   }
 
-  .search-bar {
+  .nav-buttons.active {
+    display: flex;
+  }
+
+  .nav-button, .theme-toggle-button {
+    padding: 10px 15px;
+    text-align: center;
     width: 100%;
-    margin: 10px 0;
   }
 }
 
@@ -117,7 +117,6 @@
     padding: 6px 12px;
   }
 }
-
 
 
 
