@@ -6,6 +6,9 @@ import UpcomingGames from './components/UpcomingGames';
 import ThemeToggle from './components/ThemeToggle';
 import HomeComponent from './components/HomeComponent';
 import MetricsComponent from './components/MetricsComponent'; // Import MetricsComponent
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon } from '@fortawesome/free-solid-svg-icons';
+import logo from '/Users/davlenswain/my-betting-bot/public/Game Day.png'; // Correct path
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,7 +22,7 @@ function App() {
     <Router>
       <div className="navbar">
         <div className="navbar-content">
-          <div className="title">NCAAF</div>
+          <img src={logo} alt="GameDay Logo" className="logo" />
           <button className="hamburger-menu" onClick={toggleMenu}>
             &#9776;
           </button>
@@ -28,7 +31,9 @@ function App() {
             <Link to="/metrics" className="nav-button" onClick={toggleMenu}>Metrics</Link>
             <Link to="/teams" className="nav-button" onClick={toggleMenu}>Teams</Link>
             <Link to="/games" className="nav-button" onClick={toggleMenu}>Games</Link>
-            <ThemeToggle />
+            <button className="theme-toggle-button" onClick={ThemeToggle}>
+              <FontAwesomeIcon icon={faMoon} />
+            </button>
           </div>
         </div>
       </div>
@@ -44,6 +49,8 @@ function App() {
 }
 
 export default App;
+
+
 
 
 
