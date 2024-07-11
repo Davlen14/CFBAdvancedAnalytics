@@ -1,10 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css'; // Ensure this path is correct
+import { getFBSTeams } from '../services/CollegeFootballApi'; // Assuming you have this function
 
 const MetricsComponent = () => {
+  const [year, setYear] = useState(2023);
+  const [conference, setConference] = useState('');
+  const [team, setTeam] = useState('');
+  const [teams, setTeams] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const teamsData = await getFBSTeams(year);
+        setTeams(teamsData);
+        setIsLoading(false);
+      } catch (error) {
+        setError(`Error fetching teams: ${error.message}`);
+        setIsLoading(false);
+      }
+    };
+
+    fetchTeams();
+  }, [year]);
+
   return (
     <div className="metrics-container">
       <h1 className="metrics-section-title">Advanced Metrics</h1>
+      
+      <div className="filters">
+        <select value={year} onChange={(e) => setYear(e.target.value)}>
+          <option value={2023}>2023</option>
+          <option value={2022}>2022</option>
+          <option value={2021}>2021</option>
+          {/* Add more years as needed */}
+        </select>
+        
+        <select value={conference} onChange={(e) => setConference(e.target.value)}>
+          <option value="">All Conferences</option>
+          <option value="ACC">ACC</option>
+          <option value="American Athletic">American Athletic</option>
+          <option value="Big 12">Big 12</option>
+          <option value="Big Ten">Big Ten</option>
+          <option value="Conference USA">Conference USA</option>
+          <option value="FBS Independents">FBS Independents</option>
+          <option value="Mid-American">Mid-American</option>
+          <option value="Mountain West">Mountain West</option>
+          <option value="Pac-12">Pac-12</option>
+          <option value="SEC">SEC</option>
+          <option value="Sun Belt">Sun Belt</option>
+          {/* Add more conferences as needed */}
+        </select>
+        
+        <select value={team} onChange={(e) => setTeam(e.target.value)}>
+          <option value="">Select Team</option>
+          {teams
+            .filter(team => !conference || team.conference === conference)
+            .map(team => (
+              <option key={team.id} value={team.school}>
+                {team.school}
+              </option>
+          ))}
+        </select>
+      </div>
+
+      {isLoading && <div>Loading...</div>}
+      {error && <div>Error: {error}</div>}
       
       <section className="metric-section" id="overview">
         <h2 className="metrics-section-title">Overview</h2>
@@ -97,6 +159,7 @@ const MetricsComponent = () => {
 };
 
 export default MetricsComponent;
+
 
 
 
