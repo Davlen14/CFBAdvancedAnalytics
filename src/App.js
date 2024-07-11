@@ -6,7 +6,7 @@ import ThemeToggle from './components/ThemeToggle';
 import HomeComponent from './components/HomeComponent';
 import MetricsComponent from './components/MetricsComponent'; // Import MetricsComponent
 import logo from './assets/Game Day.png'; // Updated path to the logo
-import '../App.css'; // Ensure this path is correct
+import './App.css'; // Ensure this path is correct
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
