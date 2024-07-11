@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import '../App.css';
+import MetricsComponent from './MetricsComponent'; // Ensure you have this import
+
 import { getFBSTeams, getTeamRosters } from '../services/CollegeFootballApi';
 
 Modal.setAppElement('#root'); // For accessibility
@@ -19,7 +21,7 @@ const conferenceLogos = {
   "Sun Belt": "/conference-logos/Sun Belt.png"
 };
 
-function TeamsComponent({ onTeamSelect }) { // Receive the prop
+function TeamsComponent() {
   const [teams, setTeams] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -48,7 +50,6 @@ function TeamsComponent({ onTeamSelect }) { // Receive the prop
   const openModal = (team) => {
     setSelectedTeam(team);
     setModalIsOpen(true);
-    onTeamSelect(team); // Notify parent component of the selected team
   };
 
   const closeModal = () => {
@@ -170,11 +171,15 @@ function TeamsComponent({ onTeamSelect }) { // Receive the prop
         </div>
         {/* Add more news items as needed */}
       </div>
+      
+      {/* Pass the selectedTeam to MetricsComponent */}
+      <MetricsComponent selectedTeam={selectedTeam} />
     </div>
   );
 }
 
 export default TeamsComponent;
+
 
 
 
