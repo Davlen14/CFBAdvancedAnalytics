@@ -153,5 +153,18 @@ export async function getTeamStatCategories() {
 // Function to get historical polls and rankings
 export async function getHistoricalRankings() {
   return makeGetRequest('/api/rankings');
+
+}
+// Function to get game media information (includes schedules)
+export async function getGameMedia(year, week, seasonType, team, conference, mediaType, classification) {
+  const params = {};
+  if (year) params.year = year;
+  if (week) params.week = week;
+  if (seasonType) params.seasonType = seasonType;
+  if (team) params.team = team;
+  if (conference) params.conference = conference;
+  if (mediaType) params.mediaType = mediaType;
+  if (classification) params.classification = classification;
+  return makeGetRequest('/api/games/media', params);
 }
 
