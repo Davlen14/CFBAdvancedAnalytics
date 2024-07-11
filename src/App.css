@@ -67,6 +67,14 @@
   font-family: "Arial", sans-serif;
 }
 
+/* Ensure the body takes up the full height and has no hidden overflow */
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
 /* Responsive adjustments for the navbar */
 @media (max-width: 768px) {
   .hamburger-menu {
@@ -123,7 +131,6 @@
   }
 }
 
-
 /* Default values for light mode */
 :root {
   --background-color: #ffffff;
@@ -168,6 +175,33 @@ body[data-theme='dark'] {
   background: var(--hero-background-color);
   color: var(--text-color);
 }
+
+/* Styles for the Home Component */
+.home {
+  padding-top: 80px; /* Adjust the value to match the height of your navbar */
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(to right, #cc0000, #ff6666);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.hero-section h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
 
 
 
