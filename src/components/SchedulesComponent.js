@@ -1,6 +1,7 @@
+// src/components/SchedulesComponent.js
+
 import React, { useEffect, useState } from 'react';
-import { getFBSTeams, getGameMedia } from '../services/CollegeFootballApi';
-import '../App.css';
+import { getFBSTeams } from '../services/CollegeFootballApi';
 
 const SchedulesComponent = () => {
   const [schedules, setSchedules] = useState([]);
@@ -8,28 +9,25 @@ const SchedulesComponent = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchTeamsAndSchedules = async () => {
+    const fetchData = async () => {
       try {
-        const year = 2023;
-        const teamsData = await getFBSTeams(year);
+        const teamsData = await getFBSTeams(2023);
         setTeams(teamsData);
-        
-        const schedulePromises = teamsData.map(team => 
-          getGameMedia(year, null, 'regular', team.school)
-        );
-        
-        const schedulesData = await Promise.all(schedulePromises);
-        setSchedules(schedulesData.flat());
+
+        const response = await fetch('https://api.collegefootballdata.com/games?year=2023');
+        const data = await response.json();
+        setSchedules(data);
       } catch (error) {
-        console.error('Error fetching schedules:', error);
+        setError(`Fetch error: ${error.message}`);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchTeamsAndSchedules();
+    fetchData();
   }, []);
 
   const filteredSchedules = schedules.filter(game => {
@@ -57,19 +55,15 @@ const SchedulesComponent = () => {
       />
       {isLoading ? (
         <p>Loading...</p>
+      ) : error ? (
+        <p>{error}</p>
       ) : filteredSchedules.length === 0 ? (
         <p>No schedules found</p>
       ) : (
         <ul>
           {filteredSchedules.map((game, index) => (
             <li key={index}>
-              <div className="game-item">
-                <img src={game.home_team_logo} alt={`${game.home_team} logo`} className="team-logo" />
-                <span className="team-name">{game.home_team}</span> vs
-                <img src={game.away_team_logo} alt={`${game.away_team} logo`} className="team-logo" />
-                <span className="team-name">{game.away_team}</span>
-                on {new Date(game.start_date).toLocaleDateString()}
-              </div>
+              {game.home_team} vs {game.away_team} on {new Date(game.start_date).toLocaleDateString()}
             </li>
           ))}
         </ul>
@@ -79,6 +73,8 @@ const SchedulesComponent = () => {
 };
 
 export default SchedulesComponent;
+
+
 
 
 
