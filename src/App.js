@@ -5,13 +5,18 @@ import TeamsComponent from './components/TeamsComponent';
 import UpcomingGames from './components/UpcomingGames';
 import ThemeToggle from './components/ThemeToggle';
 import HomeComponent from './components/HomeComponent';
-import MetricsComponent from './components/MetricsComponent'; // Import the Metrics Component
+import MetricsComponent from './components/MetricsComponent'; // Import the MetricsComponent
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedTeam, setSelectedTeam] = useState(null); // State to hold the selected team
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleTeamSelect = (team) => {
+    setSelectedTeam(team); // Update the selected team
   };
 
   return (
@@ -34,15 +39,17 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomeComponent />} />
-        <Route path="/metrics" element={<MetricsComponent />} />
-        <Route path="/teams" element={<TeamsComponent year={2023} />} />
+        <Route path="/teams" element={<TeamsComponent onTeamSelect={handleTeamSelect} />} />
         <Route path="/games" element={<UpcomingGames />} />
+        <Route path="/metrics" element={<MetricsComponent selectedTeam={selectedTeam} />} />
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
+
 
 
 
