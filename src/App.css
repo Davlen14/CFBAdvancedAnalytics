@@ -892,7 +892,6 @@ footer p {
   }
 }
 /* App.css */
-
 /* Schedule Container */
 .schedules-container {
   max-width: 1200px;
@@ -904,16 +903,53 @@ footer p {
   text-align: center;
 }
 
-.schedules-container input[type="text"],
-.schedules-container input[type="date"] {
-  padding: 10px;
-  margin: 10px;
+/* Dropdown styling */
+.dropdown__control {
   border-radius: 4px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 
+.dropdown__menu {
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown__option {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown__option img {
+  margin-right: 10px;
+}
+
+.dropdown__single-value {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown__single-value img {
+  margin-right: 10px;
+}
+
+/* Date input styling */
+.date-input {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+}
+
+/* List styling */
 .schedule-list {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
 }
 
