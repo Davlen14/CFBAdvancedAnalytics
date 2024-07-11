@@ -149,35 +149,29 @@ const MetricsComponent = ({ selectedTeam }) => {
           <p>Select a team to view its overview.</p>
         )}
       </section>
-
-      <section className="metric-section" id="team-schedule">
-        <h2 className="metrics-section-title">Team Schedule</h2>
-        {schedule.length > 0 ? (
-          <table className="metrics-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Opponent</th>
-                <th>Location</th>
-                <th>Time</th>
-                <th>Media</th>
+      
+      <section className="metric-section" id="schedule">
+        <h2 className="metrics-section-title">Schedule</h2>
+        <table className="metrics-table">
+          <thead>
+            <tr>
+              <th>Week</th>
+              <th>Date</th>
+              <th>Opponent</th>
+              <th>Media</th>
+            </tr>
+          </thead>
+          <tbody>
+            {schedule.map((game) => (
+              <tr key={game.id}>
+                <td>{game.week}</td>
+                <td>{new Date(game.startTime).toLocaleString()}</td>
+                <td>{game.homeTeam === team ? game.awayTeam : game.homeTeam}</td>
+                <td>{game.outlet}</td>
               </tr>
-            </thead>
-            <tbody>
-              {schedule.map((game) => (
-                <tr key={game.id}>
-                  <td>{game.startTime}</td>
-                  <td>{game.homeTeam === team ? game.awayTeam : game.homeTeam}</td>
-                  <td>{game.homeTeam === team ? 'Home' : 'Away'}</td>
-                  <td>{game.startTime}</td>
-                  <td>{game.outlet}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <p>No schedule available for the selected team.</p>
-        )}
+            ))}
+          </tbody>
+        </table>
       </section>
       
       <section className="metric-section" id="team-performance">
@@ -235,6 +229,7 @@ const MetricsComponent = ({ selectedTeam }) => {
 };
 
 export default MetricsComponent;
+
 
 
 
