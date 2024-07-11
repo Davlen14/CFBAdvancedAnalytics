@@ -25,7 +25,6 @@ const MetricsComponent = ({ selectedTeam }) => {
   const [error, setError] = useState(null);
   const [spRating, setSpRating] = useState(null);
   const [schedule, setSchedule] = useState([]);
-  const [expandedGame, setExpandedGame] = useState(null);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -61,8 +60,9 @@ const MetricsComponent = ({ selectedTeam }) => {
     const fetchSchedule = async () => {
       try {
         if (team) {
-          const scheduleData = await getUpcomingGamesForWeek(year, team);
-          setSchedule(scheduleData);
+          const gamesData = await getUpcomingGamesForWeek(1); // Adjust week as needed
+          const teamGames = gamesData.filter(game => game.home_team === team || game.away_team === team);
+          setSchedule(teamGames);
         }
       } catch (error) {
         setError(`Error fetching schedule: ${error.message}`);
@@ -83,10 +83,6 @@ const MetricsComponent = ({ selectedTeam }) => {
     const selected = teams.find(team => team.school === school);
     setTeam(school);
     setConference(selected.conference);
-  };
-
-  const handleRowClick = (gameId) => {
-    setExpandedGame(expandedGame === gameId ? null : gameId);
   };
 
   return (
@@ -154,7 +150,7 @@ const MetricsComponent = ({ selectedTeam }) => {
           <p>Select a team to view its overview.</p>
         )}
       </section>
-
+      
       <section className="metric-section" id="schedule">
         <h2 className="metrics-section-title">Schedule</h2>
         {schedule.length > 0 ? (
@@ -169,24 +165,12 @@ const MetricsComponent = ({ selectedTeam }) => {
             </thead>
             <tbody>
               {schedule.map((game) => (
-                <React.Fragment key={game.id}>
-                  <tr onClick={() => handleRowClick(game.id)}>
-                    <td>{game.week}</td>
-                    <td>{new Date(game.startTime).toLocaleString()}</td>
-                    <td>{game.homeTeam === team ? game.awayTeam : game.homeTeam}</td>
-                    <td>{game.outlet}</td>
-                  </tr>
-                  {expandedGame === game.id && (
-                    <tr>
-                      <td colSpan="4">
-                        <div className="game-details">
-                          <p>Game Details: {game.details}</p>
-                          {/* Add any other details you want to display */}
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </React.Fragment>
+                <tr key={game.id}>
+                  <td>{game.week}</td>
+                  <td>{new Date(game.start_date).toLocaleDateString()}</td>
+                  <td>{game.home_team === team ? game.away_team : game.home_team}</td>
+                  <td>{game.outlet}</td>
+                </tr>
               ))}
             </tbody>
           </table>
