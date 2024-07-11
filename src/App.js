@@ -40,7 +40,7 @@ function App() {
             <Link to="/metrics" className="nav-button" onClick={toggleMenu}>Metrics</Link>
             <Link to="/teams" className="nav-button" onClick={toggleMenu}>Teams</Link>
             <Link to="/games" className="nav-button" onClick={toggleMenu}>Games</Link>
-            <Link to="/schedules" className="nav-button" onClick={toggleMenu}>Schedules</Link> {/* Add Schedules button */}
+            <Link to="/schedules" className="nav-button" onClick={toggleMenu}>Schedules</Link>
             <ThemeToggle toggleTheme={toggleTheme} />
           </div>
         </div>
@@ -51,13 +51,14 @@ function App() {
         <Route path="/teams" element={<TeamsComponent year={2023} setSelectedTeam={setSelectedTeam} />} />
         <Route path="/games" element={<UpcomingGames />} />
         <Route path="/metrics" element={<MetricsComponent selectedTeam={selectedTeam} />} />
-        <Route path="/schedules" element={<SchedulesComponent />} /> {/* Add Route for Schedules */}
+        <Route path="/schedules" element={<SchedulesComponent />} /> {/* Add the new route */}
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
 
 
 

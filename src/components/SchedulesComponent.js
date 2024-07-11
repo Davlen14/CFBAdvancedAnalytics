@@ -1,64 +1,62 @@
-// src/components/SchedulesComponent.js
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import TeamsComponent from './components/TeamsComponent';
+import UpcomingGames from './components/UpcomingGames';
+import ThemeToggle from './components/ThemeToggle';
+import HomeComponent from './components/HomeComponent';
+import MetricsComponent from './components/MetricsComponent';
+import SchedulesComponent from './components/SchedulesComponent'; // Import SchedulesComponent
+import logo from './assets/Game Day.png'; // Updated path to the logo
+import './App.css'; // Ensure this path is correct
 
-import React, { useEffect, useState } from 'react';
-
-const SchedulesComponent = () => {
-  const [schedules, setSchedules] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
+function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedTeam, setSelectedTeam] = useState(null);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
   useEffect(() => {
-    // Fetch schedules from the API
-    const fetchSchedules = async () => {
-      try {
-        const response = await fetch('https://api.collegefootballdata.com/games?year=2023&team=Ohio State');
-        const data = await response.json();
-        setSchedules(data);
-      } catch (error) {
-        console.error('Error fetching schedules:', error);
-      }
-    };
+    document.body.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
-    fetchSchedules();
-  }, []);
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
 
-  const filteredSchedules = schedules.filter(game => {
-    const gameDate = new Date(game.start_date).toLocaleDateString();
-    return (
-      game.home_team.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      game.away_team.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (selectedDate && gameDate === selectedDate)
-    );
-  });
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   return (
-    <div className="schedules-container">
-      <h2>Team Schedules</h2>
-      <input
-        type="text"
-        placeholder="Search by team"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <input
-        type="date"
-        value={selectedDate}
-        onChange={(e) => setSelectedDate(e.target.value)}
-      />
-      {filteredSchedules.length === 0 ? (
-        <p>No schedules found</p>
-      ) : (
-        <ul>
-          {filteredSchedules.map((game, index) => (
-            <li key={index}>
-              {game.home_team} vs {game.away_team} on {new Date(game.start_date).toLocaleDateString()}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
+    <Router>
+      <div className="navbar">
+        <div className="navbar-content">
+          <img src={logo} alt="GDA Logo" className="logo" />
+          <button className="hamburger-menu" onClick={toggleMenu}>
+            &#9776;
+          </button>
+          <div className={`nav-buttons ${menuOpen ? 'active' : ''}`}>
+            <Link to="/" className="nav-button" onClick={toggleMenu}>Home</Link>
+            <Link to="/metrics" className="nav-button" onClick={toggleMenu}>Metrics</Link>
+            <Link to="/teams" className="nav-button" onClick={toggleMenu}>Teams</Link>
+            <Link to="/games" className="nav-button" onClick={toggleMenu}>Games</Link>
+            <Link to="/schedules" className="nav-button" onClick={toggleMenu}>Schedules</Link>
+            <ThemeToggle toggleTheme={toggleTheme} />
+          </div>
+        </div>
+      </div>
 
-export default SchedulesComponent;
+      <Routes>
+        <Route path="/" element={<HomeComponent />} />
+        <Route path="/teams" element={<TeamsComponent year={2023} setSelectedTeam={setSelectedTeam} />} />
+        <Route path="/games" element={<UpcomingGames />} />
+        <Route path="/metrics" element={<MetricsComponent selectedTeam={selectedTeam} />} />
+        <Route path="/schedules" element={<SchedulesComponent />} /> {/* Add the new route */}
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
+
 
