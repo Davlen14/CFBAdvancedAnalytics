@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css'; // Ensure this path is correct
-import { getFBSTeams } from '../services/CollegeFootballApi'; // Import the function
+import { getFBSTeams, getSpRatings } from '../services/CollegeFootballApi'; // Import the functions
 
 const conferenceLogos = {
   "ACC": "/conference-logos/ACC.png",
@@ -21,9 +21,9 @@ const MetricsComponent = ({ selectedTeam }) => {
   const [conference, setConference] = useState('');
   const [team, setTeam] = useState('');
   const [teams, setTeams] = useState([]);
-  const [spRatingData, setSpRatingData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [spRating, setSpRating] = useState(null);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -41,21 +41,31 @@ const MetricsComponent = ({ selectedTeam }) => {
   }, [year]);
 
   useEffect(() => {
+    const fetchSpRating = async () => {
+      try {
+        if (team) {
+          const spRatingData = await getSpRatings(year, team);
+          setSpRating(spRatingData.find(data => data.team === team));
+        }
+      } catch (error) {
+        setError(`Error fetching SP+ ratings: ${error.message}`);
+      }
+    };
+
+    fetchSpRating();
+  }, [year, team]);
+
+  useEffect(() => {
     if (selectedTeam) {
       setTeam(selectedTeam.school);
       setConference(selectedTeam.conference);
-      fetchSpRatingData(year, selectedTeam.school);
     }
-  }, [selectedTeam, year]);
+  }, [selectedTeam]);
 
-  const fetchSpRatingData = async (year, team) => {
-    try {
-      const response = await fetch(`https://my-betting-bot-davlen-2bc8e47f62ae.herokuapp.com/api/ratings/sp?year=${year}&team=${team}`);
-      const data = await response.json();
-      setSpRatingData(data[0]);
-    } catch (error) {
-      console.error("Error fetching SP+ Rating data:", error);
-    }
+  const handleTeamChange = (school) => {
+    const selected = teams.find(team => team.school === school);
+    setTeam(school);
+    setConference(selected.conference);
   };
 
   return (
@@ -86,7 +96,7 @@ const MetricsComponent = ({ selectedTeam }) => {
           {/* Add more conferences as needed */}
         </select>
         
-        <select value={team} onChange={(e) => setTeam(e.target.value)}>
+        <select value={team} onChange={(e) => handleTeamChange(e.target.value)}>
           <option value="">Select Team</option>
           {teams
             .filter(team => !conference || team.conference === conference)
@@ -103,16 +113,21 @@ const MetricsComponent = ({ selectedTeam }) => {
       
       <section className="metric-section" id="overview">
         <h2 className="metrics-section-title">Overview</h2>
-        {selectedTeam && spRatingData ? (
+        {team ? (
           <div className="metric-card">
-            <h3>{selectedTeam.school}</h3>
-            <img src={selectedTeam.logos[0]} alt={`${selectedTeam.school} logo`} className="team-logo" />
-            <img src={conferenceLogos[selectedTeam.conference]} alt={`${selectedTeam.conference} logo`} className="conference-logo" />
-            <p>SP+ Rating: {spRatingData.rating}</p>
-            <p>SP+ Rank: {spRatingData.ranking}</p>
-            <p>Offensive Rating: {spRatingData.offense.rating}</p>
-            <p>Defensive Rating: {spRatingData.defense.rating}</p>
-            <p>Special Teams Rating: {spRatingData.specialTeams.rating}</p>
+            <h3>{team}</h3>
+            {teams.find(t => t.school === team)?.logos && (
+              <img src={teams.find(t => t.school === team).logos[0]} alt={`${team} logo`} className="team-logo" />
+            )}
+            {conference && (
+              <img src={conferenceLogos[conference]} alt={`${conference} logo`} className="conference-logo" />
+            )}
+            {spRating && (
+              <div>
+                <p>SP+ Rating: {spRating.rating}</p>
+                <p>SP+ Rank: {spRating.ranking}</p>
+              </div>
+            )}
           </div>
         ) : (
           <p>Select a team to view its overview.</p>
