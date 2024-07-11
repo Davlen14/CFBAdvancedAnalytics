@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css'; // Ensure this path is correct
-import { getFBSTeams, getSpRatings } from '../services/CollegeFootballApi'; // Import the functions
+import { getFBSTeams, getSpRatings, getGameMedia } from '../services/CollegeFootballApi'; // Import the functions
 
 const conferenceLogos = {
   "ACC": "/conference-logos/ACC.png",
@@ -24,6 +24,7 @@ const MetricsComponent = ({ selectedTeam }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [spRating, setSpRating] = useState(null);
+  const [schedule, setSchedule] = useState([]);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -53,6 +54,21 @@ const MetricsComponent = ({ selectedTeam }) => {
     };
 
     fetchSpRating();
+  }, [year, team]);
+
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      try {
+        if (team) {
+          const scheduleData = await getGameMedia(year, null, 'regular', team);
+          setSchedule(scheduleData);
+        }
+      } catch (error) {
+        setError(`Error fetching schedule: ${error.message}`);
+      }
+    };
+
+    fetchSchedule();
   }, [year, team]);
 
   useEffect(() => {
@@ -133,6 +149,36 @@ const MetricsComponent = ({ selectedTeam }) => {
           <p>Select a team to view its overview.</p>
         )}
       </section>
+
+      <section className="metric-section" id="team-schedule">
+        <h2 className="metrics-section-title">Team Schedule</h2>
+        {schedule.length > 0 ? (
+          <table className="metrics-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Opponent</th>
+                <th>Location</th>
+                <th>Time</th>
+                <th>Media</th>
+              </tr>
+            </thead>
+            <tbody>
+              {schedule.map((game) => (
+                <tr key={game.id}>
+                  <td>{game.startTime}</td>
+                  <td>{game.homeTeam === team ? game.awayTeam : game.homeTeam}</td>
+                  <td>{game.homeTeam === team ? 'Home' : 'Away'}</td>
+                  <td>{game.startTime}</td>
+                  <td>{game.outlet}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No schedule available for the selected team.</p>
+        )}
+      </section>
       
       <section className="metric-section" id="team-performance">
         <h2 className="metrics-section-title">Team Performance</h2>
@@ -177,34 +223,6 @@ const MetricsComponent = ({ selectedTeam }) => {
         </div>
       </section>
       
-      <section className="metric-section" id="historical-data">
-        <h2 className="metrics-section-title">Historical Data</h2>
-        <table className="metrics-table">
-          <thead>
-            <tr>
-              <th>Season</th>
-              <th>Champion</th>
-              <th>Wins</th>
-              <th>Losses</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>2022</td>
-              <td>Team C</td>
-              <td>11</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>2021</td>
-              <td>Team D</td>
-              <td>12</td>
-              <td>0</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-      
       <section className="metric-section" id="advanced-metrics">
         <h2 className="metrics-section-title">Advanced Metrics</h2>
         <div className="metric-card">
@@ -217,6 +235,8 @@ const MetricsComponent = ({ selectedTeam }) => {
 };
 
 export default MetricsComponent;
+
+
 
 
 
