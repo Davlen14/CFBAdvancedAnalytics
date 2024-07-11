@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css'; // Ensure this path is correct
-import { getFBSTeams, getSpRatings, getGameMedia } from '../services/CollegeFootballApi'; // Import the functions
+import { getFBSTeams, getSpRatings, getUpcomingGamesForWeek } from '../services/CollegeFootballApi'; // Added getUpcomingGamesForWeek
+
 
 const conferenceLogos = {
   "ACC": "/conference-logos/ACC.png",
@@ -60,16 +61,17 @@ const MetricsComponent = ({ selectedTeam }) => {
     const fetchSchedule = async () => {
       try {
         if (team) {
-          const scheduleData = await getGameMedia(year, null, 'regular', team);
+          const scheduleData = await getUpcomingGamesForWeek(year, team); // Updated function call
           setSchedule(scheduleData);
         }
       } catch (error) {
         setError(`Error fetching schedule: ${error.message}`);
       }
     };
-
+  
     fetchSchedule();
   }, [year, team]);
+  
 
   useEffect(() => {
     if (selectedTeam) {
@@ -162,15 +164,16 @@ const MetricsComponent = ({ selectedTeam }) => {
             </tr>
           </thead>
           <tbody>
-            {schedule.map((game) => (
-              <tr key={game.id}>
-                <td>{game.week}</td>
-                <td>{new Date(game.startTime).toLocaleString()}</td>
-                <td>{game.homeTeam === team ? game.awayTeam : game.homeTeam}</td>
-                <td>{game.outlet}</td>
-              </tr>
-            ))}
-          </tbody>
+        {schedule.map((game) => (
+            <tr key={game.id}>
+            <td>{game.week}</td>
+            <td>{new Date(game.startTime).toLocaleString()}</td>
+            <td>{game.homeTeam === team ? game.awayTeam : game.homeTeam}</td>
+            <td>{game.outlet}</td>
+            </tr>
+        ))}
+        </tbody>
+
         </table>
       </section>
       
