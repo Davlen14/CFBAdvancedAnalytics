@@ -1,5 +1,7 @@
+// src/components/ThemeToggle.js
+
 import React, { useState, useEffect } from 'react';
-import { FaMoon, FaSun } from 'react-icons/fa';
+import { FaMoon, FaSun } from 'react-icons/fa'; // Correct imports
 import '../App.css';
 
 function ThemeToggle() {
@@ -34,4 +36,5 @@ function ThemeToggle() {
 }
 
 export default ThemeToggle;
+
 
