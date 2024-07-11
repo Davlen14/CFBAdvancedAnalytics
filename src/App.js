@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
@@ -6,7 +5,7 @@ import TeamsComponent from './components/TeamsComponent';
 import UpcomingGames from './components/UpcomingGames';
 import ThemeToggle from './components/ThemeToggle';
 import HomeComponent from './components/HomeComponent';
-import MetricsComponent from './components/MetricsComponent'; // Import the new MetricsComponent
+import MetricsComponent from './components/MetricsComponent'; // Import the Metrics Component
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -35,15 +34,16 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomeComponent />} />
+        <Route path="/metrics" element={<MetricsComponent />} />
         <Route path="/teams" element={<TeamsComponent year={2023} />} />
         <Route path="/games" element={<UpcomingGames />} />
-        <Route path="/metrics" element={<MetricsComponent />} /> {/* Add route for MetricsComponent */}
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
 
 
 
