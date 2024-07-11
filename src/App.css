@@ -376,11 +376,9 @@ body[data-theme='dark'] {
 }
 
 /* Styles for the Home Component */
+/* Adjusting padding for the main content to avoid being hidden by the navbar */
 .home {
-  text-align: center;
-  padding: 2rem;
-  background-color: var(--background-color); /* Use background color variable */
-  color: var(--text-color); /* Use text color variable */
+  padding-top: 80px; /* Adjust the value to match the height of your navbar */
 }
 
 /* Hero Section */
