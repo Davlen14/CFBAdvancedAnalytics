@@ -1,34 +1,35 @@
 // src/components/SchedulesComponent.js
 
 import React, { useEffect, useState } from 'react';
-import { getFBSTeams } from '../services/CollegeFootballApi';
+import { getFBSTeams, getGameMedia } from '../services/CollegeFootballApi';
 
 const SchedulesComponent = () => {
   const [schedules, setSchedules] = useState([]);
-  const [teams, setTeams] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const year = 2023;
+
   useEffect(() => {
+    // Fetch teams from the API
     const fetchData = async () => {
       try {
-        const teamsData = await getFBSTeams(2023);
-        setTeams(teamsData);
-
-        const response = await fetch('https://api.collegefootballdata.com/games?year=2023');
-        const data = await response.json();
-        setSchedules(data);
+        const teams = await getFBSTeams(year);
+        const schedulePromises = teams.map(team => getGameMedia(year, null, null, team.school));
+        const allSchedules = await Promise.all(schedulePromises);
+        const mergedSchedules = allSchedules.flat();
+        setSchedules(mergedSchedules);
+        setIsLoading(false);
       } catch (error) {
         setError(`Fetch error: ${error.message}`);
-      } finally {
         setIsLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [year]);
 
   const filteredSchedules = schedules.filter(game => {
     const gameDate = new Date(game.start_date).toLocaleDateString();
@@ -56,7 +57,7 @@ const SchedulesComponent = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : error ? (
-        <p>{error}</p>
+        <p>Error: {error}</p>
       ) : filteredSchedules.length === 0 ? (
         <p>No schedules found</p>
       ) : (
@@ -73,6 +74,7 @@ const SchedulesComponent = () => {
 };
 
 export default SchedulesComponent;
+
 
 
 
