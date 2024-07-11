@@ -7,7 +7,7 @@ import ThemeToggle from './components/ThemeToggle';
 import HomeComponent from './components/HomeComponent';
 import MetricsComponent from './components/MetricsComponent';
 import SchedulesComponent from './components/SchedulesComponent'; // Import SchedulesComponent
-import logo from './assets/GameDay.png'; // Updated path to the logo
+import logo from './assets/Game Day.png'; // Updated path to the logo
 import './App.css'; // Ensure this path is correct
 
 function App() {
