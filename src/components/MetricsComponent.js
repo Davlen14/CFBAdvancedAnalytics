@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getSpRatings, getHistoricalSRSRatings, getHistoricalSPRatingsByConference, getHistoricalEloRatings, getHistoricalFPIRatings, getPredictedPoints, getPPATeamData, getPPAGameData, getPPAPlayerGameData, getPPAPlayerSeasonData, getFieldGoalEP, getWinProbabilityChartData, getPregameWinProbabilityData, getTeamStatsBySeason, getAdvancedTeamMetricsBySeason, getAdvancedTeamMetricsByGame, getTeamStatCategories, getHistoricalRankings } from '../api'; // Update with your actual import path
+import { getSpRatings, getHistoricalSRSRatings, getHistoricalSPRatingsByConference, getHistoricalEloRatings, getHistoricalFPIRatings, getPredictedPoints, getPPATeamData, getPPAGameData, getPPAPlayerGameData, getPPAPlayerSeasonData, getFieldGoalEP, getWinProbabilityChartData, getPregameWinProbabilityData, getTeamStatsBySeason, getAdvancedTeamMetricsBySeason, getAdvancedTeamMetricsByGame, getTeamStatCategories, getHistoricalRankings } from '../services/CollegeFootballApi'; // Update with the correct path
 import './App.css'; // Import the existing CSS file
 
 const MetricsComponent = () => {
@@ -113,4 +113,3 @@ const MetricsComponent = () => {
 };
 
 export default MetricsComponent;
-
