@@ -2,7 +2,7 @@
 
 /* Navbar styles */
 .navbar {
-  background-color: #f9f9f9; /* Very light grey background */
+  background-color: #f9f9f9; /* Light grey background */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,7 +44,7 @@
 }
 
 .nav-button {
-  color: #ffffff;
+  color: #ffffff; /* White text color */
   text-decoration: none;
   padding: 10px 15px;
   font-size: 18px;
@@ -52,7 +52,7 @@
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow to buttons */
-  border: 2px solid #ffffff; /* White sharp border */
+  border: 1px solid #ffffff; /* White border */
 }
 
 .nav-button:hover {
@@ -82,7 +82,7 @@
     top: 60px; /* Adjust based on your navbar height */
     left: 0;
     right: 0;
-    background-color: #f9f9f9;
+    background-color: #ffffff; /* White background when opened */
     z-index: 999;
   }
 
@@ -90,7 +90,20 @@
     display: flex;
   }
 
-  .nav-button, .theme-toggle-button {
+  .nav-button {
+    color: #cc0000; /* Red text color */
+    padding: 10px 15px;
+    text-align: center;
+    width: 100%;
+    background-color: #ffffff; /* Ensure background is white */
+  }
+
+  .nav-button:hover {
+    background-color: #f1f1f1; /* Light grey hover background */
+    color: #cc0000; /* Red text color */
+  }
+
+  .theme-toggle-button {
     padding: 10px 15px;
     text-align: center;
     width: 100%;
@@ -111,6 +124,7 @@
     font-size: 20px;
   }
 }
+
 
 
 
