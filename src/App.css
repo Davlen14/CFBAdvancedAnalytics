@@ -891,37 +891,62 @@ footer p {
     font-size: 12px; /* Further adjusted font size for very small screens */
   }
 }
-.schedules-container {
-  padding: 20px;
-  margin-top: 80px; /* To ensure it doesn't overlap with the navbar */
-}
+/* App.css */
 
-.schedules-container h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
+/* Schedule Container */
+.schedules-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .schedules-container input[type="text"],
 .schedules-container input[type="date"] {
   padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ddd;
+  margin: 10px;
   border-radius: 4px;
-  width: 100%;
-  max-width: 300px;
+  border: 1px solid #ddd;
 }
 
-.schedules-container ul {
-  list-style-type: none;
+.schedule-list {
+  list-style: none;
   padding: 0;
 }
 
-.schedules-container li {
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  background-color: #fff;
+.schedule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.schedule-item:hover {
+  transform: scale(1.02);
+}
+
+.team-logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+}
+
+@media (max-width: 768px) {
+  .schedule-item {
+    flex-direction: column;
+  }
+
+  .team-logo {
+    margin: 10px 0;
+  }
 }
 
 
