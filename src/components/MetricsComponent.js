@@ -46,6 +46,12 @@ const MetricsComponent = ({ selectedTeam }) => {
     }
   }, [selectedTeam]);
 
+  const handleTeamChange = (school) => {
+    const selected = teams.find(team => team.school === school);
+    setTeam(school);
+    setConference(selected.conference);
+  };
+
   return (
     <div className="metrics-container">
       <h1 className="metrics-section-title">Advanced Metrics</h1>
@@ -74,7 +80,7 @@ const MetricsComponent = ({ selectedTeam }) => {
           {/* Add more conferences as needed */}
         </select>
         
-        <select value={team} onChange={(e) => setTeam(e.target.value)}>
+        <select value={team} onChange={(e) => handleTeamChange(e.target.value)}>
           <option value="">Select Team</option>
           {teams
             .filter(team => !conference || team.conference === conference)
@@ -91,11 +97,15 @@ const MetricsComponent = ({ selectedTeam }) => {
       
       <section className="metric-section" id="overview">
         <h2 className="metrics-section-title">Overview</h2>
-        {selectedTeam ? (
+        {team ? (
           <div className="metric-card">
-            <h3>{selectedTeam.school}</h3>
-            <img src={selectedTeam.logos[0]} alt={`${selectedTeam.school} logo`} className="team-logo" />
-            <img src={conferenceLogos[selectedTeam.conference]} alt={`${selectedTeam.conference} logo`} className="conference-logo" />
+            <h3>{team}</h3>
+            {teams.find(t => t.school === team)?.logos && (
+              <img src={teams.find(t => t.school === team).logos[0]} alt={`${team} logo`} className="team-logo" />
+            )}
+            {conference && (
+              <img src={conferenceLogos[conference]} alt={`${conference} logo`} className="conference-logo" />
+            )}
           </div>
         ) : (
           <p>Select a team to view its overview.</p>
@@ -185,6 +195,7 @@ const MetricsComponent = ({ selectedTeam }) => {
 };
 
 export default MetricsComponent;
+
 
 
 
