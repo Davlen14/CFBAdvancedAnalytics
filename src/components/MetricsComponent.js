@@ -3,26 +3,26 @@ import { getSpRatings, getHistoricalSRSRatings, getHistoricalSPRatingsByConferen
 import '../App.css'; // Correct path
 
 const MetricsComponent = () => {
-  const [metrics, setMetrics] = useState({
-    spRatings: [],
-    historicalSRS: [],
-    historicalSPConference: [],
-    historicalElo: [],
-    historicalFPI: [],
-    predictedPoints: [],
-    ppaTeams: [],
-    ppaGames: [],
-    ppaPlayersGames: [],
-    ppaPlayersSeason: [],
-    fgEP: [],
-    winProbChart: [],
-    pregameWinProb: [],
-    teamStats: [],
-    advancedTeamMetricsSeason: [],
-    advancedTeamMetricsGame: [],
-    teamStatCategories: [],
-    historicalRankings: []
-  });
+  // const [metrics, setMetrics] = useState({
+  //   spRatings: [],
+  //   historicalSRS: [],
+  //   historicalSPConference: [],
+  //   historicalElo: [],
+  //   historicalFPI: [],
+  //   predictedPoints: [],
+  //   ppaTeams: [],
+  //   ppaGames: [],
+  //   ppaPlayersGames: [],
+  //   ppaPlayersSeason: [],
+  //   fgEP: [],
+  //   winProbChart: [],
+  //   pregameWinProb: [],
+  //   teamStats: [],
+  //   advancedTeamMetricsSeason: [],
+  //   advancedTeamMetricsGame: [],
+  //   teamStatCategories: [],
+  //   historicalRankings: []
+  // });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -48,26 +48,26 @@ const MetricsComponent = () => {
         const teamStatCategories = await getTeamStatCategories();
         const historicalRankings = await getHistoricalRankings();
 
-        setMetrics({
-          spRatings,
-          historicalSRS,
-          historicalSPConference,
-          historicalElo,
-          historicalFPI,
-          predictedPoints,
-          ppaTeams,
-          ppaGames,
-          ppaPlayersGames,
-          ppaPlayersSeason,
-          fgEP,
-          winProbChart,
-          pregameWinProb,
-          teamStats,
-          advancedTeamMetricsSeason,
-          advancedTeamMetricsGame,
-          teamStatCategories,
-          historicalRankings
-        });
+        // setMetrics({
+        //   spRatings,
+        //   historicalSRS,
+        //   historicalSPConference,
+        //   historicalElo,
+        //   historicalFPI,
+        //   predictedPoints,
+        //   ppaTeams,
+        //   ppaGames,
+        //   ppaPlayersGames,
+        //   ppaPlayersSeason,
+        //   fgEP,
+        //   winProbChart,
+        //   pregameWinProb,
+        //   teamStats,
+        //   advancedTeamMetricsSeason,
+        //   advancedTeamMetricsGame,
+        //   teamStatCategories,
+        //   historicalRankings
+        // });
         setLoading(false);
       } catch (error) {
         setError(error);
@@ -113,4 +113,5 @@ const MetricsComponent = () => {
 };
 
 export default MetricsComponent;
+
 
