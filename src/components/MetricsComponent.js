@@ -1,8 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css'; // Ensure this path is correct
-import { getFBSTeams } from '../services/CollegeFootballApi'; // Assuming you have this function
 
-const MetricsComponent = () => {
+const conferenceLogos = {
+  "ACC": "/conference-logos/ACC.png",
+  "American Athletic": "/conference-logos/American Athletic.png",
+  "Big 12": "/conference-logos/Big 12.png",
+  "Big Ten": "/conference-logos/Big Ten.png",
+  "Conference USA": "/conference-logos/Conference USA.png",
+  "FBS Independents": "/conference-logos/FBS Independents.png",
+  "Mid-American": "/conference-logos/Mid-American.png",
+  "Mountain West": "/conference-logos/Mountain West.png",
+  "Pac-12": "/conference-logos/Pac-12.png",
+  "SEC": "/conference-logos/SEC.png",
+  "Sun Belt": "/conference-logos/Sun Belt.png"
+};
+
+const MetricsComponent = ({ selectedTeam }) => {
   const [year, setYear] = useState(2023);
   const [conference, setConference] = useState('');
   const [team, setTeam] = useState('');
@@ -24,6 +37,13 @@ const MetricsComponent = () => {
 
     fetchTeams();
   }, [year]);
+
+  useEffect(() => {
+    if (selectedTeam) {
+      setTeam(selectedTeam.school);
+      setConference(selectedTeam.conference);
+    }
+  }, [selectedTeam]);
 
   return (
     <div className="metrics-container">
@@ -70,10 +90,15 @@ const MetricsComponent = () => {
       
       <section className="metric-section" id="overview">
         <h2 className="metrics-section-title">Overview</h2>
-        <div className="metric-card">
-          <h3>Overall Performance</h3>
-          <p>Overview content goes here...</p>
-        </div>
+        {selectedTeam ? (
+          <div className="metric-card">
+            <h3>{selectedTeam.school}</h3>
+            <img src={selectedTeam.logos[0]} alt={`${selectedTeam.school} logo`} className="team-logo" />
+            <img src={conferenceLogos[selectedTeam.conference]} alt={`${selectedTeam.conference} logo`} className="conference-logo" />
+          </div>
+        ) : (
+          <p>Select a team to view its overview.</p>
+        )}
       </section>
       
       <section className="metric-section" id="team-performance">
@@ -159,6 +184,8 @@ const MetricsComponent = () => {
 };
 
 export default MetricsComponent;
+
+
 
 
 

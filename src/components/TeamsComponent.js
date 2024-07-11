@@ -19,7 +19,7 @@ const conferenceLogos = {
   "Sun Belt": "/conference-logos/Sun Belt.png"
 };
 
-function TeamsComponent() {
+function TeamsComponent({ onTeamSelect }) { // Receive the prop
   const [teams, setTeams] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -48,6 +48,7 @@ function TeamsComponent() {
   const openModal = (team) => {
     setSelectedTeam(team);
     setModalIsOpen(true);
+    onTeamSelect(team); // Notify parent component of the selected team
   };
 
   const closeModal = () => {
@@ -171,10 +172,10 @@ function TeamsComponent() {
       </div>
     </div>
   );
-  
 }
 
 export default TeamsComponent;
+
 
 
 
