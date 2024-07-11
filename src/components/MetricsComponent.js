@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css'; // Ensure this path is correct
+import { getFBSTeams } from '../services/CollegeFootballApi'; // Import the function
 
 const conferenceLogos = {
   "ACC": "/conference-logos/ACC.png",
