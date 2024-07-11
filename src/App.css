@@ -780,6 +780,7 @@ footer p {
 /* Filters */
 .filters {
   display: flex;
+  flex-wrap: wrap; /* Allows filters to wrap on smaller screens */
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -807,7 +808,40 @@ footer p {
 
   .metrics-table th, .metrics-table td {
     padding: 8px;
+    font-size: 14px; /* Adjusted font size for better readability */
+  }
+  
+  .filters select,
+  .filters input {
+    padding: 8px; /* Adjusted padding for smaller screens */
+    font-size: 14px; /* Adjusted font size for better readability */
   }
 }
+
+@media (max-width: 480px) {
+  .metrics-container {
+    padding: 5px;
+  }
+
+  .metrics-section-title {
+    font-size: 18px;
+  }
+
+  .metric-card {
+    padding: 10px;
+  }
+
+  .metrics-table th, .metrics-table td {
+    padding: 6px;
+    font-size: 12px; /* Further adjusted font size for very small screens */
+  }
+
+  .filters select,
+  .filters input {
+    padding: 6px; /* Further adjusted padding for very small screens */
+    font-size: 12px; /* Further adjusted font size for very small screens */
+  }
+}
+
 
 
