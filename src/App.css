@@ -891,6 +891,38 @@ footer p {
     font-size: 12px; /* Further adjusted font size for very small screens */
   }
 }
+.schedules-container {
+  padding: 20px;
+  margin-top: 80px; /* To ensure it doesn't overlap with the navbar */
+}
+
+.schedules-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.schedules-container input[type="text"],
+.schedules-container input[type="date"] {
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.schedules-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.schedules-container li {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  background-color: #fff;
+}
 
 
 

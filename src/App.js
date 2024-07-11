@@ -5,6 +5,7 @@ import UpcomingGames from './components/UpcomingGames';
 import ThemeToggle from './components/ThemeToggle';
 import HomeComponent from './components/HomeComponent';
 import MetricsComponent from './components/MetricsComponent';
+import SchedulesComponent from './components/SchedulesComponent'; // Import SchedulesComponent
 import logo from './assets/Game Day.png'; // Updated path to the logo
 import './App.css'; // Ensure this path is correct
 
@@ -39,6 +40,7 @@ function App() {
             <Link to="/metrics" className="nav-button" onClick={toggleMenu}>Metrics</Link>
             <Link to="/teams" className="nav-button" onClick={toggleMenu}>Teams</Link>
             <Link to="/games" className="nav-button" onClick={toggleMenu}>Games</Link>
+            <Link to="/schedules" className="nav-button" onClick={toggleMenu}>Schedules</Link> {/* Add Schedules button */}
             <ThemeToggle toggleTheme={toggleTheme} />
           </div>
         </div>
@@ -49,6 +51,7 @@ function App() {
         <Route path="/teams" element={<TeamsComponent year={2023} setSelectedTeam={setSelectedTeam} />} />
         <Route path="/games" element={<UpcomingGames />} />
         <Route path="/metrics" element={<MetricsComponent selectedTeam={selectedTeam} />} />
+        <Route path="/schedules" element={<SchedulesComponent />} /> {/* Add Route for Schedules */}
       </Routes>
     </Router>
   );
