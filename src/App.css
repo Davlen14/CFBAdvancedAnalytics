@@ -1,20 +1,21 @@
-/* Navbar container */
+/* App.css */
+
+/* General navbar styling */
 .navbar {
-  background-color: #cc0000; /* Adjusted to a darker red */
+  background-color: #333; /* Modernized grey */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px; /* Increased padding for a more spacious look */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for a modern look */
-  position: fixed; /* Fixed navbar at the top */
-  top: 0; /* Ensure it's at the top */
-  left: 0; /* Ensure it starts from the left */
-  right: 0; /* Ensure it stretches to the right */
-  width: 100%; /* Full width */
-  z-index: 1000; /* Ensure it stays on top */
+  padding: 15px 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
-/* Container for the title and nav buttons */
 .navbar-content {
   display: flex;
   align-items: center;
@@ -22,14 +23,8 @@
   justify-content: space-between;
 }
 
-.title {
-  color: white;
-  font-size: 26px;
-  font-family: "Arial", sans-serif;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-style: italic;
-  letter-spacing: 1px;
+.logo {
+  height: 50px; /* Adjust the height as necessary */
   margin-right: 30px;
 }
 
@@ -52,9 +47,9 @@
   text-decoration: none;
   padding: 10px 15px;
   font-size: 18px;
-  font-family: "Arial", sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-button:hover {
@@ -64,14 +59,10 @@
 
 .theme-toggle-button {
   background: transparent;
-  border: 2px solid white;
+  border: none;
   color: white;
-  border-radius: 25px;
-  padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  font-size: 16px;
-  font-family: "Arial", sans-serif;
+  font-size: 20px;
 }
 
 /* Responsive adjustments for the navbar */
@@ -84,10 +75,10 @@
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 60px; /* Adjust based on your navbar height */
+    top: 60px;
     left: 0;
     right: 0;
-    background-color: #cc0000;
+    background-color: #333;
     z-index: 999;
   }
 
@@ -103,8 +94,8 @@
 }
 
 @media (max-width: 480px) {
-  .title {
-    font-size: 20px;
+  .logo {
+    height: 40px;
   }
 
   .nav-button {
@@ -113,20 +104,16 @@
   }
 
   .theme-toggle-button {
-    font-size: 12px;
-    padding: 6px 12px;
+    font-size: 16px;
   }
 }
-
-
-
 
 /* Default values for light mode */
 :root {
   --background-color: #ffffff;
   --text-color: #000000;
-  --navbar-background-color: #cc0000;
-  --hero-background-color: linear-gradient(to right, #cc0000, #ff6666);
+  --navbar-background-color: #333;
+  --hero-background-color: linear-gradient(to right, #333, #555);
 }
 
 /* Apply the variables to elements */
@@ -146,10 +133,10 @@ body {
 
 /* Define styles for dark mode */
 [data-theme='dark'] {
-  --background-color: #1c1c1c; /* Lighter black for background */
+  --background-color: #1c1c1c;
   --text-color: #ffffff;
-  --navbar-background-color: #333; /* Darker shade for navbar */
-  --hero-background-color: linear-gradient(to right, #333, #555); /* Adjusted gradient for hero section */
+  --navbar-background-color: #333;
+  --hero-background-color: linear-gradient(to right, #333, #555);
 }
 
 body[data-theme='dark'] {
@@ -165,6 +152,7 @@ body[data-theme='dark'] {
   background: var(--hero-background-color);
   color: var(--text-color);
 }
+
 
 
 /* Second navbar styles */
