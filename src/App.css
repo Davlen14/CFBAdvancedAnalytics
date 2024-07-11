@@ -24,7 +24,7 @@
 }
 
 .logo {
-  height: 50px; /* Adjust the height as necessary */
+  height: 40px; /* Adjust as needed */
   margin-right: 30px;
 }
 
@@ -47,13 +47,14 @@
   text-decoration: none;
   padding: 10px 15px;
   font-size: 18px;
+  font-family: "Arial", sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-button:hover {
-  background-color: #990000;
+  background-color: #555;
   color: #ffffff;
 }
 
@@ -61,7 +62,10 @@
   background: transparent;
   border: none;
   color: white;
+  border-radius: 25px;
+  padding: 10px 20px;
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-size: 20px;
 }
 
@@ -75,7 +79,7 @@
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 60px;
+    top: 60px; /* Adjust based on your navbar height */
     left: 0;
     right: 0;
     background-color: #333;
@@ -95,7 +99,7 @@
 
 @media (max-width: 480px) {
   .logo {
-    height: 40px;
+    height: 30px;
   }
 
   .nav-button {
@@ -105,8 +109,10 @@
 
   .theme-toggle-button {
     font-size: 16px;
+    padding: 6px 12px;
   }
 }
+
 
 /* Default values for light mode */
 :root {
