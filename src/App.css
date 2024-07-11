@@ -703,4 +703,96 @@ footer p {
 .roster-container li {
   margin-bottom: 10px;
 }
+/* Container for the entire metrics component */
+.metrics-container {
+  max-width: 1200px;
+  margin: 80px auto; /* Adjust the top margin to account for fixed navbar */
+  padding: 20px;
+  background-color: #f8f9fa; /* Light background for contrast */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Section titles */
+.metrics-section-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 20px 0;
+  border-bottom: 2px solid #ddd; /* Underline for section titles */
+  padding-bottom: 5px;
+}
+
+/* Style for individual metric sections */
+.metric-section {
+  margin-bottom: 40px;
+}
+
+/* Table styles for metrics data */
+.metrics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.metrics-table th, .metrics-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.metrics-table th {
+  background-color: #cc0000; /* Darker red for table header */
+  color: white;
+}
+
+.metrics-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light grey for alternate rows */
+}
+
+/* Chart container */
+.chart-container {
+  width: 100%;
+  height: 400px; /* Adjust height as needed */
+  margin-bottom: 20px;
+}
+
+/* Card styles for metric highlights */
+.metric-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.metric-card h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.metric-card p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .metrics-container {
+    padding: 10px;
+  }
+
+  .metrics-section-title {
+    font-size: 20px;
+  }
+
+  .metric-card {
+    padding: 15px;
+  }
+
+  .metrics-table th, .metrics-table td {
+    padding: 8px;
+  }
+}
 

@@ -6,6 +6,7 @@ import TeamsComponent from './components/TeamsComponent';
 import UpcomingGames from './components/UpcomingGames';
 import ThemeToggle from './components/ThemeToggle';
 import HomeComponent from './components/HomeComponent';
+import MetricsComponent from './components/MetricsComponent'; // Import the new MetricsComponent
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +25,7 @@ function App() {
           </button>
           <div className={`nav-buttons ${menuOpen ? 'active' : ''}`}>
             <Link to="/" className="nav-button" onClick={toggleMenu}>Home</Link>
-            <Link to="/projections" className="nav-button" onClick={toggleMenu}>Projections</Link>
+            <Link to="/metrics" className="nav-button" onClick={toggleMenu}>Metrics</Link>
             <Link to="/teams" className="nav-button" onClick={toggleMenu}>Teams</Link>
             <Link to="/games" className="nav-button" onClick={toggleMenu}>Games</Link>
             <ThemeToggle />
@@ -36,13 +37,14 @@ function App() {
         <Route path="/" element={<HomeComponent />} />
         <Route path="/teams" element={<TeamsComponent year={2023} />} />
         <Route path="/games" element={<UpcomingGames />} />
-        <Route path="/projections" element={<div>Projections Page Under Construction</div>} />
+        <Route path="/metrics" element={<MetricsComponent />} /> {/* Add route for MetricsComponent */}
       </Routes>
     </Router>
   );
 }
 
 export default App;
+
 
 
 
