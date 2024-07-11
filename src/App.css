@@ -777,6 +777,20 @@ footer p {
   color: #555;
 }
 
+/* Filters */
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters select,
+.filters input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .metrics-container {
@@ -795,4 +809,5 @@ footer p {
     padding: 8px;
   }
 }
+
 
