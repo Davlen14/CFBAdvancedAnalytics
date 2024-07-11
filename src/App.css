@@ -2,7 +2,7 @@
 
 /* Navbar styles */
 .navbar {
-  background-color: #f1f1f1; /* Light grey background */
+  background-color: #f9f9f9; /* Very light grey background */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,7 +44,7 @@
 }
 
 .nav-button {
-  color: #333;
+  color: #ffffff;
   text-decoration: none;
   padding: 10px 15px;
   font-size: 18px;
@@ -52,6 +52,7 @@
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow to buttons */
+  border: 2px solid #ffffff; /* White sharp border */
 }
 
 .nav-button:hover {
@@ -81,7 +82,7 @@
     top: 60px; /* Adjust based on your navbar height */
     left: 0;
     right: 0;
-    background-color: #f1f1f1;
+    background-color: #f9f9f9;
     z-index: 999;
   }
 
@@ -110,6 +111,7 @@
     font-size: 20px;
   }
 }
+
 
 
 /* Default values for light mode */
