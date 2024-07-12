@@ -147,19 +147,21 @@ const SchedulesComponent = () => {
                 <div className="team">
                   <img src={game.homeTeamLogo} alt={game.home_team} className="team-logo" />
                   <span className="team-name">{game.home_team}</span>
+                  <span className="team-record">({game.home_points})</span>
                 </div>
                 <div className="vs">vs</div>
                 <div className="team">
                   <img src={game.awayTeamLogo} alt={game.away_team} className="team-logo" />
                   <span className="team-name">{game.away_team}</span>
+                  <span className="team-record">({game.away_points})</span>
                 </div>
-              </div>
-              <div className="game-details">
-                <div className="game-date">{new Date(game.start_date).toLocaleDateString()}</div>
-                <div className="game-time">{new Date(game.start_date).toLocaleTimeString()}</div>
-                <div className="game-venue">{game.venue}</div>
-                <div className="game-tv">
-                  <FontAwesomeIcon icon={faTv} /> {game.outlet}
+                <div className="game-details">
+                  <span className="game-date">{new Date(game.start_date).toLocaleDateString()}</span>
+                  <span className="game-time">{new Date(game.start_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                  <span className="game-venue">{game.venue}</span>
+                  <span className="game-tv">
+                    <FontAwesomeIcon icon={faTv} /> {game.outlet}
+                  </span>
                 </div>
               </div>
             </li>
