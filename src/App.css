@@ -975,6 +975,7 @@ footer p {
   margin-right: 15px;
 }
 
+/* Media queries for responsiveness */
 @media (max-width: 768px) {
   .schedule-item {
     flex-direction: column;
@@ -984,6 +985,38 @@ footer p {
     margin: 10px 0;
   }
 }
+
+/* Additions for React Select Dropdowns */
+.dropdown__control {
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.dropdown__control--is-focused {
+  border-color: #aaa;
+  box-shadow: 0 0 0 1px #aaa;
+}
+
+.dropdown__menu {
+  z-index: 1000;
+}
+
+.dropdown__option--is-focused {
+  background-color: #f0f0f0;
+}
+
+.dropdown__option--is-selected {
+  background-color: #e0e0e0;
+}
+
+.dropdown__single-value,
+.dropdown__placeholder {
+  font-size: 14px;
+  color: #333;
+}
+
+/* End of additions for React Select Dropdowns */
+
 
 
 
