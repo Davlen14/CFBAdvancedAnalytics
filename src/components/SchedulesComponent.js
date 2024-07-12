@@ -1,8 +1,6 @@
-// src/components/SchedulesComponent.js
-
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { getFBSTeams, getGameMedia } from '../services/CollegeFootballApi';
+import { getFBSTeams, getUpcomingGamesForWeek, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
 
 const conferenceLogos = {
   "ACC": "/conference-logos/ACC.png",
@@ -26,19 +24,15 @@ const SchedulesComponent = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [currentWeek, setCurrentWeek] = useState(1);
   const year = 2023;
+  const seasonType = 'regular';
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTeams = async () => {
       try {
         const fetchedTeams = await getFBSTeams(year);
         setTeams(fetchedTeams);
-
-        const schedulePromises = fetchedTeams.map(team => getGameMedia(year, null, null, team.school));
-        const allSchedules = await Promise.all(schedulePromises);
-        const mergedSchedules = allSchedules.flat();
-        setSchedules(mergedSchedules);
         setIsLoading(false);
       } catch (error) {
         setError(`Fetch error: ${error.message}`);
@@ -46,8 +40,69 @@ const SchedulesComponent = () => {
       }
     };
 
-    fetchData();
+    fetchTeams();
   }, [year]);
+
+  useEffect(() => {
+    if (selectedTeam) {
+      const fetchGamesAndLogos = async () => {
+        setIsLoading(true);
+        try {
+          const [gamesData, fbsTeams, recordsData, gamesMediaData, pregameWinProbData] = await Promise.all([
+            getUpcomingGamesForWeek(currentWeek),
+            getFBSTeams(),
+            getRecords(),
+            getGamesMedia(),
+            getPregameWinProbabilityData(year, currentWeek, selectedTeam, seasonType)
+          ]);
+
+          const teamLogosMap = fbsTeams.reduce((acc, team) => {
+            acc[team.id] = team.logos[0];
+            return acc;
+          }, {});
+
+          const teamRecordsMap = recordsData.reduce((acc, record) => {
+            acc[record.teamId] = record;
+            return acc;
+          }, {});
+
+          const gamesMediaMap = gamesMediaData.reduce((acc, media) => {
+            acc[media.id] = media;
+            return acc;
+          }, {});
+
+          const pregameWinProbMap = pregameWinProbData.reduce((acc, game) => {
+            acc[game.gameId] = game;
+            return acc;
+          }, {});
+
+          const gamesWithDetails = gamesData.map((game) => {
+            const mediaInfo = gamesMediaMap[game.id];
+            const pregameWinProb = pregameWinProbMap[game.id];
+            return {
+              ...game,
+              homeTeamLogo: teamLogosMap[game.home_id],
+              awayTeamLogo: teamLogosMap[game.away_id],
+              homeTeamRecord: teamRecordsMap[game.home_id]?.winsLosses,
+              awayTeamRecord: teamRecordsMap[game.away_id]?.winsLosses,
+              outlet: mediaInfo ? mediaInfo.outlet : 'Unknown Outlet',
+              location: game.venue || 'Unknown Location',
+              homeWinProbability: pregameWinProb ? pregameWinProb.homeWinProb : 'N/A',
+              awayWinProbability: pregameWinProb ? pregameWinProb.awayWinProb : 'N/A',
+            };
+          }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
+
+          setSchedules(gamesWithDetails);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      fetchGamesAndLogos();
+    }
+  }, [selectedTeam, currentWeek, year, seasonType]);
 
   const filteredSchedules = schedules.filter(game => {
     const gameDate = new Date(game.start_date).toLocaleDateString();
@@ -127,6 +182,9 @@ const SchedulesComponent = () => {
               <div>
                 on {new Date(game.start_date).toLocaleDateString()}
               </div>
+              <div>
+                <FontAwesomeIcon icon={faTv} /> {game.outlet}
+              </div>
             </li>
           ))}
         </ul>
@@ -136,6 +194,7 @@ const SchedulesComponent = () => {
 };
 
 export default SchedulesComponent;
+
 
 
 
