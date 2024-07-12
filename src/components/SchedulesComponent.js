@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { getFBSTeams, getUpcomingGamesForWeek, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTv } from '@fortawesome/free-solid-svg-icons';
 const conferenceLogos = {
   "ACC": "/conference-logos/ACC.png",
   "American Athletic": "/conference-logos/American Athletic.png",
