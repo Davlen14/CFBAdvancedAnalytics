@@ -23,7 +23,6 @@ const SchedulesComponent = () => {
   const [teams, setTeams] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [selectedConference, setSelectedConference] = useState(null);
-  const [selectedDate, setSelectedDate] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const year = 2023;
@@ -45,41 +44,41 @@ const SchedulesComponent = () => {
   }, [year]);
 
   useEffect(() => {
-    const fetchGamesAndLogos = async () => {
-      setIsLoading(true);
-      try {
-        const gamesData = await getGames({ year, seasonType, division: 'fbs' });
+    if (selectedTeam) {
+      const fetchGamesAndLogos = async () => {
+        setIsLoading(true);
+        try {
+          const gamesData = await getGames({ year, seasonType, division: 'fbs', team: selectedTeam });
 
-        const teamLogosMap = teams.reduce((acc, team) => {
-          acc[team.id] = team.logos[0];
-          return acc;
-        }, {});
+          const teamLogosMap = teams.reduce((acc, team) => {
+            acc[team.id] = team.logos[0];
+            return acc;
+          }, {});
 
-        const gamesWithDetails = gamesData.map((game) => {
-          return {
-            ...game,
-            homeTeamLogo: teamLogosMap[game.home_id],
-            awayTeamLogo: teamLogosMap[game.away_id],
-          };
-        }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
+          const gamesWithDetails = gamesData.map((game) => {
+            return {
+              ...game,
+              homeTeamLogo: teamLogosMap[game.home_id],
+              awayTeamLogo: teamLogosMap[game.away_id],
+            };
+          }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
 
-        setSchedules(gamesWithDetails);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+          setSchedules(gamesWithDetails);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setIsLoading(false);
+        }
+      };
 
-    fetchGamesAndLogos();
-  }, [year, seasonType, teams]);
+      fetchGamesAndLogos();
+    }
+  }, [selectedTeam, year, seasonType, teams]);
 
   const filteredSchedules = schedules.filter(game => {
-    const gameDate = new Date(game.start_date).toLocaleDateString();
     return (
       (selectedTeam && (game.home_team === selectedTeam || game.away_team === selectedTeam)) ||
-      (selectedConference && teams.find(team => team.school === game.home_team)?.conference === selectedConference) ||
-      (selectedDate && gameDate === selectedDate)
+      (selectedConference && teams.find(team => team.school === game.home_team)?.conference === selectedConference)
     );
   });
 
@@ -105,7 +104,6 @@ const SchedulesComponent = () => {
 
   return (
     <div className="schedules-container">
-      <h2>Team Schedules</h2>
       <Select
         options={teamOptions}
         onChange={(option) => setSelectedTeam(option ? option.value : null)}
@@ -121,12 +119,6 @@ const SchedulesComponent = () => {
         isClearable
         className="dropdown"
         classNamePrefix="dropdown"
-      />
-      <input
-        type="date"
-        value={selectedDate}
-        onChange={(e) => setSelectedDate(e.target.value)}
-        className="date-input"
       />
       {isLoading ? (
         <p>Loading...</p>
@@ -164,4 +156,5 @@ const SchedulesComponent = () => {
 };
 
 export default SchedulesComponent;
+
 
