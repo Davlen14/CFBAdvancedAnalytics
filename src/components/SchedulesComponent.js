@@ -18,20 +18,26 @@ const conferenceLogos = {
   "Sun Belt": "/conference-logos/Sun Belt.png"
 };
 
+const yearOptions = [
+  { value: 2023, label: '2023' },
+  { value: 2024, label: '2024' },
+  // Add more years as needed
+];
+
 const SchedulesComponent = () => {
   const [schedules, setSchedules] = useState([]);
   const [teams, setTeams] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [selectedConference, setSelectedConference] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(2023); // Default year
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const year = 2023;
   const seasonType = 'regular';
 
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const fetchedTeams = await getFBSTeams(year);
+        const fetchedTeams = await getFBSTeams(selectedYear);
         setTeams(fetchedTeams);
         setIsLoading(false);
       } catch (error) {
@@ -41,14 +47,14 @@ const SchedulesComponent = () => {
     };
 
     fetchTeams();
-  }, [year]);
+  }, [selectedYear]);
 
   useEffect(() => {
     if (selectedTeam) {
       const fetchGamesAndLogos = async () => {
         setIsLoading(true);
         try {
-          const gamesData = await getGames({ year, seasonType, division: 'fbs', team: selectedTeam });
+          const gamesData = await getGames({ year: selectedYear, seasonType, division: 'fbs', team: selectedTeam });
 
           const teamLogosMap = teams.reduce((acc, team) => {
             acc[team.id] = team.logos[0];
@@ -73,7 +79,7 @@ const SchedulesComponent = () => {
 
       fetchGamesAndLogos();
     }
-  }, [selectedTeam, year, seasonType, teams]);
+  }, [selectedTeam, selectedYear, seasonType, teams]);
 
   const filteredSchedules = schedules.filter(game => {
     return (
@@ -102,8 +108,23 @@ const SchedulesComponent = () => {
     )
   }));
 
+  const handleYearChange = (selectedOption) => {
+    setSelectedYear(selectedOption.value);
+    setSelectedTeam(null); // Reset team selection
+    setSelectedConference(null); // Reset conference selection
+    setSchedules([]); // Clear schedules
+  };
+
   return (
     <div className="schedules-container">
+      <Select
+        options={yearOptions}
+        onChange={handleYearChange}
+        defaultValue={yearOptions.find(option => option.value === selectedYear)}
+        placeholder="Select a year"
+        className="dropdown"
+        classNamePrefix="dropdown"
+      />
       <Select
         options={teamOptions}
         onChange={(option) => setSelectedTeam(option ? option.value : null)}
@@ -130,26 +151,22 @@ const SchedulesComponent = () => {
         <ul className="schedule-list">
           {filteredSchedules.map((game, index) => (
             <li key={index} className="schedule-item">
-              <div className="game-info">
-                <div className="team">
-                  <img src={game.homeTeamLogo} alt={game.home_team} className="team-logo" />
-                  <span className="team-name">{game.home_team}</span>
-                  <span className="team-record">({game.home_points})</span>
-                </div>
-                <div className="vs">vs</div>
-                <div className="team">
-                  <img src={game.awayTeamLogo} alt={game.away_team} className="team-logo" />
-                  <span className="team-name">{game.away_team}</span>
-                  <span className="team-record">({game.away_points})</span>
-                </div>
-                <div className="game-details">
-                  <span className="game-date">{new Date(game.start_date).toLocaleDateString()}</span>
-                  <span className="game-time">{new Date(game.start_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-                  <span className="game-venue">{game.venue}</span>
-                  <span className="game-tv">
-                    <FontAwesomeIcon icon={faTv} /> {game.outlet}
-                  </span>
-                </div>
+              <div>
+                <img src={teams.find(team => team.school === game.home_team)?.logos[0]} alt={game.home_team} className="team-logo" />
+                {game.home_team}
+              </div>
+              <div>
+                vs
+              </div>
+              <div>
+                <img src={teams.find(team => team.school === game.away_team)?.logos[0]} alt={game.away_team} className="team-logo" />
+                {game.away_team}
+              </div>
+              <div>
+                on {new Date(game.start_date).toLocaleDateString()}
+              </div>
+              <div>
+                <FontAwesomeIcon icon={faTv} /> {game.outlet}
               </div>
             </li>
           ))}
@@ -160,6 +177,7 @@ const SchedulesComponent = () => {
 };
 
 export default SchedulesComponent;
+
 
 
 
