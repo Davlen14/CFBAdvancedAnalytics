@@ -893,12 +893,10 @@ footer p {
 }
 /* App.css */
 
-/* App.css */
-
 /* Schedule Container */
 .schedules-container {
   max-width: 1200px;
-  margin: 100px auto 20px;
+  margin: 100px auto 20px; /* Adjusted the top margin */
   padding: 20px;
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -971,6 +969,7 @@ footer p {
   display: flex;
   justify-content: space-between; /* Spaced items evenly */
   width: 100%; /* Full width for the game info */
+  flex-wrap: wrap; /* Allows items to wrap on smaller screens */
 }
 
 .team {
@@ -1015,6 +1014,19 @@ footer p {
   .team-logo {
     margin: 10px 0;
   }
+
+  .game-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vs {
+    margin: 10px 0;
+  }
+
+  .game-details {
+    align-items: flex-start;
+  }
 }
 
 /* Additions for React Select Dropdowns */
@@ -1045,3 +1057,11 @@ footer p {
   font-size: 14px;
   color: #333;
 }
+
+
+/* End of additions for React Select Dropdowns */
+
+
+
+
+
