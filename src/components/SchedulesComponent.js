@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { getFBSTeams, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
+import { getFBSTeams, getGames } from '../services/CollegeFootballApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
 
@@ -45,57 +45,34 @@ const SchedulesComponent = () => {
   }, [year]);
 
   useEffect(() => {
-    if (selectedTeam) {
-      const fetchGamesAndLogos = async () => {
-        setIsLoading(true);
-        try {
-          const [recordsData, gamesMediaData, pregameWinProbData] = await Promise.all([
-            getRecords(year),
-            getGamesMedia(year, null, seasonType, selectedTeam),
-            getPregameWinProbabilityData(year, null, selectedTeam, seasonType)
-          ]);
+    const fetchGamesAndLogos = async () => {
+      setIsLoading(true);
+      try {
+        const gamesData = await getGames({ year, seasonType, division: 'fbs' });
 
-          const teamLogosMap = teams.reduce((acc, team) => {
-            acc[team.id] = team.logos[0];
-            return acc;
-          }, {});
+        const teamLogosMap = teams.reduce((acc, team) => {
+          acc[team.id] = team.logos[0];
+          return acc;
+        }, {});
 
-          const teamRecordsMap = recordsData.reduce((acc, record) => {
-            acc[record.teamId] = record;
-            return acc;
-          }, {});
+        const gamesWithDetails = gamesData.map((game) => {
+          return {
+            ...game,
+            homeTeamLogo: teamLogosMap[game.home_id],
+            awayTeamLogo: teamLogosMap[game.away_id],
+          };
+        }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
 
-          const gamesMediaMap = gamesMediaData.reduce((acc, media) => {
-            acc[media.id] = media;
-            return acc;
-          }, {});
+        setSchedules(gamesWithDetails);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-          const gamesWithDetails = pregameWinProbData.map((game) => {
-            const mediaInfo = gamesMediaMap[game.id];
-            return {
-              ...game,
-              homeTeamLogo: teamLogosMap[game.home_id],
-              awayTeamLogo: teamLogosMap[game.away_id],
-              homeTeamRecord: teamRecordsMap[game.home_id]?.winsLosses,
-              awayTeamRecord: teamRecordsMap[game.away_id]?.winsLosses,
-              outlet: mediaInfo ? mediaInfo.outlet : 'Unknown Outlet',
-              location: game.venue || 'Unknown Location',
-              homeWinProbability: game.home_post_win_prob ? game.home_post_win_prob : 'N/A',
-              awayWinProbability: game.away_post_win_prob ? game.away_post_win_prob : 'N/A',
-            };
-          }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
-
-          setSchedules(gamesWithDetails);
-        } catch (err) {
-          setError(err);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-
-      fetchGamesAndLogos();
-    }
-  }, [selectedTeam, year, seasonType, teams]);
+    fetchGamesAndLogos();
+  }, [year, seasonType, teams]);
 
   const filteredSchedules = schedules.filter(game => {
     const gameDate = new Date(game.start_date).toLocaleDateString();
@@ -187,3 +164,4 @@ const SchedulesComponent = () => {
 };
 
 export default SchedulesComponent;
+

@@ -55,6 +55,11 @@ export async function getGamesMedia() {
   return makeGetRequest('/api/college-football/games/media');
 }
 
+// Function to get all games with various filters
+export async function getGames(params = {}) {
+  return makeGetRequest('/api/college-football/games', params);
+}
+
 // New functions for fetching additional metrics and ratings data
 
 // Function to get SP+ ratings
@@ -153,8 +158,8 @@ export async function getTeamStatCategories() {
 // Function to get historical polls and rankings
 export async function getHistoricalRankings() {
   return makeGetRequest('/api/rankings');
-
 }
+
 // Function to get game media information (includes schedules)
 export async function getGameMedia(year, week, seasonType, team, conference, mediaType, classification) {
   const params = {};
@@ -167,4 +172,5 @@ export async function getGameMedia(year, week, seasonType, team, conference, med
   if (classification) params.classification = classification;
   return makeGetRequest('/api/games/media', params);
 }
+
 
