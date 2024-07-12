@@ -969,6 +969,7 @@ footer p {
   display: flex;
   justify-content: space-between; /* Spaced items evenly */
   width: 100%; /* Full width for the game info */
+  flex-wrap: wrap; /* Allows items to wrap on smaller screens */
 }
 
 .team {
@@ -1012,6 +1013,19 @@ footer p {
 
   .team-logo {
     margin: 10px 0;
+  }
+
+  .game-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .vs {
+    margin: 10px 0;
+  }
+
+  .game-details {
+    align-items: flex-start;
   }
 }
 
