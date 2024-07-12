@@ -1,5 +1,3 @@
-// src/components/SchedulesComponent.js
-
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { getFBSTeams, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
@@ -51,14 +49,13 @@ const SchedulesComponent = () => {
       const fetchGamesAndLogos = async () => {
         setIsLoading(true);
         try {
-          const [fbsTeams, recordsData, gamesMediaData, pregameWinProbData] = await Promise.all([
-            getFBSTeams(),
-            getRecords(),
-            getGamesMedia(),
+          const [recordsData, gamesMediaData, pregameWinProbData] = await Promise.all([
+            getRecords(year),
+            getGamesMedia(year, null, seasonType, selectedTeam),
             getPregameWinProbabilityData(year, null, selectedTeam, seasonType)
           ]);
 
-          const teamLogosMap = fbsTeams.reduce((acc, team) => {
+          const teamLogosMap = teams.reduce((acc, team) => {
             acc[team.id] = team.logos[0];
             return acc;
           }, {});
@@ -73,14 +70,8 @@ const SchedulesComponent = () => {
             return acc;
           }, {});
 
-          const pregameWinProbMap = pregameWinProbData.reduce((acc, game) => {
-            acc[game.gameId] = game;
-            return acc;
-          }, {});
-
           const gamesWithDetails = pregameWinProbData.map((game) => {
             const mediaInfo = gamesMediaMap[game.id];
-            const pregameWinProb = pregameWinProbMap[game.id];
             return {
               ...game,
               homeTeamLogo: teamLogosMap[game.home_id],
@@ -89,8 +80,8 @@ const SchedulesComponent = () => {
               awayTeamRecord: teamRecordsMap[game.away_id]?.winsLosses,
               outlet: mediaInfo ? mediaInfo.outlet : 'Unknown Outlet',
               location: game.venue || 'Unknown Location',
-              homeWinProbability: pregameWinProb ? pregameWinProb.homeWinProb : 'N/A',
-              awayWinProbability: pregameWinProb ? pregameWinProb.awayWinProb : 'N/A',
+              homeWinProbability: game.home_post_win_prob ? game.home_post_win_prob : 'N/A',
+              awayWinProbability: game.away_post_win_prob ? game.away_post_win_prob : 'N/A',
             };
           }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
 
@@ -104,7 +95,7 @@ const SchedulesComponent = () => {
 
       fetchGamesAndLogos();
     }
-  }, [selectedTeam, year, seasonType]);
+  }, [selectedTeam, year, seasonType, teams]);
 
   const filteredSchedules = schedules.filter(game => {
     const gameDate = new Date(game.start_date).toLocaleDateString();
@@ -196,13 +187,3 @@ const SchedulesComponent = () => {
 };
 
 export default SchedulesComponent;
-
-
-
-
-
-
-
-
-
-
