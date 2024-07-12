@@ -897,11 +897,13 @@ footer p {
   max-width: 1200px;
   margin: 20px auto;
   padding: 20px;
+  padding-top: 60px; /* Add padding to push the content below the navbar */
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
+
 
 /* Dropdown styling */
 .dropdown__control {
