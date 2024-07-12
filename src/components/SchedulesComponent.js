@@ -130,22 +130,26 @@ const SchedulesComponent = () => {
         <ul className="schedule-list">
           {filteredSchedules.map((game, index) => (
             <li key={index} className="schedule-item">
-              <div>
-                <img src={teams.find(team => team.school === game.home_team)?.logos[0]} alt={game.home_team} className="team-logo" />
-                {game.home_team}
-              </div>
-              <div>
-                vs
-              </div>
-              <div>
-                <img src={teams.find(team => team.school === game.away_team)?.logos[0]} alt={game.away_team} className="team-logo" />
-                {game.away_team}
-              </div>
-              <div>
-                on {new Date(game.start_date).toLocaleDateString()}
-              </div>
-              <div>
-                <FontAwesomeIcon icon={faTv} /> {game.outlet}
+              <div className="game-info">
+                <div className="team">
+                  <img src={game.homeTeamLogo} alt={game.home_team} className="team-logo" />
+                  <span className="team-name">{game.home_team}</span>
+                  <span className="team-record">({game.home_points})</span>
+                </div>
+                <div className="vs">vs</div>
+                <div className="team">
+                  <img src={game.awayTeamLogo} alt={game.away_team} className="team-logo" />
+                  <span className="team-name">{game.away_team}</span>
+                  <span className="team-record">({game.away_points})</span>
+                </div>
+                <div className="game-details">
+                  <span className="game-date">{new Date(game.start_date).toLocaleDateString()}</span>
+                  <span className="game-time">{new Date(game.start_date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                  <span className="game-venue">{game.venue}</span>
+                  <span className="game-tv">
+                    <FontAwesomeIcon icon={faTv} /> {game.outlet}
+                  </span>
+                </div>
               </div>
             </li>
           ))}
@@ -156,5 +160,6 @@ const SchedulesComponent = () => {
 };
 
 export default SchedulesComponent;
+
 
 
