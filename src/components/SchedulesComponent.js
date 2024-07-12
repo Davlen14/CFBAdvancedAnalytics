@@ -1,8 +1,11 @@
+// src/components/SchedulesComponent.js
+
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { getFBSTeams, getUpcomingGamesForWeek, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
+import { getFBSTeams, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
+
 const conferenceLogos = {
   "ACC": "/conference-logos/ACC.png",
   "American Athletic": "/conference-logos/American Athletic.png",
@@ -25,7 +28,6 @@ const SchedulesComponent = () => {
   const [selectedDate, setSelectedDate] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentWeek, setCurrentWeek] = useState(1);
   const year = 2023;
   const seasonType = 'regular';
 
@@ -49,12 +51,11 @@ const SchedulesComponent = () => {
       const fetchGamesAndLogos = async () => {
         setIsLoading(true);
         try {
-          const [gamesData, fbsTeams, recordsData, gamesMediaData, pregameWinProbData] = await Promise.all([
-            getUpcomingGamesForWeek(currentWeek),
+          const [fbsTeams, recordsData, gamesMediaData, pregameWinProbData] = await Promise.all([
             getFBSTeams(),
             getRecords(),
             getGamesMedia(),
-            getPregameWinProbabilityData(year, currentWeek, selectedTeam, seasonType)
+            getPregameWinProbabilityData(year, null, selectedTeam, seasonType)
           ]);
 
           const teamLogosMap = fbsTeams.reduce((acc, team) => {
@@ -77,7 +78,7 @@ const SchedulesComponent = () => {
             return acc;
           }, {});
 
-          const gamesWithDetails = gamesData.map((game) => {
+          const gamesWithDetails = pregameWinProbData.map((game) => {
             const mediaInfo = gamesMediaMap[game.id];
             const pregameWinProb = pregameWinProbMap[game.id];
             return {
@@ -103,7 +104,7 @@ const SchedulesComponent = () => {
 
       fetchGamesAndLogos();
     }
-  }, [selectedTeam, currentWeek, year, seasonType]);
+  }, [selectedTeam, year, seasonType]);
 
   const filteredSchedules = schedules.filter(game => {
     const gameDate = new Date(game.start_date).toLocaleDateString();
@@ -195,6 +196,7 @@ const SchedulesComponent = () => {
 };
 
 export default SchedulesComponent;
+
 
 
 
