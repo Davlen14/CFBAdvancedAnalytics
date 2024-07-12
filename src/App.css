@@ -892,18 +892,16 @@ footer p {
   }
 }
 /* App.css */
+
 /* Schedule Container */
 .schedules-container {
   max-width: 1200px;
-  margin: 20px auto;
+  margin: 100px auto 20px; /* Adjusted the top margin */
   padding: 20px;
-  padding-top: 60px; /* Add padding to push the content below the navbar */
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
 }
-
 
 /* Dropdown styling */
 .dropdown__control {
@@ -945,7 +943,8 @@ footer p {
 
 .schedule-item {
   display: flex;
-  align-items: center;
+  flex-direction: column; /* Ensured items are aligned in a column */
+  align-items: center; /* Centered the items */
   justify-content: space-between;
   background-color: #ffffff;
   margin: 10px 0;
@@ -963,6 +962,46 @@ footer p {
   width: 50px;
   height: 50px;
   margin-right: 15px;
+}
+
+/* Additional styling for game info */
+.game-info {
+  display: flex;
+  justify-content: space-between; /* Spaced items evenly */
+  width: 100%; /* Full width for the game info */
+}
+
+.team {
+  display: flex;
+  align-items: center; /* Centered items within the team */
+}
+
+.team-name {
+  font-weight: bold;
+}
+
+.team-record {
+  margin-left: 5px;
+}
+
+.vs {
+  font-size: 24px; /* Adjusted font size */
+  font-weight: bold;
+  margin: 0 15px; /* Added margin around "vs" */
+}
+
+.game-details {
+  display: flex;
+  flex-direction: column; /* Ensured details are aligned in a column */
+  align-items: center; /* Centered the details */
+}
+
+.game-date,
+.game-time,
+.game-venue,
+.game-tv {
+  margin-top: 5px; /* Added margin to the top */
+  font-size: 14px; /* Adjusted font size */
 }
 
 /* Media queries for responsiveness */
