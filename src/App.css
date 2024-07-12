@@ -935,18 +935,6 @@ footer p {
   margin-right: 10px;
 }
 
-/* Date input styling */
-.date-input {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 5px;
-  font-size: 14px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  display: block;
-  width: 100%;
-}
-
 /* List styling */
 .schedule-list {
   list-style-type: none;
