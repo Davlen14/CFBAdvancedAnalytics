@@ -90,6 +90,20 @@ app.get('/api/college-football/teams-fbs', async (_req, res) => {
   }
 });
 
+// Endpoint to get games
+app.get('/api/college-football/games', async (req, res) => {
+  try {
+    const { year, seasonType, week, division } = req.query;
+    const response = await apiClient.get('/games', {
+      params: { year, seasonType, week, division },
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching games:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Endpoint to get games media
 app.get('/api/college-football/games/media', async (req, res) => {
   try {
