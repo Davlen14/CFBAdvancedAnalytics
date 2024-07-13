@@ -173,4 +173,28 @@ export async function getGameMedia(year, week, seasonType, team, conference, med
   return makeGetRequest('/api/games/media', params);
 }
 
+// Function to get detailed game stats
+export async function getGameStats(year, seasonType, week, classification) {
+  return makeGetRequest('/api/college-football/games/teams', {
+    year,
+    seasonType,
+    week,
+    classification,
+  });
+}
+
+// Example usage in a React component
+const fetchGameStats = async () => {
+  try {
+    const gameStats = await getGameStats(2023, 'regular', 1, 'fbs');
+    console.log('Game Stats:', gameStats);
+  } catch (error) {
+    console.error('Error fetching game stats:', error);
+  }
+};
+
+useEffect(() => {
+  fetchGameStats();
+}, []);
+
 
