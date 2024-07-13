@@ -29,6 +29,25 @@ const apiClient = axios.create({
   },
 });
 
+// Endpoint to get detailed game stats by year, seasonType, and week
+app.get('/api/college-football/games/teams', async (req, res) => {
+  try {
+    const { year, seasonType, week, classification } = req.query;
+    if (!year || !seasonType || !week || !classification) {
+      return res.status(400).json({ error: 'year, seasonType, week, and classification query parameters are required' });
+    }
+
+    const response = await apiClient.get('/games/teams', {
+      params: { year, seasonType, week, classification },
+    });
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching game stats:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Endpoint to get upcoming games
 app.get('/api/college-football/upcoming-games', async (req, res) => {
   try {
@@ -160,7 +179,7 @@ app.get('/api/ratings/sp', async (req, res) => {
 // New endpoints for additional metrics and ratings data
 
 // Endpoint to get historical SRS ratings
-app.get('/api/ratings/srs', async (req, res) => {
+app.get('/api/ratings/srs', async (_req, res) => {
   try {
     const response = await apiClient.get('/ratings/srs');
     res.json(response.data);
@@ -171,7 +190,7 @@ app.get('/api/ratings/srs', async (req, res) => {
 });
 
 // Endpoint to get historical SP+ ratings by conference
-app.get('/api/ratings/sp/conferences', async (req, res) => {
+app.get('/api/ratings/sp/conferences', async (_req, res) => {
   try {
     const response = await apiClient.get('/ratings/sp/conferences');
     res.json(response.data);
@@ -182,7 +201,7 @@ app.get('/api/ratings/sp/conferences', async (req, res) => {
 });
 
 // Endpoint to get historical Elo ratings
-app.get('/api/ratings/elo', async (req, res) => {
+app.get('/api/ratings/elo', async (_req, res) => {
   try {
     const response = await apiClient.get('/ratings/elo');
     res.json(response.data);
@@ -193,7 +212,7 @@ app.get('/api/ratings/elo', async (req, res) => {
 });
 
 // Endpoint to get historical FPI ratings
-app.get('/api/ratings/fpi', async (req, res) => {
+app.get('/api/ratings/fpi', async (_req, res) => {
   try {
     const response = await apiClient.get('/ratings/fpi');
     res.json(response.data);
@@ -204,7 +223,7 @@ app.get('/api/ratings/fpi', async (req, res) => {
 });
 
 // Endpoint to get predicted points (EP)
-app.get('/api/ppa/predicted', async (req, res) => {
+app.get('/api/ppa/predicted', async (_req, res) => {
   try {
     const response = await apiClient.get('/ppa/predicted');
     res.json(response.data);
@@ -215,7 +234,7 @@ app.get('/api/ppa/predicted', async (req, res) => {
 });
 
 // Endpoint to get Predicted Points Added (PPA/EPA) data by team
-app.get('/api/ppa/teams', async (req, res) => {
+app.get('/api/ppa/teams', async (_req, res) => {
   try {
     const response = await apiClient.get('/ppa/teams');
     res.json(response.data);
@@ -226,7 +245,7 @@ app.get('/api/ppa/teams', async (req, res) => {
 });
 
 // Endpoint to get Team Predicted Points Added (PPA/EPA) by game
-app.get('/api/ppa/games', async (req, res) => {
+app.get('/api/ppa/games', async (_req, res) => {
   try {
     const response = await apiClient.get('/ppa/games');
     res.json(response.data);
@@ -237,7 +256,7 @@ app.get('/api/ppa/games', async (req, res) => {
 });
 
 // Endpoint to get Player Predicted Points Added (PPA/EPA) by game
-app.get('/api/ppa/players/games', async (req, res) => {
+app.get('/api/ppa/players/games', async (_req, res) => {
   try {
     const response = await apiClient.get('/ppa/players/games');
     res.json(response.data);
@@ -248,7 +267,7 @@ app.get('/api/ppa/players/games', async (req, res) => {
 });
 
 // Endpoint to get Player Predicted Points Added (PPA/EPA) by season
-app.get('/api/ppa/players/season', async (req, res) => {
+app.get('/api/ppa/players/season', async (_req, res) => {
   try {
     const response = await apiClient.get('/ppa/players/season');
     res.json(response.data);
@@ -259,7 +278,7 @@ app.get('/api/ppa/players/season', async (req, res) => {
 });
 
 // Endpoint to get field goal expected points
-app.get('/api/metrics/fg/ep', async (req, res) => {
+app.get('/api/metrics/fg/ep', async (_req, res) => {
   try {
     const response = await apiClient.get('/metrics/fg/ep');
     res.json(response.data);
@@ -270,7 +289,7 @@ app.get('/api/metrics/fg/ep', async (req, res) => {
 });
 
 // Endpoint to get win probability chart data
-app.get('/api/metrics/wp', async (req, res) => {
+app.get('/api/metrics/wp', async (_req, res) => {
   try {
     const response = await apiClient.get('/metrics/wp');
     res.json(response.data);
@@ -295,7 +314,7 @@ app.get('/api/metrics/wp/pregame', async (req, res) => {
 });
 
 // Endpoint to get team statistics by season
-app.get('/api/stats/season', async (req, res) => {
+app.get('/api/stats/season', async (_req, res) => {
   try {
     const response = await apiClient.get('/stats/season');
     res.json(response.data);
@@ -306,7 +325,7 @@ app.get('/api/stats/season', async (req, res) => {
 });
 
 // Endpoint to get advanced team metrics by season
-app.get('/api/stats/season/advanced', async (req, res) => {
+app.get('/api/stats/season/advanced', async (_req, res) => {
   try {
     const response = await apiClient.get('/stats/season/advanced');
     res.json(response.data);
@@ -317,7 +336,7 @@ app.get('/api/stats/season/advanced', async (req, res) => {
 });
 
 // Endpoint to get advanced team metrics by game
-app.get('/api/stats/game/advanced', async (req, res) => {
+app.get('/api/stats/game/advanced', async (_req, res) => {
   try {
     const response = await apiClient.get('/stats/game/advanced');
     res.json(response.data);
@@ -328,7 +347,7 @@ app.get('/api/stats/game/advanced', async (req, res) => {
 });
 
 // Endpoint to get team stat categories
-app.get('/api/stats/categories', async (req, res) => {
+app.get('/api/stats/categories', async (_req, res) => {
   try {
     const response = await apiClient.get('/stats/categories');
     res.json(response.data);
@@ -339,7 +358,7 @@ app.get('/api/stats/categories', async (req, res) => {
 });
 
 // Endpoint to get historical polls and rankings
-app.get('/api/rankings', async (req, res) => {
+app.get('/api/rankings', async (_req, res) => {
   try {
     const response = await apiClient.get('/rankings');
     res.json(response.data);
@@ -350,13 +369,14 @@ app.get('/api/rankings', async (req, res) => {
 });
 
 // Test endpoint to verify environment variable
-app.get('/test-env', (req, res) => {
+app.get('/test-env', (_req, res) => {
   res.send(`REACT_APP_API_BASE_URL: ${process.env.REACT_APP_API_BASE_URL}`);
 });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
