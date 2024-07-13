@@ -80,10 +80,8 @@ body {
     top: 60px; /* Adjust based on your navbar height */
     left: 0;
     right: 0;
-    background-color: #ffffff; /* White background when opened */
+    background-color: #adaeb1; /* Light grey background to match navbar */
     z-index: 999;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow */
-    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
   }
 
   .nav-buttons.active {
@@ -91,15 +89,16 @@ body {
   }
 
   .nav-button {
-    color: #333; /* Dark text color */
-    padding: 15px;
+    color: #ffffff; /* White text color */
+    padding: 10px 15px;
     text-align: center;
     width: 100%;
+    background-color: #adaeb1; /* Light grey background */
   }
 
   .nav-button:hover {
-    background-color: #f1f1f1; /* Light grey hover background */
-    color: #cc0000; /* Red text color */
+    background-color: #cc0000; /* Red hover background */
+    color: #ffffff; /* White text color */
   }
 }
 
@@ -139,6 +138,7 @@ body {
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
+
 
 
 /* Second navbar styles */
