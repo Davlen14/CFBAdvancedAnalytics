@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import TeamsComponent from './components/TeamsComponent';
 import UpcomingGames from './components/UpcomingGames';
-import ThemeToggle from './components/ThemeToggle';
 import HomeComponent from './components/HomeComponent';
 import MetricsComponent from './components/MetricsComponent';
 import SchedulesComponent from './components/SchedulesComponent'; // Import SchedulesComponent
@@ -13,16 +12,6 @@ import './App.css'; // Ensure this path is correct
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedTeam, setSelectedTeam] = useState(null);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
-
-  useEffect(() => {
-    document.body.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -42,9 +31,6 @@ function App() {
             <Link to="/teams" className="nav-button" onClick={toggleMenu}>Teams</Link>
             <Link to="/games" className="nav-button" onClick={toggleMenu}>Games</Link>
             <Link to="/schedules" className="nav-button" onClick={toggleMenu}>Schedules</Link> {/* Added Schedules link */}
-            <div className="theme-toggle-container">
-              <ThemeToggle toggleTheme={toggleTheme} />
-            </div>
           </div>
         </div>
       </div>
@@ -61,6 +47,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
