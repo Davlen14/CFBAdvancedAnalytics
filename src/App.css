@@ -45,18 +45,20 @@
 .nav-button {
   color: #ffffff; /* White text color */
   text-decoration: none;
-  padding: 10px 15px;
+  padding: 12px 18px;
   font-size: 18px;
   font-family: "Arial", sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow to buttons */
-  border: 1px solid #ffffff; /* White border */
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 25px; /* More rounded corners */
+  background-color: #ff0000; /* Button background color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow to buttons */
+  border: none; /* Removed border */
 }
 
 .nav-button:hover {
   background-color: #cc0000;
   color: #ffffff;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 /* Ensure the body takes up the full height and has no hidden overflow */
@@ -65,6 +67,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Prevent horizontal overflow */
+  font-family: "Arial", sans-serif; /* Applied to entire body */
 }
 
 /* Responsive adjustments for the navbar */
@@ -82,8 +85,6 @@ body {
     right: 0;
     background-color: #ffffff; /* White background when opened */
     z-index: 999;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow */
-    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
   }
 
   .nav-buttons.active {
@@ -91,10 +92,12 @@ body {
   }
 
   .nav-button {
-    color: #333; /* Dark text color */
-    padding: 15px;
+    color: #ff0000; /* Red text color */
+    padding: 12px 18px;
     text-align: center;
     width: 100%;
+    background-color: #ffffff; /* Ensure background is white */
+    border: 1px solid #ff0000; /* Red border */
   }
 
   .nav-button:hover {
@@ -110,7 +113,7 @@ body {
 
   .nav-button {
     font-size: 16px;
-    padding: 8px 10px;
+    padding: 10px 15px;
   }
 }
 
@@ -139,6 +142,7 @@ body {
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
+
 
 
 /* Second navbar styles */
