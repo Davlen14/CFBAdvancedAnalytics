@@ -3,6 +3,7 @@ import Select from 'react-select';
 import { getFBSTeams, getGames } from '../services/CollegeFootballApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
+import AdvancedBoxScoreModal from './AdvancedBoxScoreModal'; // Import the modal component
 
 const conferenceLogos = {
   "ACC": "/conference-logos/ACC.png",
@@ -26,6 +27,7 @@ const SchedulesComponent = () => {
   const [selectedYear, setSelectedYear] = useState(2023); // Default year
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedGame, setSelectedGame] = useState(null); // State for selected game
   const seasonType = 'regular';
 
   useEffect(() => {
@@ -107,6 +109,14 @@ const SchedulesComponent = () => {
     { value: 2024, label: '2024' }
   ];
 
+  const handleGameClick = (gameId) => {
+    setSelectedGame(gameId);
+  };
+
+  const closeModal = () => {
+    setSelectedGame(null);
+  };
+
   return (
     <div className="schedules-container">
       <Select
@@ -142,7 +152,7 @@ const SchedulesComponent = () => {
       ) : (
         <ul className="schedule-list">
           {filteredSchedules.map((game, index) => (
-            <li key={index} className="schedule-item">
+            <li key={index} className="schedule-item" onClick={() => handleGameClick(game.id)}>
               <div className="game-info">
                 <div className="team">
                   <img src={game.homeTeamLogo} alt={game.home_team} className="team-logo" />
@@ -168,11 +178,15 @@ const SchedulesComponent = () => {
           ))}
         </ul>
       )}
+      {selectedGame && (
+        <AdvancedBoxScoreModal gameId={selectedGame} onClose={closeModal} />
+      )}
     </div>
   );
 };
 
 export default SchedulesComponent;
+
 
 
 
