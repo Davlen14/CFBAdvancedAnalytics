@@ -1,3 +1,11 @@
+/* Global styles */
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
 /* Navbar styles */
 .navbar {
   background-color: #adaeb1; /* Light grey background */
@@ -59,14 +67,6 @@
   color: #ffffff;
 }
 
-/* Ensure the body takes up the full height and has no hidden overflow */
-body {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* Prevent horizontal overflow */
-}
-
 /* Responsive adjustments for the navbar */
 @media (max-width: 768px) {
   .hamburger-menu {
@@ -113,7 +113,7 @@ body {
   }
 }
 
-/* Styles for the Home Component */
+/* Home Component styles */
 .home {
   padding-top: 80px; /* Adjust the value to match the height of your navbar */
 }
@@ -138,6 +138,209 @@ body {
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
+
+/* Statistics Section */
+#statistics {
+  padding: 2rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+#statistics h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#statistics p {
+  font-size: 1rem;
+}
+
+/* About Us section */
+#about {
+  background: linear-gradient(to right, #cc0000, #ff6666);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+#about h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+#about p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* Our Features section */
+#features {
+  background: linear-gradient(to right, #cc0000, #ff6666);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+#features h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+#features ul {
+  list-style: none;
+  padding: 0;
+}
+
+#features li {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* How It Works section */
+#how-it-works {
+  background: linear-gradient(to right, #cc0000, #ff6666);
+  color: white;
+  padding: 3rem 2rem;
+  text-align: center;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+#how-it-works h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+#how-it-works p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+/* Latest News Section */
+#news {
+  padding: 2rem 1rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+#news h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#news p {
+  font-size: 1rem;
+}
+
+/* Footer Section */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+footer p {
+  margin: 0.5rem 0;
+}
+
+/* Teams container styles */
+.teams-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+/* Responsive adjustments for the teams container */
+@media (max-width: 768px) {
+  .teams-container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .teams-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.team-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.team-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Other styles continue here... */
+
+/* Responsive adjustments for other components and media queries */
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  /* Adjustments for various sections */
+  .home, .hero-section, #about, #features, #how-it-works, #statistics, #news {
+    padding: 2rem 1rem;
+  }
+
+  .hero-section h2, #about h2, #features h2, #how-it-works h2, #statistics h2, #news h2 {
+    font-size: 2rem;
+  }
+
+  .hero-section p, #about p, #features li, #how-it-works p, #statistics p, #news p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjustments for smaller screens */
+  .home, .hero-section, #about, #features, #how-it-works, #statistics, #news {
+    padding: 1rem 0.5rem;
+  }
+
+  .hero-section h2, #about h2, #features h2, #how-it-works h2, #statistics h2, #news h2 {
+    font-size: 1.5rem;
+  }
+
+  .hero-section p, #about p, #features li, #how-it-works p, #statistics p, #news p {
+    font-size: 0.9rem;
+  }
+}
+
 
 
 /* Second navbar styles */
