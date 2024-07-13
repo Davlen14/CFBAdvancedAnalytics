@@ -5,7 +5,6 @@ import '../App.css'; // Import the main CSS file
 const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
   const [boxScore, setBoxScore] = useState(null);
   const [activeTab, setActiveTab] = useState('original');
-  const [tooltip, setTooltip] = useState({ visible: false, text: '', x: 0, y: 0 });
 
   useEffect(() => {
     const fetchBoxScore = async () => {
@@ -20,16 +19,8 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
     fetchBoxScore();
   }, [gameId]);
 
-  const handleMouseEnter = (e, text) => {
-    const { clientX, clientY } = e;
-    setTooltip({ visible: true, text, x: clientX, y: clientY });
-  };
-
-  const handleMouseLeave = () => {
-    setTooltip({ visible: false, text: '', x: 0, y: 0 });
-  };
-
   if (!boxScore) {
+    return <div>Loading...</div>;
   }
 
   const renderTabContent = () => {
@@ -67,9 +58,9 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total points scored by the team')} onMouseLeave={handleMouseLeave}>Points</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Probability of winning the game')} onMouseLeave={handleMouseLeave}>Win Probability</th>
+            <th>Team</th>
+            <th>Points</th>
+            <th>Win Probability</th>
           </tr>
         </thead>
         <tbody>
@@ -89,13 +80,13 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Number of plays made')} onMouseLeave={handleMouseLeave}>Plays</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total score or value')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Value for the 1st quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Value for the 2nd quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Value for the 3rd quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Value for the 4th quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
+            <th>Team</th>
+            <th>Plays</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
           </tr>
         </thead>
         <tbody>
@@ -116,13 +107,13 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Number of plays made')} onMouseLeave={handleMouseLeave}>Plays</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total score or value')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Value for the 1st quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Value for the 2nd quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Value for the 3rd quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Value for the 4th quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
+            <th>Team</th>
+            <th>Plays</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
           </tr>
         </thead>
         <tbody>
@@ -143,10 +134,10 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Overall success rate')} onMouseLeave={handleMouseLeave}>Overall</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Success rate on standard downs')} onMouseLeave={handleMouseLeave}>Standard Downs</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Success rate on passing downs')} onMouseLeave={handleMouseLeave}>Passing Downs</th>
+            <th>Team</th>
+            <th>Overall</th>
+            <th>Standard Downs</th>
+            <th>Passing Downs</th>
           </tr>
         </thead>
         <tbody>
@@ -164,12 +155,12 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total explosiveness')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Explosiveness in the 1st quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Explosiveness in the 2nd quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Explosiveness in the 3rd quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Explosiveness in the 4th quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
+            <th>Team</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
           </tr>
         </thead>
         <tbody>
@@ -189,12 +180,12 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Success rate on power rushing plays')} onMouseLeave={handleMouseLeave}>Power Success</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Rate at which runs are stopped at or before the line of scrimmage')} onMouseLeave={handleMouseLeave}>Stuff Rate</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Yards gained before contact')} onMouseLeave={handleMouseLeave}>Line Yards</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Yards gained at the second level (5-10 yards past the line of scrimmage)')} onMouseLeave={handleMouseLeave}>Second Level Yards</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Yards gained in the open field (more than 10 yards past the line of scrimmage)')} onMouseLeave={handleMouseLeave}>Open Field Yards</th>
+            <th>Team</th>
+            <th>Power Success</th>
+            <th>Stuff Rate</th>
+            <th>Line Yards</th>
+            <th>Second Level Yards</th>
+            <th>Open Field Yards</th>
           </tr>
         </thead>
         <tbody>
@@ -214,10 +205,10 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Overall defensive havoc rate')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Havoc rate by the front seven (defensive line and linebackers)')} onMouseLeave={handleMouseLeave}>Front Seven</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Havoc rate by defensive backs (safeties and cornerbacks)')} onMouseLeave={handleMouseLeave}>DB</th>
+            <th>Team</th>
+            <th>Total</th>
+            <th>Front Seven</th>
+            <th>DB</th>
           </tr>
         </thead>
         <tbody>
@@ -235,10 +226,10 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Number of scoring opportunities')} onMouseLeave={handleMouseLeave}>Opportunities</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total points scored')} onMouseLeave={handleMouseLeave}>Points</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Average points scored per scoring opportunity')} onMouseLeave={handleMouseLeave}>Points Per Opportunity</th>
+            <th>Team</th>
+            <th>Opportunities</th>
+            <th>Points</th>
+            <th>Points Per Opportunity</th>
           </tr>
         </thead>
         <tbody>
@@ -256,9 +247,9 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Average starting field position')} onMouseLeave={handleMouseLeave}>Average Start</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points based on starting field position')} onMouseLeave={handleMouseLeave}>Average Starting Predicted Points</th>
+            <th>Team</th>
+            <th>Average Start</th>
+            <th>Average Starting Predicted Points</th>
           </tr>
         </thead>
         <tbody>
@@ -275,16 +266,16 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the player')} onMouseLeave={handleMouseLeave}>Player</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Team the player belongs to')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Position of the player')} onMouseLeave={handleMouseLeave}>Position</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total usage value')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Usage value in the 1st quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Usage value in the 2nd quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Usage value in the 3rd quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Usage value in the 4th quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Rushing usage value')} onMouseLeave={handleMouseLeave}>Rushing</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Passing usage value')} onMouseLeave={handleMouseLeave}>Passing</th>
+            <th>Player</th>
+            <th>Team</th>
+            <th>Position</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+            <th>Rushing</th>
+            <th>Passing</th>
           </tr>
         </thead>
         <tbody>
@@ -308,16 +299,16 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the player')} onMouseLeave={handleMouseLeave}>Player</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Team the player belongs to')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Position of the player')} onMouseLeave={handleMouseLeave}>Position</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total predicted points added')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 1st quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 2nd quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 3rd quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 4th quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added from rushing')} onMouseLeave={handleMouseLeave}>Rushing</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added from passing')} onMouseLeave={handleMouseLeave}>Passing</th>
+            <th>Player</th>
+            <th>Team</th>
+            <th>Position</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+            <th>Rushing</th>
+            <th>Passing</th>
           </tr>
         </thead>
         <tbody>
@@ -346,13 +337,13 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Number of plays made')} onMouseLeave={handleMouseLeave}>Plays</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total predicted points added')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 1st quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 2nd quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 3rd quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 4th quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
+            <th>Team</th>
+            <th>Plays</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
           </tr>
         </thead>
         <tbody>
@@ -378,13 +369,13 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Number of plays made')} onMouseLeave={handleMouseLeave}>Plays</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total cumulative predicted points added')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Cumulative predicted points added in the 1st quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Cumulative predicted points added in the 2nd quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Cumulative predicted points added in the 3rd quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Cumulative predicted points added in the 4th quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
+            <th>Team</th>
+            <th>Plays</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
           </tr>
         </thead>
         <tbody>
@@ -410,10 +401,10 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Overall success rate')} onMouseLeave={handleMouseLeave}>Overall</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Success rate on standard downs')} onMouseLeave={handleMouseLeave}>Standard Downs</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Success rate on passing downs')} onMouseLeave={handleMouseLeave}>Passing Downs</th>
+            <th>Team</th>
+            <th>Overall</th>
+            <th>Standard Downs</th>
+            <th>Passing Downs</th>
           </tr>
         </thead>
         <tbody>
@@ -436,12 +427,12 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total explosiveness')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Explosiveness in the 1st quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Explosiveness in the 2nd quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Explosiveness in the 3rd quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Explosiveness in the 4th quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
+            <th>Team</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
           </tr>
         </thead>
         <tbody>
@@ -466,12 +457,12 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Success rate on power rushing plays')} onMouseLeave={handleMouseLeave}>Power Success</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Rate at which runs are stopped at or before the line of scrimmage')} onMouseLeave={handleMouseLeave}>Stuff Rate</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Yards gained before contact')} onMouseLeave={handleMouseLeave}>Line Yards</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Yards gained at the second level (5-10 yards past the line of scrimmage)')} onMouseLeave={handleMouseLeave}>Second Level Yards</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Yards gained in the open field (more than 10 yards past the line of scrimmage)')} onMouseLeave={handleMouseLeave}>Open Field Yards</th>
+            <th>Team</th>
+            <th>Power Success</th>
+            <th>Stuff Rate</th>
+            <th>Line Yards</th>
+            <th>Second Level Yards</th>
+            <th>Open Field Yards</th>
           </tr>
         </thead>
         <tbody>
@@ -496,10 +487,10 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Overall defensive havoc rate')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Havoc rate by the front seven (defensive line and linebackers)')} onMouseLeave={handleMouseLeave}>Front Seven</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Havoc rate by defensive backs (safeties and cornerbacks)')} onMouseLeave={handleMouseLeave}>DB</th>
+            <th>Team</th>
+            <th>Total</th>
+            <th>Front Seven</th>
+            <th>DB</th>
           </tr>
         </thead>
         <tbody>
@@ -522,10 +513,10 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Number of scoring opportunities')} onMouseLeave={handleMouseLeave}>Opportunities</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total points scored')} onMouseLeave={handleMouseLeave}>Points</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Average points scored per scoring opportunity')} onMouseLeave={handleMouseLeave}>Points Per Opportunity</th>
+            <th>Team</th>
+            <th>Opportunities</th>
+            <th>Points</th>
+            <th>Points Per Opportunity</th>
           </tr>
         </thead>
         <tbody>
@@ -548,9 +539,9 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the team')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Average starting field position')} onMouseLeave={handleMouseLeave}>Average Start</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points based on starting field position')} onMouseLeave={handleMouseLeave}>Average Starting Predicted Points</th>
+            <th>Team</th>
+            <th>Average Start</th>
+            <th>Average Starting Predicted Points</th>
           </tr>
         </thead>
         <tbody>
@@ -572,16 +563,16 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the player')} onMouseLeave={handleMouseLeave}>Player</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Team the player belongs to')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Position of the player')} onMouseLeave={handleMouseLeave}>Position</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total usage value')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Usage value in the 1st quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Usage value in the 2nd quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Usage value in the 3rd quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Usage value in the 4th quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Rushing usage value')} onMouseLeave={handleMouseLeave}>Rushing</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Passing usage value')} onMouseLeave={handleMouseLeave}>Passing</th>
+            <th>Player</th>
+            <th>Team</th>
+            <th>Position</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+            <th>Rushing</th>
+            <th>Passing</th>
           </tr>
         </thead>
         <tbody>
@@ -610,16 +601,16 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the player')} onMouseLeave={handleMouseLeave}>Player</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Team the player belongs to')} onMouseLeave={handleMouseLeave}>Team</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Position of the player')} onMouseLeave={handleMouseLeave}>Position</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Total predicted points added')} onMouseLeave={handleMouseLeave}>Total</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 1st quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 2nd quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 3rd quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added in the 4th quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added from rushing')} onMouseLeave={handleMouseLeave}>Rushing</th>
-            <th onMouseEnter={(e) => handleMouseEnter(e, 'Predicted points added from passing')} onMouseLeave={handleMouseLeave}>Passing</th>
+            <th>Player</th>
+            <th>Team</th>
+            <th>Position</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+            <th>Rushing</th>
+            <th>Passing</th>
           </tr>
         </thead>
         <tbody>
@@ -675,21 +666,12 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
         <div className="modal-footer">
           <button className="close-button" onClick={onClose}>Close</button>
         </div>
-        {tooltip.visible && (
-          <div
-            className="tooltip"
-            style={{ top: tooltip.y + 10, left: tooltip.x + 10 }}
-          >
-            {tooltip.text}
-          </div>
-        )}
       </div>
     </div>
   );
 };
 
 export default AdvancedBoxScoreModal;
-
 
 
 
