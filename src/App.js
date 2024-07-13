@@ -42,7 +42,9 @@ function App() {
             <Link to="/teams" className="nav-button" onClick={toggleMenu}>Teams</Link>
             <Link to="/games" className="nav-button" onClick={toggleMenu}>Games</Link>
             <Link to="/schedules" className="nav-button" onClick={toggleMenu}>Schedules</Link> {/* Added Schedules link */}
-            <ThemeToggle toggleTheme={toggleTheme} />
+            <div className="theme-toggle-container">
+              <ThemeToggle toggleTheme={toggleTheme} />
+            </div>
           </div>
         </div>
       </div>
@@ -59,6 +61,7 @@ function App() {
 }
 
 export default App;
+
 
 
 

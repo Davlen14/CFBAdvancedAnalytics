@@ -2,13 +2,13 @@
 .navbar {
   background-color: #adaeb1; /* Light grey background */
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Center the navbar */
   align-items: center;
   padding: 15px 30px; /* Increased padding for a more spacious look */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for a modern look */
   position: fixed; /* Fixed navbar at the top */
   top: 0; /* Ensure it's at the top */
-  left: 0; /* Ensure it starts from the left */
+  left: 0; /* Ensure it stretches to the left */
   right: 0; /* Ensure it stretches to the right */
   width: 100%; /* Full width */
   z-index: 1000; /* Ensure it stays on top */
@@ -20,6 +20,7 @@
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  max-width: 1200px; /* Maximum width for larger screens */
 }
 
 .logo {
@@ -56,6 +57,10 @@
 .nav-button:hover {
   background-color: #cc0000;
   color: #ffffff;
+}
+
+.theme-toggle-container {
+  margin-left: auto; /* Ensure it is on the far right */
 }
 
 .theme-toggle-button {
@@ -201,6 +206,7 @@ body[data-theme='dark'] {
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
+
 
 
 
