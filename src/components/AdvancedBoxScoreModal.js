@@ -4,7 +4,7 @@ import '../App.css'; // Import the main CSS file
 
 const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
   const [boxScore, setBoxScore] = useState(null);
-  const [activeTab, setActiveTab] = useState('ppa');
+  const [activeTab, setActiveTab] = useState('original');
 
   useEffect(() => {
     const fetchBoxScore = async () => {
@@ -25,6 +25,8 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
 
   const renderTabContent = () => {
     switch (activeTab) {
+      case 'original':
+        return renderOriginalBoxScore(boxScore);
       case 'ppa':
         return renderPPA(boxScore.teams.ppa);
       case 'successRates':
@@ -40,133 +42,180 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
     }
   };
 
-  const renderPPA = (ppa) => (
-    <table>
-      <thead>
-        <tr>
-          <th>Team</th>
-          <th>Plays</th>
-          <th>Total</th>
-          <th>Q1</th>
-          <th>Q2</th>
-          <th>Q3</th>
-          <th>Q4</th>
-        </tr>
-      </thead>
-      <tbody>
-        {ppa.map((teamStat, index) => (
-          <tr key={index}>
-            <td>{teamStat.team}</td>
-            <td>{teamStat.plays}</td>
-            <td>{teamStat.overall.total}</td>
-            <td>{teamStat.overall.quarter1}</td>
-            <td>{teamStat.overall.quarter2}</td>
-            <td>{teamStat.overall.quarter3}</td>
-            <td>{teamStat.overall.quarter4}</td>
+  const renderOriginalBoxScore = (boxScore) => (
+    <div>
+      <h3>Original Box Score</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Plays</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {boxScore.teams.ppa.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.plays}</td>
+              <td>{teamStat.overall.total}</td>
+              <td>{teamStat.overall.quarter1}</td>
+              <td>{teamStat.overall.quarter2}</td>
+              <td>{teamStat.overall.quarter3}</td>
+              <td>{teamStat.overall.quarter4}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  const renderPPA = (ppa) => (
+    <div>
+      <h3>Predicted Points Added (PPA)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Plays</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ppa.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.plays}</td>
+              <td>{teamStat.overall.total}</td>
+              <td>{teamStat.overall.quarter1}</td>
+              <td>{teamStat.overall.quarter2}</td>
+              <td>{teamStat.overall.quarter3}</td>
+              <td>{teamStat.overall.quarter4}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   const renderSuccessRates = (successRates) => (
-    <table>
-      <thead>
-        <tr>
-          <th>Team</th>
-          <th>Overall</th>
-          <th>Standard Downs</th>
-          <th>Passing Downs</th>
-        </tr>
-      </thead>
-      <tbody>
-        {successRates.map((teamStat, index) => (
-          <tr key={index}>
-            <td>{teamStat.team}</td>
-            <td>{teamStat.overall.total}</td>
-            <td>{teamStat.standardDowns.total}</td>
-            <td>{teamStat.passingDowns.total}</td>
+    <div>
+      <h3>Success Rates</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Overall</th>
+            <th>Standard Downs</th>
+            <th>Passing Downs</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {successRates.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.overall.total}</td>
+              <td>{teamStat.standardDowns.total}</td>
+              <td>{teamStat.passingDowns.total}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   const renderExplosiveness = (explosiveness) => (
-    <table>
-      <thead>
-        <tr>
-          <th>Team</th>
-          <th>Total</th>
-          <th>Q1</th>
-          <th>Q2</th>
-          <th>Q3</th>
-          <th>Q4</th>
-        </tr>
-      </thead>
-      <tbody>
-        {explosiveness.map((teamStat, index) => (
-          <tr key={index}>
-            <td>{teamStat.team}</td>
-            <td>{teamStat.overall.total}</td>
-            <td>{teamStat.overall.quarter1}</td>
-            <td>{teamStat.overall.quarter2}</td>
-            <td>{teamStat.overall.quarter3}</td>
-            <td>{teamStat.overall.quarter4}</td>
+    <div>
+      <h3>Explosiveness</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {explosiveness.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.overall.total}</td>
+              <td>{teamStat.overall.quarter1}</td>
+              <td>{teamStat.overall.quarter2}</td>
+              <td>{teamStat.overall.quarter3}</td>
+              <td>{teamStat.overall.quarter4}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   const renderRushing = (rushing) => (
-    <table>
-      <thead>
-        <tr>
-          <th>Team</th>
-          <th>Power Success</th>
-          <th>Stuff Rate</th>
-          <th>Line Yards</th>
-          <th>Second Level Yards</th>
-          <th>Open Field Yards</th>
-        </tr>
-      </thead>
-      <tbody>
-        {rushing.map((teamStat, index) => (
-          <tr key={index}>
-            <td>{teamStat.team}</td>
-            <td>{teamStat.powerSuccess}</td>
-            <td>{teamStat.stuffRate}</td>
-            <td>{teamStat.lineYards}</td>
-            <td>{teamStat.secondLevelYards}</td>
-            <td>{teamStat.openFieldYards}</td>
+    <div>
+      <h3>Rushing</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Power Success</th>
+            <th>Stuff Rate</th>
+            <th>Line Yards</th>
+            <th>Second Level Yards</th>
+            <th>Open Field Yards</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {rushing.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.powerSuccess}</td>
+              <td>{teamStat.stuffRate}</td>
+              <td>{teamStat.lineYards}</td>
+              <td>{teamStat.secondLevelYards}</td>
+              <td>{teamStat.openFieldYards}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   const renderHavoc = (havoc) => (
-    <table>
-      <thead>
-        <tr>
-          <th>Team</th>
-          <th>Total</th>
-          <th>Front Seven</th>
-          <th>DB</th>
-        </tr>
-      </thead>
-      <tbody>
-        {havoc.map((teamStat, index) => (
-          <tr key={index}>
-            <td>{teamStat.team}</td>
-            <td>{teamStat.total}</td>
-            <td>{teamStat.frontSeven}</td>
-            <td>{teamStat.db}</td>
+    <div>
+      <h3>Havoc</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Total</th>
+            <th>Front Seven</th>
+            <th>DB</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {havoc.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.total}</td>
+              <td>{teamStat.frontSeven}</td>
+              <td>{teamStat.db}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 
   return (
@@ -183,6 +232,7 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
         </div>
         <div className="modal-body">
           <div className="tabs">
+            <button className="tab-button" onClick={() => setActiveTab('original')}>Original Box Score</button>
             <button className="tab-button" onClick={() => setActiveTab('ppa')}>PPA</button>
             <button className="tab-button" onClick={() => setActiveTab('successRates')}>Success Rates</button>
             <button className="tab-button" onClick={() => setActiveTab('explosiveness')}>Explosiveness</button>
@@ -202,3 +252,4 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
 };
 
 export default AdvancedBoxScoreModal;
+
