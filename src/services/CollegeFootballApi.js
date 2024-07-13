@@ -183,18 +183,5 @@ export async function getGameStats(year, seasonType, week, classification) {
   });
 }
 
-// Example usage in a React component
-const fetchGameStats = async () => {
-  try {
-    const gameStats = await getGameStats(2023, 'regular', 1, 'fbs');
-    console.log('Game Stats:', gameStats);
-  } catch (error) {
-    console.error('Error fetching game stats:', error);
-  }
-};
-
-useEffect(() => {
-  fetchGameStats();
-}, []);
 
 
