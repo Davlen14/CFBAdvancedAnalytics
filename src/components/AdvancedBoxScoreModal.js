@@ -5,6 +5,7 @@ import '../App.css'; // Import the main CSS file
 const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
   const [boxScore, setBoxScore] = useState(null);
   const [activeTab, setActiveTab] = useState('original');
+  const [tooltip, setTooltip] = useState({ visible: false, text: '', x: 0, y: 0 });
 
   useEffect(() => {
     const fetchBoxScore = async () => {
@@ -18,6 +19,15 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
 
     fetchBoxScore();
   }, [gameId]);
+
+  const handleMouseEnter = (e, text) => {
+    const { clientX, clientY } = e;
+    setTooltip({ visible: true, text, x: clientX, y: clientY });
+  };
+
+  const handleMouseLeave = () => {
+    setTooltip({ visible: false, text: '', x: 0, y: 0 });
+  };
 
   if (!boxScore) {
     return <div>Loading...</div>;
@@ -266,16 +276,16 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th>Player</th>
-            <th>Team</th>
-            <th>Position</th>
-            <th>Total</th>
-            <th>Q1</th>
-            <th>Q2</th>
-            <th>Q3</th>
-            <th>Q4</th>
-            <th>Rushing</th>
-            <th>Passing</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the player')} onMouseLeave={handleMouseLeave}>Player</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'Team the player belongs to')} onMouseLeave={handleMouseLeave}>Team</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'Position of the player')} onMouseLeave={handleMouseLeave}>Position</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The overall usage value of the player for the entire game')} onMouseLeave={handleMouseLeave}>Total</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value in the first quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value in the second quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value in the third quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value in the fourth quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value specifically for rushing plays')} onMouseLeave={handleMouseLeave}>Rushing</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value specifically for passing plays')} onMouseLeave={handleMouseLeave}>Passing</th>
           </tr>
         </thead>
         <tbody>
@@ -295,39 +305,14 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
           ))}
         </tbody>
       </table>
-      <h3>Player PPA</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Team</th>
-            <th>Position</th>
-            <th>Total</th>
-            <th>Q1</th>
-            <th>Q2</th>
-            <th>Q3</th>
-            <th>Q4</th>
-            <th>Rushing</th>
-            <th>Passing</th>
-          </tr>
-        </thead>
-        <tbody>
-          {boxScore.players.ppa.map((playerStat, index) => (
-            <tr key={index}>
-              <td>{playerStat.player}</td>
-              <td>{playerStat.team}</td>
-              <td>{playerStat.position}</td>
-              <td>{playerStat.average.total}</td>
-              <td>{playerStat.average.quarter1}</td>
-              <td>{playerStat.average.quarter2}</td>
-              <td>{playerStat.average.quarter3}</td>
-              <td>{playerStat.average.quarter4}</td>
-              <td>{playerStat.average.rushing}</td>
-              <td>{playerStat.average.passing}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {tooltip.visible && (
+        <div
+          className="tooltip"
+          style={{ top: tooltip.y + 10, left: tooltip.x + 10 }}
+        >
+          {tooltip.text}
+        </div>
+      )}
     </div>
   );
 
@@ -563,16 +548,16 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
       <table>
         <thead>
           <tr>
-            <th>Player</th>
-            <th>Team</th>
-            <th>Position</th>
-            <th>Total</th>
-            <th>Q1</th>
-            <th>Q2</th>
-            <th>Q3</th>
-            <th>Q4</th>
-            <th>Rushing</th>
-            <th>Passing</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'Name of the player')} onMouseLeave={handleMouseLeave}>Player</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'Team the player belongs to')} onMouseLeave={handleMouseLeave}>Team</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'Position of the player')} onMouseLeave={handleMouseLeave}>Position</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The overall usage value of the player for the entire game')} onMouseLeave={handleMouseLeave}>Total</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value in the first quarter')} onMouseLeave={handleMouseLeave}>Q1</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value in the second quarter')} onMouseLeave={handleMouseLeave}>Q2</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value in the third quarter')} onMouseLeave={handleMouseLeave}>Q3</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value in the fourth quarter')} onMouseLeave={handleMouseLeave}>Q4</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value specifically for rushing plays')} onMouseLeave={handleMouseLeave}>Rushing</th>
+            <th onMouseEnter={(e) => handleMouseEnter(e, 'The player\'s usage value specifically for passing plays')} onMouseLeave={handleMouseLeave}>Passing</th>
           </tr>
         </thead>
         <tbody>
@@ -592,6 +577,14 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
           ))}
         </tbody>
       </table>
+      {tooltip.visible && (
+        <div
+          className="tooltip"
+          style={{ top: tooltip.y + 10, left: tooltip.x + 10 }}
+        >
+          {tooltip.text}
+        </div>
+      )}
     </div>
   );
 
@@ -672,6 +665,7 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
 };
 
 export default AdvancedBoxScoreModal;
+
 
 
 
