@@ -368,6 +368,25 @@ app.get('/api/rankings', async (_req, res) => {
   }
 });
 
+// Endpoint to get advanced box score data
+app.get('/api/college-football/game/box/advanced', async (req, res) => {
+  try {
+    const { gameId } = req.query;
+    if (!gameId) {
+      return res.status(400).json({ error: 'gameId query parameter is required' });
+    }
+
+    const response = await apiClient.get('/game/box/advanced', {
+      params: { gameId },
+    });
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching advanced box score data:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Test endpoint to verify environment variable
 app.get('/test-env', (_req, res) => {
   res.send(`REACT_APP_API_BASE_URL: ${process.env.REACT_APP_API_BASE_URL}`);
@@ -376,6 +395,7 @@ app.get('/test-env', (_req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 

@@ -3,6 +3,9 @@ import axios from 'axios';
 // Base URL for your API
 const apiClient = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:5001', // Fallback to localhost for development
+  headers: {
+    'Authorization': `Bearer ${process.env.REACT_APP_CFB_API_KEY}`,
+  },
 });
 
 async function makeGetRequest(endpoint, params = {}) {
@@ -182,6 +185,12 @@ export async function getGameStats(year, seasonType, week, classification) {
     classification,
   });
 }
+
+// Function to get advanced box score data
+export async function getAdvancedBoxScore(gameId) {
+  return makeGetRequest('/api/college-football/game/box/advanced', { gameId });
+}
+
 
 
 
