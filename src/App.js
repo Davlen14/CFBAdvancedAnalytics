@@ -11,8 +11,6 @@ import './App.css'; // Ensure this path is correct
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedTeam, setSelectedTeam] = useState(null);
-
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -37,9 +35,9 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomeComponent />} />
-        <Route path="/teams" element={<TeamsComponent year={2023} setSelectedTeam={setSelectedTeam} />} />
+        <Route path="/teams" element={<TeamsComponent year={2023} />} />
         <Route path="/games" element={<UpcomingGames />} />
-        <Route path="/metrics" element={<MetricsComponent selectedTeam={selectedTeam} />} />
+        <Route path="/metrics" element={<MetricsComponent />} />
         <Route path="/schedules" element={<SchedulesComponent />} /> {/* Added Schedules route */}
       </Routes>
     </Router>
@@ -47,6 +45,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
