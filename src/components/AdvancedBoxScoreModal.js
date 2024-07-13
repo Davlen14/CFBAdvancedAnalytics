@@ -59,6 +59,28 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
         <thead>
           <tr>
             <th>Team</th>
+            <th>Points</th>
+            <th>Win Probability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{boxScore.gameInfo.homeTeam}</td>
+            <td>{boxScore.gameInfo.homePoints}</td>
+            <td>{boxScore.gameInfo.homeWinProb}</td>
+          </tr>
+          <tr>
+            <td>{boxScore.gameInfo.awayTeam}</td>
+            <td>{boxScore.gameInfo.awayPoints}</td>
+            <td>{boxScore.gameInfo.awayWinProb}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Team Statistics</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
             <th>Plays</th>
             <th>Total</th>
             <th>Q1</th>
@@ -77,6 +99,231 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
               <td>{teamStat.overall.quarter2}</td>
               <td>{teamStat.overall.quarter3}</td>
               <td>{teamStat.overall.quarter4}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Cumulative PPA</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Plays</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+          </tr>
+        </thead>
+        <tbody>
+          {boxScore.teams.cumulativePpa.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.plays}</td>
+              <td>{teamStat.overall.total}</td>
+              <td>{teamStat.overall.quarter1}</td>
+              <td>{teamStat.overall.quarter2}</td>
+              <td>{teamStat.overall.quarter3}</td>
+              <td>{teamStat.overall.quarter4}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Success Rates</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Overall</th>
+            <th>Standard Downs</th>
+            <th>Passing Downs</th>
+          </tr>
+        </thead>
+        <tbody>
+          {boxScore.teams.successRates.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.overall.total}</td>
+              <td>{teamStat.standardDowns.total}</td>
+              <td>{teamStat.passingDowns.total}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Explosiveness</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+          </tr>
+        </thead>
+        <tbody>
+          {boxScore.teams.explosiveness.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.overall.total}</td>
+              <td>{teamStat.overall.quarter1}</td>
+              <td>{teamStat.overall.quarter2}</td>
+              <td>{teamStat.overall.quarter3}</td>
+              <td>{teamStat.overall.quarter4}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Rushing</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Power Success</th>
+            <th>Stuff Rate</th>
+            <th>Line Yards</th>
+            <th>Second Level Yards</th>
+            <th>Open Field Yards</th>
+          </tr>
+        </thead>
+        <tbody>
+          {boxScore.teams.rushing.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.powerSuccess}</td>
+              <td>{teamStat.stuffRate}</td>
+              <td>{teamStat.lineYards}</td>
+              <td>{teamStat.secondLevelYards}</td>
+              <td>{teamStat.openFieldYards}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Havoc</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Total</th>
+            <th>Front Seven</th>
+            <th>DB</th>
+          </tr>
+        </thead>
+        <tbody>
+          {boxScore.teams.havoc.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.total}</td>
+              <td>{teamStat.frontSeven}</td>
+              <td>{teamStat.db}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Scoring Opportunities</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Opportunities</th>
+            <th>Points</th>
+            <th>Points Per Opportunity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {boxScore.teams.scoringOpportunities.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.opportunities}</td>
+              <td>{teamStat.points}</td>
+              <td>{teamStat.pointsPerOpportunity}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Field Position</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Average Start</th>
+            <th>Average Starting Predicted Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {boxScore.teams.fieldPosition.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.averageStart}</td>
+              <td>{teamStat.averageStartingPredictedPoints}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Player Usage</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Team</th>
+            <th>Position</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+            <th>Rushing</th>
+            <th>Passing</th>
+          </tr>
+        </thead>
+        <tbody>
+          {boxScore.players.usage.map((playerStat, index) => (
+            <tr key={index}>
+              <td>{playerStat.player}</td>
+              <td>{playerStat.team}</td>
+              <td>{playerStat.position}</td>
+              <td>{playerStat.total}</td>
+              <td>{playerStat.quarter1}</td>
+              <td>{playerStat.quarter2}</td>
+              <td>{playerStat.quarter3}</td>
+              <td>{playerStat.quarter4}</td>
+              <td>{playerStat.rushing}</td>
+              <td>{playerStat.passing}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Player PPA</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Team</th>
+            <th>Position</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+            <th>Rushing</th>
+            <th>Passing</th>
+          </tr>
+        </thead>
+        <tbody>
+          {boxScore.players.ppa.map((playerStat, index) => (
+            <tr key={index}>
+              <td>{playerStat.player}</td>
+              <td>{playerStat.team}</td>
+              <td>{playerStat.position}</td>
+              <td>{playerStat.average.total}</td>
+              <td>{playerStat.average.quarter1}</td>
+              <td>{playerStat.average.quarter2}</td>
+              <td>{playerStat.average.quarter3}</td>
+              <td>{playerStat.average.quarter4}</td>
+              <td>{playerStat.average.rushing}</td>
+              <td>{playerStat.average.passing}</td>
             </tr>
           ))}
         </tbody>
@@ -425,5 +672,6 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
 };
 
 export default AdvancedBoxScoreModal;
+
 
 
