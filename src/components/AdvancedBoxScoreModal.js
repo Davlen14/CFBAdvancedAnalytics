@@ -29,6 +29,8 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
         return renderOriginalBoxScore(boxScore);
       case 'ppa':
         return renderPPA(boxScore.teams.ppa);
+      case 'cumulativePpa':
+        return renderCumulativePPA(boxScore.teams.cumulativePpa);
       case 'successRates':
         return renderSuccessRates(boxScore.teams.successRates);
       case 'explosiveness':
@@ -37,6 +39,14 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
         return renderRushing(boxScore.teams.rushing);
       case 'havoc':
         return renderHavoc(boxScore.teams.havoc);
+      case 'scoringOpportunities':
+        return renderScoringOpportunities(boxScore.teams.scoringOpportunities);
+      case 'fieldPosition':
+        return renderFieldPosition(boxScore.teams.fieldPosition);
+      case 'playerUsage':
+        return renderPlayerUsage(boxScore.players.usage);
+      case 'playerPPA':
+        return renderPlayerPPA(boxScore.players.ppa);
       default:
         return null;
     }
@@ -91,6 +101,38 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
         </thead>
         <tbody>
           {ppa.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.plays}</td>
+              <td>{teamStat.overall.total}</td>
+              <td>{teamStat.overall.quarter1}</td>
+              <td>{teamStat.overall.quarter2}</td>
+              <td>{teamStat.overall.quarter3}</td>
+              <td>{teamStat.overall.quarter4}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  const renderCumulativePPA = (cumulativePpa) => (
+    <div>
+      <h3>Cumulative PPA</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Plays</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cumulativePpa.map((teamStat, index) => (
             <tr key={index}>
               <td>{teamStat.team}</td>
               <td>{teamStat.plays}</td>
@@ -218,6 +260,132 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
     </div>
   );
 
+  const renderScoringOpportunities = (scoringOpportunities) => (
+    <div>
+      <h3>Scoring Opportunities</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Opportunities</th>
+            <th>Points</th>
+            <th>Points Per Opportunity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {scoringOpportunities.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.opportunities}</td>
+              <td>{teamStat.points}</td>
+              <td>{teamStat.pointsPerOpportunity}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  const renderFieldPosition = (fieldPosition) => (
+    <div>
+      <h3>Field Position</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Team</th>
+            <th>Average Start</th>
+            <th>Average Starting Predicted Points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {fieldPosition.map((teamStat, index) => (
+            <tr key={index}>
+              <td>{teamStat.team}</td>
+              <td>{teamStat.averageStart}</td>
+              <td>{teamStat.averageStartingPredictedPoints}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  const renderPlayerUsage = (usage) => (
+    <div>
+      <h3>Player Usage</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Team</th>
+            <th>Position</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+            <th>Rushing</th>
+            <th>Passing</th>
+          </tr>
+        </thead>
+        <tbody>
+          {usage.map((playerStat, index) => (
+            <tr key={index}>
+              <td>{playerStat.player}</td>
+              <td>{playerStat.team}</td>
+              <td>{playerStat.position}</td>
+              <td>{playerStat.total}</td>
+              <td>{playerStat.quarter1}</td>
+              <td>{playerStat.quarter2}</td>
+              <td>{playerStat.quarter3}</td>
+              <td>{playerStat.quarter4}</td>
+              <td>{playerStat.rushing}</td>
+              <td>{playerStat.passing}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  const renderPlayerPPA = (ppa) => (
+    <div>
+      <h3>Player PPA</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>Team</th>
+            <th>Position</th>
+            <th>Total</th>
+            <th>Q1</th>
+            <th>Q2</th>
+            <th>Q3</th>
+            <th>Q4</th>
+            <th>Rushing</th>
+            <th>Passing</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ppa.map((playerStat, index) => (
+            <tr key={index}>
+              <td>{playerStat.player}</td>
+              <td>{playerStat.team}</td>
+              <td>{playerStat.position}</td>
+              <td>{playerStat.average.total}</td>
+              <td>{playerStat.average.quarter1}</td>
+              <td>{playerStat.average.quarter2}</td>
+              <td>{playerStat.average.quarter3}</td>
+              <td>{playerStat.average.quarter4}</td>
+              <td>{playerStat.average.rushing}</td>
+              <td>{playerStat.average.passing}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
   return (
     <div className="modal">
       <div className="modal-content">
@@ -234,10 +402,15 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
           <div className="tabs">
             <button className="tab-button" onClick={() => setActiveTab('original')}>Original Box Score</button>
             <button className="tab-button" onClick={() => setActiveTab('ppa')}>PPA</button>
+            <button className="tab-button" onClick={() => setActiveTab('cumulativePpa')}>Cumulative PPA</button>
             <button className="tab-button" onClick={() => setActiveTab('successRates')}>Success Rates</button>
             <button className="tab-button" onClick={() => setActiveTab('explosiveness')}>Explosiveness</button>
             <button className="tab-button" onClick={() => setActiveTab('rushing')}>Rushing</button>
             <button className="tab-button" onClick={() => setActiveTab('havoc')}>Havoc</button>
+            <button className="tab-button" onClick={() => setActiveTab('scoringOpportunities')}>Scoring Opportunities</button>
+            <button className="tab-button" onClick={() => setActiveTab('fieldPosition')}>Field Position</button>
+            <button className="tab-button" onClick={() => setActiveTab('playerUsage')}>Player Usage</button>
+            <button className="tab-button" onClick={() => setActiveTab('playerPPA')}>Player PPA</button>
           </div>
           <div className="tab-content">
             {renderTabContent()}
@@ -252,4 +425,5 @@ const AdvancedBoxScoreModal = ({ gameId, onClose }) => {
 };
 
 export default AdvancedBoxScoreModal;
+
 
