@@ -1,9 +1,37 @@
-// src/components/HomeComponent.js
 import React from 'react';
+import Slider from 'react-slick';
 import '../App.css';
-import aboutUsImage from '../assets/about.png'
+import aboutUsImage from '../assets/about.png';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function HomeComponent() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+
   return (
     <div className="home">
       <section className="hero-section">
@@ -21,7 +49,7 @@ function HomeComponent() {
       </section>
       <section id="features" className="content-section">
         <h2>Our Features</h2>
-        <div className="features-container">
+        <Slider {...settings}>
           <div className="feature-card">
             <p>Comprehensive player and team statistics</p>
           </div>
@@ -37,7 +65,7 @@ function HomeComponent() {
           <div className="feature-card">
             <p>Interactive data visualizations and charts</p>
           </div>
-        </div>
+        </Slider>
       </section>
       <section id="statistics" className="content-section">
         <h2>Statistics</h2>
@@ -56,4 +84,5 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
 
