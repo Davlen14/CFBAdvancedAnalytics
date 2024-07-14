@@ -60,24 +60,18 @@ function HomeComponent() {
         <div className="home-news-container">
           <div className="home-news-card">
             <img src={sandersImage} alt="Deion Sanders" className="home-news-image" />
-            <div className="home-news-content">
-              <div className="home-news-title">Deion Sanders speaks out on Colorado football team expectations at Big 12 Media Days</div>
-              <a href="https://glorycolorado.com/posts/deion-sanders-speaks-out-colorado-football-team-expectations-big-12-media-days" className="home-news-link-button">Read more</a>
-            </div>
+            <div className="home-news-title">Deion Sanders speaks out on Colorado football team expectations at Big 12 Media Days</div>
+            <a href="https://glorycolorado.com/posts/deion-sanders-speaks-out-colorado-football-team-expectations-big-12-media-days" target="_blank" rel="noopener noreferrer" className="news-link-button">Read more</a>
           </div>
           <div className="home-news-card">
             <img src={texImage} alt="Texas SEC" className="home-news-image" />
-            <div className="home-news-content">
-              <div className="home-news-title">SEC Media Days storylines: Former Southwest Conference rivals get to welcome Texas to the SEC</div>
-              <a href="https://www.on3.com/teams/texas-longhorns/news/sec-media-days-storylines-former-southwest-conference-rivals-get-to-welcome-texas-to-the-sec" className="home-news-link-button">Read more</a>
-            </div>
+            <div className="home-news-title">SEC Media Days storylines: Former Southwest Conference rivals get to welcome Texas to the SEC</div>
+            <a href="https://www.on3.com/teams/texas-longhorns/news/sec-media-days-storylines-former-southwest-conference-rivals-get-to-welcome-texas-to-the-sec" target="_blank" rel="noopener noreferrer" className="news-link-button">Read more</a>
           </div>
           <div className="home-news-card">
             <img src={osuImage} alt="Ohio State Quarterback" className="home-news-image" />
-            <div className="home-news-content">
-              <div className="home-news-title">Ohio State quarterback Will Howard feeling so much more comfortable after six months with the Buckeyes</div>
-              <a href="https://www.elevenwarriors.com/ohio-state-football/2024/07/147841/ohio-state-quarterback-will-howard-feeling-so-much-more-comfortable-after-six-months-with-the-buckeyes" className="home-news-link-button">Read more</a>
-            </div>
+            <div className="home-news-title">Ohio State quarterback Will Howard feeling so much more comfortable after six months with the Buckeyes</div>
+            <a href="https://www.elevenwarriors.com/ohio-state-football/2024/07/147841/ohio-state-quarterback-will-howard-feeling-so-much-more-comfortable-after-six-months-with-the-buckeyes" target="_blank" rel="noopener noreferrer" className="news-link-button">Read more</a>
           </div>
         </div>
       </section>
@@ -132,6 +126,7 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
 
 
 
