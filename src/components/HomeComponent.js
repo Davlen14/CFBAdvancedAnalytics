@@ -9,19 +9,34 @@ function HomeComponent() {
         <h2>Welcome to Game Day Analytics</h2>
         <p>Unleash the power of data to predict college football outcomes and enhance your betting strategy.</p>
       </section>
-      <section id="about" className="content-section">
-        <h2>About Us</h2>
-        <p>Game Day Analytics is your go-to platform for advanced college football analytics. Our tools and metrics are designed to provide deep insights into team and player performances, helping you make informed betting decisions.</p>
+      <section id="about" className="content-section two-column">
+        <div className="text-content">
+          <h2>About Us</h2>
+          <p>Game Day Analytics is your go-to platform for advanced college football analytics. Our tools and metrics are designed to provide deep insights into team and player performances, helping you make informed betting decisions.</p>
+        </div>
+        <div className="image-content">
+          <img src="path_to_your_image" alt="About Us" className="about-image" />
+        </div>
       </section>
       <section id="features" className="content-section">
         <h2>Our Features</h2>
-        <ul>
-          <li>Comprehensive player and team statistics</li>
-          <li>Game predictions based on a trained analytical model</li>
-          <li>Detailed box scores and performance metrics</li>
-          <li>Up-to-date schedules and upcoming game information</li>
-          <li>Interactive data visualizations and charts</li>
-        </ul>
+        <div className="features-container">
+          <div className="feature-card">
+            <p>Comprehensive player and team statistics</p>
+          </div>
+          <div className="feature-card">
+            <p>Game predictions based on a trained analytical model</p>
+          </div>
+          <div className="feature-card">
+            <p>Detailed box scores and performance metrics</p>
+          </div>
+          <div className="feature-card">
+            <p>Up-to-date schedules and upcoming game information</p>
+          </div>
+          <div className="feature-card">
+            <p>Interactive data visualizations and charts</p>
+          </div>
+        </div>
       </section>
       <section id="statistics" className="content-section">
         <h2>Statistics</h2>
@@ -40,3 +55,4 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
