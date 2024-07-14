@@ -14,7 +14,7 @@ body {
   display: flex;
   justify-content: space-between; /* Align items to the ends */
   align-items: center;
-  padding: 10px 20px; /* Adjusted padding for a more open look */
+  padding: 5px 20px; /* Reduce padding to make the navbar smaller */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for a modern look */
   position: fixed; /* Fixed navbar at the top */
   top: 0; /* Ensure it's at the top */
@@ -22,6 +22,7 @@ body {
   right: 0; /* Ensure it stretches to the right */
   width: 100%; /* Full width */
   z-index: 1000; /* Ensure it stays on top */
+  height: 50px; /* Set a fixed height for the navbar */
 }
 
 /* Navbar title styling */
@@ -29,10 +30,10 @@ body {
   display: flex;
   align-items: center;
   font-family: "vox", sans-serif;
-  font-size: 40px; /* Increase the font size */
+  font-size: 28px; /* Keep the font size the same */
   font-style: italic;
-  color: #FF4500; /* Your chosen color */
-  font-weight: 500; /* Match weight */
+  color: #ff0000; /* Your chosen color */
+  font-weight: bold; /* Make the title bold */
   margin-left: 10px; /* Ensure it's pushed closer to the left edge */
 }
 
@@ -67,8 +68,8 @@ body {
   background-color: #FF4500; /* Your chosen color */
   color: white; /* White text color */
   text-decoration: none;
-  padding: 10px 20px; /* Adjust padding to match OrangeBox */
-  font-size: 14px; /* Adjust font size to match OrangeBox */
+  padding: 10px 15px;
+  font-size: 18px;
   font-family: "Arial", sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 4px;
@@ -80,6 +81,7 @@ body {
   background-color: #FF6347; /* Lighter red for hover */
   color: #ffffff;
 }
+
 
 /* Responsive adjustments for the navbar */
 @media (max-width: 768px) {
