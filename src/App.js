@@ -24,7 +24,7 @@ function App() {
           <button className="hamburger-menu" onClick={toggleMenu}>
             &#9776;
           </button>
-          <div className={`nav-buttons-container ${menuOpen ? 'active' : ''}`}>
+          <div className={`nav-buttons ${menuOpen ? 'active' : ''}`}>
             <Link to="/" className="nav-button" onClick={toggleMenu}>
               <FaHome /> Home
             </Link>
