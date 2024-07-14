@@ -202,14 +202,25 @@ body {
   text-align: center;
 }
 
-/* Slick carousel styles */
-.slick-prev, .slick-next {
-  font-size: 2rem;
-  color: #cc0000;
+/* Carousel styling */
+.slick-slide {
+  padding: 1rem; /* Increase space between slides */
 }
 
-.slick-dots li button:before {
-  color: #cc0000;
+.slick-prev, .slick-next {
+  background-color: #cc0000; /* Red background for navigation buttons */
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.slick-prev:hover, .slick-next:hover {
+  background-color: #ff6666; /* Lighter red on hover */
 }
 
 /* Responsive adjustments */
@@ -250,6 +261,7 @@ body {
     font-size: 1rem;
   }
 }
+
 
 
 /* Second navbar styles */
