@@ -1,6 +1,7 @@
 // src/components/HomeComponent.js
 import React from 'react';
 import '../App.css';
+import aboutUsImage from '../assets/about.png'
 
 function HomeComponent() {
   return (
@@ -15,7 +16,7 @@ function HomeComponent() {
           <p>Game Day Analytics is your go-to platform for advanced college football analytics. Our tools and metrics are designed to provide deep insights into team and player performances, helping you make informed betting decisions.</p>
         </div>
         <div className="image-content">
-          <img src="path_to_your_image" alt="About Us" className="about-image" />
+          <img src={aboutUsImage} alt="About Us" className="about-image" />
         </div>
       </section>
       <section id="features" className="content-section">
