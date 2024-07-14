@@ -8,6 +8,7 @@ import MetricsComponent from './components/MetricsComponent';
 import SchedulesComponent from './components/SchedulesComponent'; // Import SchedulesComponent
 import logo from './assets/Game Day.png'; // Updated path to the logo
 import './App.css'; // Ensure this path is correct
+import { FaHome, FaChartBar, FaUsers, FaGamepad, FaCalendarAlt } from 'react-icons/fa'; // Import icons
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,17 +19,17 @@ function App() {
   return (
     <Router>
       <div className="navbar">
-        <div className="navbar-content">
-          <img src={logo} alt="GDA Logo" className="logo" />
-          <button className="hamburger-menu" onClick={toggleMenu}>
-            &#9776;
-          </button>
-          <div className={`nav-buttons ${menuOpen ? 'active' : ''}`}>
-            <Link to="/" className="nav-button" onClick={toggleMenu}>Home</Link>
-            <Link to="/metrics" className="nav-button" onClick={toggleMenu}>Metrics</Link>
-            <Link to="/teams" className="nav-button" onClick={toggleMenu}>Teams</Link>
-            <Link to="/games" className="nav-button" onClick={toggleMenu}>Games</Link>
-            <Link to="/schedules" className="nav-button" onClick={toggleMenu}>Schedules</Link> {/* Added Schedules link */}
+        <div className="navbar-title">
+          <img src={logo} alt="GDA Logo" className="navbar-logo" />
+          Game Day Analytics
+        </div>
+        <div className="navbar-links">
+          <div className="btn-group">
+            <Link to="/" className="nav-button" onClick={toggleMenu}><FaHome /> Home</Link>
+            <Link to="/metrics" className="nav-button" onClick={toggleMenu}><FaChartBar /> Metrics</Link>
+            <Link to="/teams" className="nav-button" onClick={toggleMenu}><FaUsers /> Teams</Link>
+            <Link to="/games" className="nav-button" onClick={toggleMenu}><FaGamepad /> Games</Link>
+            <Link to="/schedules" className="nav-button" onClick={toggleMenu}><FaCalendarAlt /> Schedules</Link> {/* Added Schedules link */}
           </div>
         </div>
       </div>
@@ -45,6 +46,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
