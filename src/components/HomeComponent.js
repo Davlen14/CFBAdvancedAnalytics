@@ -2,6 +2,9 @@ import React from 'react';
 import Slider from 'react-slick';
 import '../App.css';
 import aboutUsImage from '../assets/about.png';
+import sandersImage from '../assets/Sanders.png'; // Deion Sanders image
+import texImage from '../assets/Tex.png'; // Texas image
+import osuImage from '../assets/OSU.png'; // Ohio State image
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -47,6 +50,23 @@ function HomeComponent() {
           <img src={aboutUsImage} alt="About Us" className="about-image" />
         </div>
       </section>
+      <section id="news" className="content-section">
+        <h2>Latest News</h2>
+        <div className="home-news-container">
+          <div className="home-news-card">
+            <img src={sandersImage} alt="Deion Sanders" className="home-news-image" />
+            <p><a href="https://glorycolorado.com/posts/deion-sanders-speaks-out-colorado-football-team-expectations-big-12-media-days">Deion Sanders speaks out on Colorado football team expectations at Big 12 Media Days</a></p>
+          </div>
+          <div className="home-news-card">
+            <img src={texImage} alt="Texas SEC" className="home-news-image" />
+            <p><a href="https://www.on3.com/teams/texas-longhorns/news/sec-media-days-storylines-former-southwest-conference-rivals-get-to-welcome-texas-to-the-sec">SEC Media Days storylines: Former Southwest Conference rivals get to welcome Texas to the SEC</a></p>
+          </div>
+          <div className="home-news-card">
+            <img src={osuImage} alt="Ohio State Quarterback" className="home-news-image" />
+            <p><a href="https://www.elevenwarriors.com/ohio-state-football/2024/07/147841/ohio-state-quarterback-will-howard-feeling-so-much-more-comfortable-after-six-months-with-the-buckeyes">Ohio State quarterback Will Howard feeling so much more comfortable after six months with the Buckeyes</a></p>
+          </div>
+        </div>
+      </section>
       <section id="features" className="content-section">
         <h2>Our Features</h2>
         <Slider {...settings}>
@@ -75,14 +95,27 @@ function HomeComponent() {
         <h2>How It Works</h2>
         <p>Our platform uses a trained analytical model that leverages historical data and advanced metrics to predict game outcomes and player performances. By understanding the key factors that influence games, you can place smarter bets and improve your chances of success.</p>
       </section>
-      <section id="news" className="content-section">
-        <h2>Latest News</h2>
-        <p>Stay updated with the latest news and developments in college football. From game highlights to player updates, we bring you the most relevant information to keep you informed.</p>
-      </section>
+      <footer>
+        <div className="footer-container">
+          <div className="footer-links">
+            <a href="/terms">Terms of Service</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/contact">Contact Support</a>
+          </div>
+          <div className="footer-socials">
+            <a href="https://twitter.com"><img src="/assets/twitter.png" alt="Twitter" /></a>
+            <a href="https://instagram.com"><img src="/assets/instagram.png" alt="Instagram" /></a>
+            <a href="https://facebook.com"><img src="/assets/facebook.png" alt="Facebook" /></a>
+            <a href="https://play.google.com"><img src="/assets/google-play.png" alt="Google Play" /></a>
+            <a href="https://apps.apple.com"><img src="/assets/app-store.png" alt="App Store" /></a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
 
 export default HomeComponent;
+
 
 
