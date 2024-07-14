@@ -12,7 +12,7 @@ body {
 .navbar {
   background-color: #adaeb1; /* Light grey background */
   display: flex;
-  justify-content: center; /* Center the navbar */
+  justify-content: space-between; /* Align items to the ends */
   align-items: center;
   padding: 10px 20px; /* Reduced padding for a more open look */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for a modern look */
@@ -23,6 +23,7 @@ body {
   width: 100%; /* Full width */
   z-index: 1000; /* Ensure it stays on top */
 }
+
 
 /* Container for the title and nav buttons */
 .navbar-content {
@@ -299,6 +300,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Ensure children are spaced out */
+  margin: 0 10px; /* Adjusted margin for better spacing */
 }
 
 .home-news-image {
@@ -327,11 +329,11 @@ body {
   background-color: #cc0000;
   color: white;
   text-decoration: none;
-  padding: 10px 0; /* Full width button */
-  width: 100%; /* Full width button */
+  padding: 10px 20px; /* Adjust padding for better fit */
   border-radius: 5px;
   font-weight: bold;
   transition: background 0.3s ease;
+  align-self: center; /* Center the button inside the card */
 }
 
 .news-link-button:hover {
@@ -363,7 +365,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  background-color: #333;
+  background-color: #adaeb1;
   color: white;
   text-align: center;
 }
