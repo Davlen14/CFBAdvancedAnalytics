@@ -111,7 +111,7 @@ function HomeComponent() {
         </div>
         <div className="footer-socials">
           <a href="https://twitter.com"><img src={twitterLogo} alt="Twitter" /></a>
-          <a href="https://instagram.com"><img src={instagramLogo} alt="Instagram" /></a>
+          <a href="https://www.instagram.com/gdanalytics?igsh=MXI0bTNybDBxcWIzNQ%3D%3D&utm_source=qr"><img src={instagramLogo} alt="Instagram" /></a>
           <a href="https://facebook.com"><img src={facebookLogo} alt="Facebook" /></a>
           <a href="https://play.google.com"><img src={googlePlayLogo} alt="Google Play" /></a>
           <a href="https://apps.apple.com"><img src={appStoreLogo} alt="App Store" /></a>
