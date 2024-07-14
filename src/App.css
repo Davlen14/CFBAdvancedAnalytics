@@ -195,28 +195,32 @@ body {
 
 .feature-card {
   background: white;
-  padding: 3rem;
-  border-radius: 12px;
+  padding: 2rem;  /* Reduced padding */
+  border-radius: 12px;  /* More rounded corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 300px; /* Fixed width to make them appear as squares */
-  height: 300px; /* Fixed height to match the width */
+  width: 300px;  /* Fixed width to make them appear as squares */
+  height: 300px;  /* Fixed height to match the width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
 /* Carousel styling */
 .slick-slide {
-  padding: 2rem;
+  padding: 2rem;  /* Increase space between slides */
   display: flex;
-  justify-content: center; /* Centering the cards */
+  justify-content: center;  /* Centering the cards */
 }
 
 .slick-list {
-  padding: 0 1rem; /* Adjust padding for the overall slider */
+  padding: 0 1rem;  /* Adjust padding for the overall slider */
 }
 
 .slick-prev, .slick-next {
-  background-color: #cc0000; /* Red background for navigation buttons */
-  color: rgb(255, 0, 0);
+  background-color: #cc0000;  /* Red background for navigation buttons */
+  color: white;  /* White color for icons */
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -227,7 +231,8 @@ body {
 }
 
 .slick-prev:hover, .slick-next:hover {
-  background-color: #ff6666; /* Lighter red on hover */
+  background-color: #ff6666;  /* Lighter red on hover */
+  color: white;  /* Ensure the icon color stays white */
 }
 
 /* Responsive adjustments */
@@ -268,6 +273,7 @@ body {
     font-size: 1rem;
   }
 }
+
 
 
 
