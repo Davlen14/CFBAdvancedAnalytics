@@ -4,6 +4,8 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Prevent horizontal overflow */
+  font-family: "Arial", sans-serif; /* More modern font */
+  line-height: 1.6; /* Increased line height for better readability */
 }
 
 /* Navbar styles */
@@ -12,7 +14,7 @@ body {
   display: flex;
   justify-content: center; /* Center the navbar */
   align-items: center;
-  padding: 15px 30px; /* Increased padding for a more spacious look */
+  padding: 10px 20px; /* Reduced padding for a more open look */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for a modern look */
   position: fixed; /* Fixed navbar at the top */
   top: 0; /* Ensure it's at the top */
@@ -115,83 +117,83 @@ body {
 
 /* Home Component styles */
 .home {
-  padding-top: 80px; /* Adjust the value to match the height of your navbar */
+  padding-top: 100px; /* Adjusted for more spacing */
 }
 
 /* Hero Section */
 .hero-section {
   background: linear-gradient(to right, #cc0000, #ff6666);
   color: white;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem; /* Increased padding for more open look */
   text-align: center;
   border-radius: 8px;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem; /* Increased margin for more spacing */
 }
 
 .hero-section h2 {
-  font-size: 2.5rem;
+  font-size: 3rem; /* Larger font size */
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .hero-section p {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: 1.5rem; /* Larger font size */
+  margin-bottom: 1.5rem;
 }
 
 /* Statistics Section */
 #statistics {
-  padding: 2rem 1rem;
+  padding: 4rem 2rem; /* Increased padding */
   background-color: #f8f9fa;
   border-radius: 8px;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem; /* Increased margin for more spacing */
   text-align: center;
 }
 
 #statistics h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 3rem; /* Larger font size */
+  margin-bottom: 1.5rem;
 }
 
 #statistics p {
-  font-size: 1rem;
+  font-size: 1.5rem; /* Larger font size */
 }
 
 /* About Us section */
 #about {
   background: linear-gradient(to right, #cc0000, #ff6666);
   color: white;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem; /* Increased padding */
   text-align: center;
   border-radius: 8px;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem; /* Increased margin for more spacing */
 }
 
 #about h2 {
-  font-size: 2.5rem;
+  font-size: 3rem; /* Larger font size */
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 #about p {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: 1.5rem; /* Larger font size */
+  margin-bottom: 1.5rem;
 }
 
 /* Our Features section */
 #features {
   background: linear-gradient(to right, #cc0000, #ff6666);
   color: white;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem; /* Increased padding */
   text-align: center;
   border-radius: 8px;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem; /* Increased margin for more spacing */
 }
 
 #features h2 {
-  font-size: 2.5rem;
+  font-size: 3rem; /* Larger font size */
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 #features ul {
@@ -200,56 +202,56 @@ body {
 }
 
 #features li {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem; /* Larger font size */
+  margin-bottom: 1rem; /* More spacing between list items */
 }
 
 /* How It Works section */
 #how-it-works {
   background: linear-gradient(to right, #cc0000, #ff6666);
   color: white;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem; /* Increased padding */
   text-align: center;
   border-radius: 8px;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem; /* Increased margin for more spacing */
 }
 
 #how-it-works h2 {
-  font-size: 2.5rem;
+  font-size: 3rem; /* Larger font size */
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 #how-it-works p {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
+  font-size: 1.5rem; /* Larger font size */
+  margin-bottom: 1.5rem;
 }
 
 /* Latest News Section */
 #news {
-  padding: 2rem 1rem;
+  padding: 4rem 2rem; /* Increased padding */
   background-color: #ffffff;
   border-radius: 8px;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem; /* Increased margin for more spacing */
   text-align: center;
 }
 
 #news h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 3rem; /* Larger font size */
+  margin-bottom: 1.5rem;
 }
 
 #news p {
-  font-size: 1rem;
+  font-size: 1.5rem; /* Larger font size */
 }
 
 /* Footer Section */
 footer {
   background-color: #333;
   color: white;
-  padding: 1rem 0;
+  padding: 2rem 0; /* Increased padding */
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 3rem; /* Increased margin for more spacing */
 }
 
 footer p {
@@ -259,10 +261,10 @@ footer p {
 /* Teams container styles */
 .teams-container {
   max-width: 1200px;
-  margin: 20px auto;
+  margin: 40px auto; /* Increased margin for more spacing */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: 20px;
+  grid-gap: 30px; /* Increased gap for more spacing */
   padding: 20px;
 }
 
@@ -283,7 +285,7 @@ footer p {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 10px;
+  padding: 20px; /* Increased padding */
   text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
@@ -295,26 +297,35 @@ footer p {
 }
 
 .team-logo {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 10px;
+  width: 100px; /* Increased size */
+  height: 100px; /* Increased size */
+  margin-bottom: 20px; /* Increased margin */
 }
 
 .team-name {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
   color: #333;
 }
 
-/* Other styles continue here... */
-
 /* Responsive adjustments for other components and media queries */
-
-/* Media queries for responsiveness */
 @media (max-width: 768px) {
-  /* Adjustments for various sections */
   .home, .hero-section, #about, #features, #how-it-works, #statistics, #news {
     padding: 2rem 1rem;
+  }
+
+  .hero-section h2, #about h2, #features h2, #how-it-works h2, #statistics h2, #news h2 {
+    font-size: 2.5rem;
+  }
+
+  .hero-section p, #about p, #features li, #how-it-works p, #statistics p, #news p {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home, .hero-section, #about, #features, #how-it-works, #statistics, #news {
+    padding: 1rem 0.5rem;
   }
 
   .hero-section h2, #about h2, #features h2, #how-it-works h2, #statistics h2, #news h2 {
@@ -326,20 +337,6 @@ footer p {
   }
 }
 
-@media (max-width: 480px) {
-  /* Adjustments for smaller screens */
-  .home, .hero-section, #about, #features, #how-it-works, #statistics, #news {
-    padding: 1rem 0.5rem;
-  }
-
-  .hero-section h2, #about h2, #features h2, #how-it-works h2, #statistics h2, #news h2 {
-    font-size: 1.5rem;
-  }
-
-  .hero-section p, #about p, #features li, #how-it-works p, #statistics p, #news p {
-    font-size: 0.9rem;
-  }
-}
 
 
 
