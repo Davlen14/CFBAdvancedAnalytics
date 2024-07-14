@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* Prevent horizontal overflow */
-  font-family: "Arial", sans-serif; /* More modern font */
+  font-family: "vox", sans-serif;
   line-height: 1.6; /* Increased line height for better readability */
 }
 
@@ -30,7 +30,9 @@ body {
   font-family: "vox", sans-serif;
   font-size: 24px; /* Reduced size for sleek look */
   font-style: italic;
+  font-weight: bold; /* Make it bold */
   color: #ff0000; /* Your chosen color */
+  margin-left: 0; /* Ensure it is aligned to the left */
 }
 
 .navbar-logo {
@@ -134,6 +136,7 @@ body {
 /* Home Component styles */
 .home {
   padding-top: 100px; /* Adjusted for more spacing */
+  font-family: "vox", sans-serif;
 }
 
 /* Hero Section */
