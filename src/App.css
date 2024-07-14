@@ -24,17 +24,18 @@ body {
   z-index: 1000; /* Ensure it stays on top */
 }
 
+/* Navbar title styling */
 .navbar-title {
   display: flex;
   align-items: center;
   font-family: "vox", sans-serif;
-  font-size: 24px; /* Reduced size for sleek look */
+  font-size: 28px; /* Increase the font size */
   font-style: italic;
   color: #ff0000; /* Your chosen color */
   font-weight: bold; /* Make the title bold */
-  margin-left: 0; /* Push the title to the left edge */
-  padding-left: 0; /* Ensure no padding on the left */
+  margin-left: 10px; /* Ensure it's pushed closer to the left edge */
 }
+
 
 /* Container for the title and nav buttons */
 .navbar-content {
