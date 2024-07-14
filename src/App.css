@@ -29,13 +29,12 @@ body {
   display: flex;
   align-items: center;
   font-family: "vox", sans-serif;
-  font-size: 28px; /* Increase the font size */
+  font-size: 40px; /* Increase the font size */
   font-style: italic;
-  color: #ff0000; /* Your chosen color */
-  font-weight: bold; /* Make the title bold */
+  color: #FF4500; /* Your chosen color */
+  font-weight: 500; /* Match weight */
   margin-left: 10px; /* Ensure it's pushed closer to the left edge */
 }
-
 
 /* Container for the title and nav buttons */
 .navbar-content {
@@ -68,8 +67,8 @@ body {
   background-color: #FF4500; /* Your chosen color */
   color: white; /* White text color */
   text-decoration: none;
-  padding: 10px 15px;
-  font-size: 18px;
+  padding: 10px 20px; /* Adjust padding to match OrangeBox */
+  font-size: 14px; /* Adjust font size to match OrangeBox */
   font-family: "Arial", sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
   border-radius: 4px;
@@ -117,18 +116,11 @@ body {
 }
 
 @media (max-width: 480px) {
-  .navbar-logo {
-    height: 30px;
-  }
-
   .nav-button {
     font-size: 16px;
     padding: 8px 10px;
   }
 }
-
-
-
 
 /* Home Component styles */
 .home {
