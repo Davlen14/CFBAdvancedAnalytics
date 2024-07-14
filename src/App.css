@@ -143,23 +143,23 @@ body {
 
 /* Content Sections */
 .content-section {
-  padding: 4rem 2rem; /* Increased padding */
+  padding: 6rem 4rem; /* Increased padding */
   text-align: center;
   border-radius: 8px;
-  margin-bottom: 3rem; /* Increased margin for more spacing */
+  margin-bottom: 4rem; /* Increased margin for more spacing */
   background: #f8f9fa;
 }
 
 .content-section h2 {
   font-size: 3rem; /* Larger font size */
   font-weight: bold;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .content-section p,
 .content-section li {
   font-size: 1.5rem; /* Larger font size */
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .content-section ul {
@@ -195,8 +195,8 @@ body {
 
 .feature-card {
   background: white;
-  padding: 2rem;
-  border-radius: 8px;
+  padding: 3rem; /* Increased padding */
+  border-radius: 12px; /* More rounded corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   flex: 1 1 300px;
   text-align: center;
@@ -204,7 +204,7 @@ body {
 
 /* Carousel styling */
 .slick-slide {
-  padding: 1rem; /* Increase space between slides */
+  padding: 2rem; /* Increase space between slides */
 }
 
 .slick-prev, .slick-next {
@@ -226,7 +226,7 @@ body {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .content-section {
-    padding: 2rem 1rem;
+    padding: 4rem 2rem;
   }
 
   .two-column {
@@ -247,7 +247,7 @@ body {
 
 @media (max-width: 480px) {
   .content-section {
-    padding: 1rem 0.5rem;
+    padding: 2rem 1rem;
   }
 
   .hero-section h2,
@@ -261,6 +261,7 @@ body {
     font-size: 1rem;
   }
 }
+
 
 
 
