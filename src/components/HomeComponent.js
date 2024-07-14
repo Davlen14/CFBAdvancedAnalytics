@@ -5,6 +5,11 @@ import aboutUsImage from '../assets/about.png';
 import sandersImage from '../assets/Sanders.png'; // Deion Sanders image
 import texImage from '../assets/Tex.png'; // Texas image
 import osuImage from '../assets/OSU.png'; // Ohio State image
+import twitterLogo from '../assets/twitter.png'; // Twitter logo
+import instagramLogo from '../assets/instagram.png'; // Instagram logo
+import facebookLogo from '../assets/facebook.png'; // Facebook logo
+import googlePlayLogo from '../assets/google-play.png'; // Google Play logo
+import appStoreLogo from '../assets/app-store.png'; // App Store logo
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -95,20 +100,22 @@ function HomeComponent() {
         <h2>How It Works</h2>
         <p>Our platform uses a trained analytical model that leverages historical data and advanced metrics to predict game outcomes and player performances. By understanding the key factors that influence games, you can place smarter bets and improve your chances of success.</p>
       </section>
-      <footer>
-        <div className="footer-container">
-          <div className="footer-links">
-            <a href="/terms">Terms of Service</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/contact">Contact Support</a>
-          </div>
-          <div className="footer-socials">
-            <a href="https://twitter.com"><img src="/assets/twitter.png" alt="Twitter" /></a>
-            <a href="https://instagram.com"><img src="/assets/instagram.png" alt="Instagram" /></a>
-            <a href="https://facebook.com"><img src="/assets/facebook.png" alt="Facebook" /></a>
-            <a href="https://play.google.com"><img src="/assets/google-play.png" alt="Google Play" /></a>
-            <a href="https://apps.apple.com"><img src="/assets/app-store.png" alt="App Store" /></a>
-          </div>
+      <footer className="footer-container">
+        <div className="footer-links">
+          <a href="/terms">Terms of Service</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/contact">Contact Support</a>
+        </div>
+        <div className="footer-socials">
+          <a href="https://twitter.com"><img src={twitterLogo} alt="Twitter" /></a>
+          <a href="https://instagram.com"><img src={instagramLogo} alt="Instagram" /></a>
+          <a href="https://facebook.com"><img src={facebookLogo} alt="Facebook" /></a>
+          <a href="https://play.google.com"><img src={googlePlayLogo} alt="Google Play" /></a>
+          <a href="https://apps.apple.com"><img src={appStoreLogo} alt="App Store" /></a>
+        </div>
+        <div className="footer-disclaimer">
+          <p>© 2024 Game Day Analytics</p>
+          <p>Disclaimer: Game Day Analytics is not affiliated with or endorsed by the NCAA, any university, or any other sports league. This is not a gambling app and does not accept or place wagers of any kind.</p>
         </div>
       </footer>
     </div>
@@ -116,6 +123,7 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
 
 
 
