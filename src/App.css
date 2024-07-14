@@ -195,21 +195,28 @@ body {
 
 .feature-card {
   background: white;
-  padding: 3rem; /* Increased padding */
-  border-radius: 12px; /* More rounded corners */
+  padding: 3rem;
+  border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  flex: 1 1 300px;
+  width: 300px; /* Fixed width to make them appear as squares */
+  height: 300px; /* Fixed height to match the width */
   text-align: center;
 }
 
 /* Carousel styling */
 .slick-slide {
-  padding: 2rem; /* Increase space between slides */
+  padding: 2rem;
+  display: flex;
+  justify-content: center; /* Centering the cards */
+}
+
+.slick-list {
+  padding: 0 1rem; /* Adjust padding for the overall slider */
 }
 
 .slick-prev, .slick-next {
   background-color: #cc0000; /* Red background for navigation buttons */
-  color: white;
+  color: rgb(255, 0, 0);
   border-radius: 50%;
   width: 40px;
   height: 40px;
