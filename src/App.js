@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import TeamsComponent from './components/TeamsComponent';
@@ -8,7 +7,9 @@ import MetricsComponent from './components/MetricsComponent';
 import SchedulesComponent from './components/SchedulesComponent'; // Import SchedulesComponent
 import logo from './assets/Game Day.png'; // Updated path to the logo
 import './App.css'; // Ensure this path is correct
-import { FaHome, FaChartBar, FaUsers, FaGamepad, FaCalendarAlt } from 'react-icons/fa'; // Import icons
+
+// Icons for buttons
+import { FaHome, FaChartBar, FaUsers, FaFootballBall, FaCalendarAlt } from 'react-icons/fa';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,17 +20,28 @@ function App() {
   return (
     <Router>
       <div className="navbar">
-        <div className="navbar-title">
+        <div className="navbar-content">
           <img src={logo} alt="GDA Logo" className="navbar-logo" />
-          Game Day Analytics
-        </div>
-        <div className="navbar-links">
-          <div className="btn-group">
-            <Link to="/" className="nav-button" onClick={toggleMenu}><FaHome /> Home</Link>
-            <Link to="/metrics" className="nav-button" onClick={toggleMenu}><FaChartBar /> Metrics</Link>
-            <Link to="/teams" className="nav-button" onClick={toggleMenu}><FaUsers /> Teams</Link>
-            <Link to="/games" className="nav-button" onClick={toggleMenu}><FaGamepad /> Games</Link>
-            <Link to="/schedules" className="nav-button" onClick={toggleMenu}><FaCalendarAlt /> Schedules</Link> {/* Added Schedules link */}
+          <h1 className="navbar-title">Game Day Analytics</h1>
+          <button className="hamburger-menu" onClick={toggleMenu}>
+            &#9776;
+          </button>
+          <div className={`nav-buttons ${menuOpen ? 'active' : ''}`}>
+            <Link to="/" className="nav-button" onClick={toggleMenu}>
+              <FaHome /> Home
+            </Link>
+            <Link to="/metrics" className="nav-button" onClick={toggleMenu}>
+              <FaChartBar /> Metrics
+            </Link>
+            <Link to="/teams" className="nav-button" onClick={toggleMenu}>
+              <FaUsers /> Teams
+            </Link>
+            <Link to="/games" className="nav-button" onClick={toggleMenu}>
+              <FaFootballBall /> Games
+            </Link>
+            <Link to="/schedules" className="nav-button" onClick={toggleMenu}>
+              <FaCalendarAlt /> Schedules
+            </Link>
           </div>
         </div>
       </div>
@@ -46,6 +58,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
