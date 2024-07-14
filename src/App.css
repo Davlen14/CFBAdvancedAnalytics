@@ -190,37 +190,36 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem; /* Reduced gap for better spacing */
 }
 
 .feature-card {
   background: white;
-  padding: 2rem;  /* Reduced padding */
-  border-radius: 12px;  /* More rounded corners */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 300px;  /* Fixed width to make them appear as squares */
-  height: 300px;  /* Fixed height to match the width */
+  padding: 1.5rem; /* Reduced padding */
+  border-radius: 8px; /* Slightly reduced rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  width: 200px; /* Adjusted width to be more appropriate */
+  height: auto; /* Allow height to be determined by content */
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  justify-content: center; /* Center content vertically */
 }
 
 /* Carousel styling */
 .slick-slide {
-  padding: 2rem;  /* Increase space between slides */
+  padding: 1rem; /* Adjusted padding */
   display: flex;
-  justify-content: center;  /* Centering the cards */
+  justify-content: center; /* Centering the cards */
 }
 
 .slick-list {
-  padding: 0 1rem;  /* Adjust padding for the overall slider */
+  padding: 0 1rem; /* Adjust padding for the overall slider */
 }
 
 .slick-prev, .slick-next {
-  background-color: #cc0000;  /* Red background for navigation buttons */
-  color: white;  /* White color for icons */
+  background-color: #cc0000; /* Red background for navigation buttons */
+  color: rgb(255, 0, 0);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -231,8 +230,7 @@ body {
 }
 
 .slick-prev:hover, .slick-next:hover {
-  background-color: #ff6666;  /* Lighter red on hover */
-  color: white;  /* Ensure the icon color stays white */
+  background-color: #ff6666; /* Lighter red on hover */
 }
 
 /* Responsive adjustments */
@@ -255,6 +253,10 @@ body {
   .content-section li {
     font-size: 1.2rem;
   }
+
+  .feature-card {
+    width: 150px; /* Adjust width for smaller screens */
+  }
 }
 
 @media (max-width: 480px) {
@@ -272,11 +274,11 @@ body {
   .content-section li {
     font-size: 1rem;
   }
+
+  .feature-card {
+    width: 100px; /* Adjust width for very small screens */
+  }
 }
-
-
-
-
 
 /* Second navbar styles */
 .second-navbar {
