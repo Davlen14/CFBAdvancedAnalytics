@@ -24,7 +24,7 @@ function App() {
           <button className="hamburger-menu" onClick={toggleMenu}>
             &#9776;
           </button>
-          <div className={`nav-buttons ${menuOpen ? 'active' : ''}`}>
+          <div className={`nav-buttons-container ${menuOpen ? 'active' : ''}`}>
             <Link to="/" className="nav-button" onClick={toggleMenu}>
               <FaHome /> Home
             </Link>
@@ -43,16 +43,16 @@ function App() {
           </div>
         </div>
       </div>
-
       <Routes>
         <Route path="/" element={<HomeComponent />} />
         <Route path="/teams" element={<TeamsComponent year={2023} />} />
         <Route path="/games" element={<UpcomingGames />} />
         <Route path="/metrics" element={<MetricsComponent />} />
-        <Route path="/schedules" element={<SchedulesComponent />} /> {/* Added Schedules route */}
+        <Route path="/schedules" element={<SchedulesComponent />} />
       </Routes>
     </Router>
   );
+  
 }
 
 export default App;
