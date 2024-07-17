@@ -4,11 +4,12 @@ import TeamsComponent from './components/TeamsComponent';
 import UpcomingGames from './components/UpcomingGames';
 import HomeComponent from './components/HomeComponent';
 import MetricsComponent from './components/MetricsComponent';
-import SchedulesComponent from './components/SchedulesComponent'; // Import SchedulesComponent
-import './App.css'; // Ensure this path is correct
+import SchedulesComponent from './components/SchedulesComponent';
+import GamedayGPTComponent from './components/GamedayGPTComponent'; // Import GamedayGPTComponent
+import './App.css';
 
 // Icons for buttons
-import { FaHome, FaChartBar, FaUsers, FaFootballBall, FaCalendarAlt } from 'react-icons/fa';
+import { FaHome, FaChartBar, FaUsers, FaFootballBall, FaCalendarAlt, FaRobot } from 'react-icons/fa';
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,6 +41,9 @@ function App() {
             <Link to="/schedules" className="nav-button" onClick={toggleMenu}>
               <FaCalendarAlt /> Schedules
             </Link>
+            <Link to="/gamedaygpt" className="nav-button gamedaygpt-button" onClick={toggleMenu}>
+              <FaRobot /> GameDay GPT
+            </Link>
           </div>
         </div>
       </div>
@@ -49,13 +53,14 @@ function App() {
         <Route path="/games" element={<UpcomingGames />} />
         <Route path="/metrics" element={<MetricsComponent />} />
         <Route path="/schedules" element={<SchedulesComponent />} />
+        <Route path="/gamedaygpt" element={<GamedayGPTComponent />} />
       </Routes>
     </Router>
   );
-  
 }
 
 export default App;
+
 
 
 
