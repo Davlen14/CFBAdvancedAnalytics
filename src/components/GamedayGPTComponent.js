@@ -28,15 +28,20 @@ const GamedayGPTComponent = () => {
 
   const handleCompare = async () => {
     const seasonRangeArray = seasonRange.split('-').map(Number);
-    const response = await fetch('/compare-teams', {
+    const response = await fetch('https://my-betting-bot-davlen-2bc8e47f62ae.herokuapp.com/compare-teams', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ teams, season_range: seasonRangeArray, stat }),
     });
-    const imageUrl = await response.blob();
-    setComparisonPlot(URL.createObjectURL(imageUrl));
+
+    if (response.ok) {
+      const imageUrl = await response.blob();
+      setComparisonPlot(URL.createObjectURL(imageUrl));
+    } else {
+      console.error('Error fetching comparison plot');
+    }
   };
 
   return (
@@ -143,5 +148,6 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
