@@ -18,7 +18,7 @@ df = preprocess_data(df)
 team_info = fetch_team_info(api_key)
 
 # Specify the font path
-font_path = '/path/to/fonts/Exo2-Italic-VariableFont_wght.ttf'  # Update with your actual path
+font_path = 'path/to/your/font/Exo2-Italic-VariableFont_wght.ttf'  # Update with your actual path
 
 @app.route('/compare-teams', methods=['POST'])
 def compare_teams():
@@ -73,6 +73,7 @@ def compare_teams():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
 
