@@ -2,17 +2,41 @@ import React, { useState } from 'react';
 import '../App.css'; // Ensure this path is correct
 
 const GamedayGPTComponent = () => {
-  const [query, setQuery] = useState('');
-  const [response, setResponse] = useState('');
+  const [teams, setTeams] = useState(['Ohio State', 'Alabama']);
+  const [seasonRange, setSeasonRange] = useState('2000-2023');
+  const [stat, setStat] = useState('wins');
+  const [comparisonPlot, setComparisonPlot] = useState('');
 
-  const handleQueryChange = (e) => {
-    setQuery(e.target.value);
+  const handleTeamChange = (e) => {
+    const options = e.target.options;
+    const selectedTeams = [];
+    for (const option of options) {
+      if (option.selected) {
+        selectedTeams.push(option.value);
+      }
+    }
+    setTeams(selectedTeams);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Placeholder for future API call
-    setResponse(`You asked: ${query}`);
+  const handleSeasonRangeChange = (e) => {
+    setSeasonRange(e.target.value);
+  };
+
+  const handleStatChange = (e) => {
+    setStat(e.target.value);
+  };
+
+  const handleCompare = async () => {
+    const seasonRangeArray = seasonRange.split('-').map(Number);
+    const response = await fetch('/compare-teams', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ teams, season_range: seasonRangeArray, stat }),
+    });
+    const imageUrl = await response.blob();
+    setComparisonPlot(URL.createObjectURL(imageUrl));
   };
 
   return (
@@ -26,17 +50,14 @@ const GamedayGPTComponent = () => {
       <div className="gamedaygpt-container">
         <div className="gamedaygpt-chat">
           <h3>Chat Interface</h3>
-          <form onSubmit={handleSubmit} className="gamedaygpt-form">
+          <form className="gamedaygpt-form">
             <input
               type="text"
-              value={query}
-              onChange={handleQueryChange}
               placeholder="Ask me anything about college football..."
               className="gamedaygpt-input"
             />
             <button type="submit" className="gamedaygpt-submit">Ask</button>
           </form>
-          {response && <div className="gamedaygpt-response">{response}</div>}
           <div className="example-questions">
             <h4>Example Questions:</h4>
             <ul>
@@ -50,30 +71,34 @@ const GamedayGPTComponent = () => {
         <div className="gamedaygpt-comparison">
           <h3>Team Comparison Tool</h3>
           <div className="filters-section">
-            <select className="team-selection">
-              <option value="">Select a team</option>
+            <select multiple={true} className="team-selection" onChange={handleTeamChange}>
               <option value="Ohio State">Ohio State</option>
               <option value="Alabama">Alabama</option>
+              <option value="Michigan">Michigan</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Clemson">Clemson</option>
+              <option value="Oklahoma">Oklahoma</option>
+              <option value="Notre Dame">Notre Dame</option>
+              <option value="LSU">LSU</option>
+              <option value="Texas">Texas</option>
+              <option value="Florida">Florida</option>
               {/* Add more teams as needed */}
             </select>
-            <select className="season-range-selector">
-              <option value="">Select season range</option>
-              <option value="2010-2020">2010-2020</option>
+            <select className="season-range-selector" onChange={handleSeasonRangeChange}>
               <option value="2000-2023">2000-2023</option>
+              <option value="2010-2020">2010-2020</option>
               {/* Add more ranges as needed */}
             </select>
-            <select className="statistics-dropdown">
-              <option value="">Select statistics</option>
+            <select className="statistics-dropdown" onChange={handleStatChange}>
               <option value="wins">Wins</option>
               <option value="points">Points Scored</option>
               {/* Add more statistics as needed */}
             </select>
-            <button className="compare-button">Compare</button>
+            <button className="compare-button" onClick={handleCompare}>Compare</button>
           </div>
           <div className="comparison-results">
             <h4>Comparison Plot</h4>
-            {/* Placeholder for comparison plot */}
-            <div className="comparison-plot">Comparison Plot will be displayed here</div>
+            {comparisonPlot && <img src={comparisonPlot} alt="Comparison Plot" className="comparison-plot" />}
             <div className="key-insights">
               <h4>Key Insights</h4>
               <p>Insights derived from the comparison will be displayed here.</p>
@@ -118,4 +143,5 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
