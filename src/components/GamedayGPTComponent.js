@@ -3,7 +3,7 @@ import '../App.css'; // Ensure this path is correct
 
 const GamedayGPTComponent = () => {
   const [teams, setTeams] = useState(['Ohio State', 'Alabama']);
-  const [seasonRange, setSeasonRange] = useState('2000-2023');
+  const [seasonRange, setSeasonRange] = useState('2010-2023');
   const [stat, setStat] = useState('wins');
   const [comparisonPlot, setComparisonPlot] = useState('');
 
@@ -91,7 +91,7 @@ const GamedayGPTComponent = () => {
             </select>
             <select className="season-range-selector" onChange={handleSeasonRangeChange}>
               <option value="2000-2023">2000-2023</option>
-              <option value="2010-2020">2010-2020</option>
+              <option value="2010-2023">2010-2023</option>
               {/* Add more ranges as needed */}
             </select>
             <select className="statistics-dropdown" onChange={handleStatChange}>
@@ -148,6 +148,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 
