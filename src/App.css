@@ -43,7 +43,7 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1400px; /* Maximum width for larger screens */
+  max-width: 1670px; /* Maximum width for larger screens */
 }
 
 .hamburger-menu {
