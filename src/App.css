@@ -1535,11 +1535,21 @@ table tbody tr:nth-child(even) {
   color: #ff0000; /* Ensure text stays red on hover */
 }
 
+/* Ensure content is not hidden under the fixed navbar */
+.main-content {
+  padding-top: 60px; /* Adjust this value based on the height of your navbar */
+}
+
 /* GamedayGPT page styles */
 .gamedaygpt-page {
   padding: 20px;
   max-width: 1200px;
   margin: auto;
+}
+
+/* Apply the main-content class to the main container */
+.gamedaygpt-page.main-content {
+  padding-top: 60px; /* Ensure this matches the value above */
 }
 
 .gamedaygpt-intro {
@@ -1701,4 +1711,3 @@ table tbody tr:nth-child(even) {
   font-size: 16px;
   color: #333;
 }
-

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../App.css';
+import '../App.css'; // Ensure this path is correct
 
 const GamedayGPTComponent = () => {
   const [query, setQuery] = useState('');
@@ -16,7 +16,7 @@ const GamedayGPTComponent = () => {
   };
 
   return (
-    <div className="gamedaygpt-page">
+    <div className="gamedaygpt-page main-content">
       <div className="gamedaygpt-intro">
         <h2>GameDay GPT - Your College Football AI Companion</h2>
         <p>Get personalized insights and analytics for all things college football.</p>
@@ -118,3 +118,4 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
