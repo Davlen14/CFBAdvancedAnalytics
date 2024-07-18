@@ -2,8 +2,8 @@
 import requests
 import json
 
-# Your Heroku app URL
-url = 'https://my-betting-bot-davlen-2bc8e47f62ae.herokuapp.com/compare-teams'
+# Your local Flask app URL with the new port
+url = 'http://127.0.0.1:5001/compare-teams'
 
 # Data for comparing teams
 data = {
@@ -23,6 +23,7 @@ if response.status_code == 200:
     print("Comparison plot saved as 'comparison_plot.png'")
 else:
     print(f"Error: {response.text}")
+
 
 
 
