@@ -19,7 +19,8 @@ df = preprocess_data(df)
 team_info = fetch_team_info(api_key)
 
 # Specify the font path
-font_path = '/Users/davlenswain/my-betting-bot/fonts/Exo2-Italic-VariableFont_wght.ttf'  # Update with your actual path
+font_path = '/Users/davlenswain/my-betting-bot/fonts/Exo2-Italic-VariableFont_wght.ttf'
+font_prop = FontProperties(fname=font_path)
 
 # Load the trained model
 model = joblib.load('game_prediction_model.pkl')
@@ -37,7 +38,6 @@ def compare_teams():
     data = request.json
     teams = data['teams']
     season_range = data['season_range']
-    stat = data['stat']
     
     # Filter data based on user input
     filtered_df = df[(df['season'] >= season_range[0]) & (df['season'] <= season_range[1])]
@@ -85,6 +85,7 @@ def compare_teams():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
