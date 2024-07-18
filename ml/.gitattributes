@@ -1,0 +1,4 @@
+git rm --cached game_prediction_model.pkl
+git rm --cached ../fonts/Exo2-Italic-VariableFont_wght.ttf
+git rm --cached ../fonts/Exo2-VariableFont_wght.ttf
+
