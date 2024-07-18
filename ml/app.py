@@ -67,11 +67,15 @@ def compare_teams():
     plt.suptitle('GameDay Analytics: Team Comparison', fontsize=20, fontproperties=FontProperties(fname=font_path), color='red')
     plt.tight_layout(rect=[0, 0, 1, 0.97])
 
-    # Save the plot as an image file
-    output_path = 'comparison_plot.png'
-    plt.savefig(output_path)
+    # Save the plot to a BytesIO object
+    img = BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    plt.close()
 
-    return send_file(output_path, mimetype='image/png')
+    return send_file(img, mimetype='image/png')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
+
+
