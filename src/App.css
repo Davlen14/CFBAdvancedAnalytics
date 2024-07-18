@@ -1656,7 +1656,9 @@ table tbody tr:nth-child(even) {
 .team-selection,
 .season-range-selector,
 .statistics-dropdown {
+  width: 100%;
   padding: 10px;
+  margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 16px;

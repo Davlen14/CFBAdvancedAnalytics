@@ -2,10 +2,18 @@ import React, { useState } from 'react';
 import '../App.css'; // Ensure this path is correct
 
 const GamedayGPTComponent = () => {
-  const [teams, setTeams] = useState(['Ohio State', 'Alabama']);
+  const [teams, setTeams] = useState([]);
   const [seasonRange, setSeasonRange] = useState('2010-2023');
   const [stat, setStat] = useState('wins');
   const [comparisonPlot, setComparisonPlot] = useState('');
+
+  const teamOptions = [
+    'Alabama', 'Clemson', 'Florida', 'Georgia', 'LSU', 'Michigan', 'Notre Dame', 'Ohio State', 'Oklahoma', 'Texas',
+    'Auburn', 'Florida State', 'Miami', 'Oregon', 'Penn State', 'USC', 'Wisconsin', 'Texas A&M', 'Iowa', 'Michigan State',
+    'Nebraska', 'Tennessee', 'UCLA', 'Washington', 'Stanford', 'Virginia Tech', 'Mississippi State', 'Ole Miss', 'Arkansas', 'TCU',
+    'Kansas State', 'Baylor', 'Oklahoma State', 'West Virginia', 'Utah', 'North Carolina', 'Kentucky', 'Missouri', 'South Carolina', 'Texas Tech',
+    'Arizona State', 'BYU', 'Boise State', 'Pittsburgh', 'Louisville', 'Memphis', 'Houston', 'Cincinnati', 'UCF', 'Navy'
+  ];
 
   const handleTeamChange = (e) => {
     const options = e.target.options;
@@ -77,17 +85,9 @@ const GamedayGPTComponent = () => {
           <h3>Team Comparison Tool</h3>
           <div className="filters-section">
             <select multiple={true} className="team-selection" onChange={handleTeamChange}>
-              <option value="Ohio State">Ohio State</option>
-              <option value="Alabama">Alabama</option>
-              <option value="Michigan">Michigan</option>
-              <option value="Georgia">Georgia</option>
-              <option value="Clemson">Clemson</option>
-              <option value="Oklahoma">Oklahoma</option>
-              <option value="Notre Dame">Notre Dame</option>
-              <option value="LSU">LSU</option>
-              <option value="Texas">Texas</option>
-              <option value="Florida">Florida</option>
-              {/* Add more teams as needed */}
+              {teamOptions.map((team, index) => (
+                <option key={index} value={team}>{team}</option>
+              ))}
             </select>
             <select className="season-range-selector" onChange={handleSeasonRangeChange}>
               <option value="2000-2023">2000-2023</option>
@@ -148,6 +148,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 
