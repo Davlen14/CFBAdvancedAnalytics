@@ -1,5 +1,5 @@
+# ml/app.py
 from flask import Flask, request, send_file, jsonify
-import joblib
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
@@ -22,25 +22,17 @@ team_info = fetch_team_info(api_key)
 font_path = '/Users/davlenswain/my-betting-bot/fonts/Exo2-Italic-VariableFont_wght.ttf'
 font_prop = FontProperties(fname=font_path)
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    data = request.json
-    df = pd.DataFrame(data)
-    features = ['home_pregame_elo', 'away_pregame_elo', 'home_postgame_elo', 'away_postgame_elo', 'home_win_prob', 'away_win_prob', 'attendance']
-    predictions = model.predict(df[features])
-    return jsonify(predictions.tolist())
-
 @app.route('/compare-teams', methods=['POST'])
 def compare_teams():
     data = request.json
     teams = data['teams']
     season_range = data['season_range']
     stat = data['stat']
-    
+
     # Filter data based on user input
     filtered_df = df[(df['season'] >= season_range[0]) & (df['season'] <= season_range[1])]
     filtered_df = filtered_df[filtered_df['home_team'].isin(teams) | filtered_df['away_team'].isin(teams)]
-    
+
     # Calculate wins per season for each team
     filtered_df.loc[:, 'home_win'] = filtered_df['home_points'] > filtered_df['away_points']
     filtered_df.loc[:, 'away_win'] = filtered_df['away_points'] > filtered_df['home_points']
@@ -60,7 +52,7 @@ def compare_teams():
     for i, team in enumerate(teams):
         wins = wins_dict[team]
         axs[i].plot(wins.index, wins, label=team, marker='o', color=team_info[team]['color'])
-        
+
         # Add team logo
         image_url = team_info[team]['logo']
         response = requests.get(image_url)
@@ -68,17 +60,17 @@ def compare_teams():
         imagebox = OffsetImage(image, zoom=0.1)
         ab = AnnotationBbox(imagebox, (wins.index[-1], wins.iloc[-1]), frameon=False)
         axs[i].add_artist(ab)
-        
+
         axs[i].set_title(f'{team} Wins per Season')
         axs[i].grid(True)
-        
+
     plt.suptitle('GameDay Analytics: Team Comparison', fontsize=20, fontproperties=FontProperties(fname=font_path), color='red')
     plt.tight_layout(rect=[0, 0, 1, 0.97])
 
     # Save the plot as an image file
     output_path = 'comparison_plot.png'
     plt.savefig(output_path)
-    
+
     return send_file(output_path, mimetype='image/png')
 
 if __name__ == "__main__":
