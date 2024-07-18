@@ -22,9 +22,6 @@ team_info = fetch_team_info(api_key)
 font_path = '/Users/davlenswain/my-betting-bot/fonts/Exo2-Italic-VariableFont_wght.ttf'
 font_prop = FontProperties(fname=font_path)
 
-# Load the trained model
-model = joblib.load('game_prediction_model.pkl')
-
 @app.route('/predict', methods=['POST'])
 def predict():
     data = request.json
@@ -38,10 +35,11 @@ def compare_teams():
     data = request.json
     teams = data['teams']
     season_range = data['season_range']
+    stat = data['stat']
     
     # Filter data based on user input
     filtered_df = df[(df['season'] >= season_range[0]) & (df['season'] <= season_range[1])]
-    filtered_df = filtered_df[filtered_df['home_team'].isin(teams) | filtered_df['away_team'].isin(teams)].copy()
+    filtered_df = filtered_df[filtered_df['home_team'].isin(teams) | filtered_df['away_team'].isin(teams)]
     
     # Calculate wins per season for each team
     filtered_df.loc[:, 'home_win'] = filtered_df['home_points'] > filtered_df['away_points']
@@ -85,9 +83,3 @@ def compare_teams():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-
-
-
-
