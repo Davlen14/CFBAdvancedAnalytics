@@ -1,4 +1,3 @@
-# ml/app.py
 from flask import Flask, request, send_file, jsonify
 import joblib
 import pandas as pd
@@ -20,7 +19,7 @@ df = preprocess_data(df)
 team_info = fetch_team_info(api_key)
 
 # Specify the font path
-font_path = '/path/to/your/font/Exo2-Italic-VariableFont_wght.ttf'  # Update with your actual path
+font_path = '/Users/davlenswain/my-betting-bot/fonts/Exo2-Italic-VariableFont_wght.ttf'  # Update with your actual path
 
 # Load the trained model
 model = joblib.load('game_prediction_model.pkl')
@@ -42,7 +41,7 @@ def compare_teams():
     
     # Filter data based on user input
     filtered_df = df[(df['season'] >= season_range[0]) & (df['season'] <= season_range[1])]
-    filtered_df = filtered_df[filtered_df['home_team'].isin(teams) | filtered_df['away_team'].isin(teams)]
+    filtered_df = filtered_df[filtered_df['home_team'].isin(teams) | filtered_df['away_team'].isin(teams)].copy()
     
     # Calculate wins per season for each team
     filtered_df.loc[:, 'home_win'] = filtered_df['home_points'] > filtered_df['away_points']
@@ -86,6 +85,7 @@ def compare_teams():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 
 
