@@ -41,7 +41,8 @@ mae = mean_absolute_error(y_test, y_pred)
 print(f"Model Mean Absolute Error: {mae}")
 
 # Save the trained model
-joblib.dump(model.best_estimator_, 'game_prediction_model.pkl')
+# joblib.dump(model.best_estimator_, 'game_prediction_model.pkl')
+
 
 
 
