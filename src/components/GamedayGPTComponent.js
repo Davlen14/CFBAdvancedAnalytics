@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../App.css'; // Ensure this path is correct
 
 const GamedayGPTComponent = () => {
-  const [teams, setTeams] = useState([]);
+  const [teams, setTeams] = useState(['Ohio State', 'Alabama']);
   const [seasonRange, setSeasonRange] = useState('2010-2023');
   const [stat, setStat] = useState('wins');
   const [comparisonPlot, setComparisonPlot] = useState('');
@@ -148,9 +148,3 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
-
-
-
-
-
-
