@@ -9,6 +9,7 @@ import requests
 from io import BytesIO
 from PIL import Image
 import matplotlib
+import os
 
 # Use the 'Agg' backend for matplotlib to avoid issues with GUI backend
 matplotlib.use('Agg')
@@ -80,7 +81,9 @@ def compare_teams():
     return send_file(img, mimetype='image/png')
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    port = int(os.environ.get('PORT', 5001))
+    app.run(debug=True, port=port)
+
 
 
 
