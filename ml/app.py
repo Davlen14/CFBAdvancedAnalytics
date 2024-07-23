@@ -81,7 +81,7 @@ def compare_teams():
     return send_file(img, mimetype='image/png')
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5001))
+    port = int(os.environ.get('PORT', 5002))
     app.run(debug=True, port=port)
 
 

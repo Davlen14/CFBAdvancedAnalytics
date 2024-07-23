@@ -1,3 +1,5 @@
-node: node src/server/proxy.js
-flask: python ml/app.py
+node: PORT=5001 node src/server/proxy.js
+flask: PORT=5002 python ml/app.py
+
+
 
