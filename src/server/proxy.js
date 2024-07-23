@@ -387,6 +387,18 @@ app.get('/api/stats/player/season', async (req, res) => {
   }
 });
 
+// Endpoint to get player game stats
+app.get('/api/stats/player/game', async (req, res) => {
+  const { year, week, seasonType, team, conference, category, gameId } = req.query;
+  try {
+    const response = await apiClient.get('/games/players', { params: { year, week, seasonType, team, conference, category, gameId } });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching player game stats:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 // Endpoint to get advanced box score data
 app.get('/api/college-football/game/box/advanced', async (req, res) => {

@@ -196,6 +196,11 @@ export async function getPlayerSeasonStats(year, team, seasonType, category) {
   const params = { year, team, seasonType, category };
   return makeGetRequest('/api/stats/player/season', params);
 }
+// Function to get player game stats
+export async function getPlayerGameStats(year, week, seasonType, team, conference, category, gameId) {
+  const params = { year, week, seasonType, team, conference, category, gameId };
+  return makeGetRequest('/api/stats/player/game', params);
+}
 
 
 
