@@ -8,6 +8,10 @@ from data_collection import fetch_data, preprocess_data, fetch_team_info
 import requests
 from io import BytesIO
 from PIL import Image
+import matplotlib
+
+# Use the 'Agg' backend for matplotlib to avoid issues with GUI backend
+matplotlib.use('Agg')
 
 app = Flask(__name__)
 
@@ -19,7 +23,7 @@ df = preprocess_data(df)
 team_info = fetch_team_info(api_key)
 
 # Specify the font path
-font_path = '/Users/davlenswain/my-betting-bot/fonts/Exo2-Italic-VariableFont_wght.ttf'
+font_path = '/Users/davlenswain/my-betting-bot-cleanup-clone/CFBAdvancedAnalytics/fonts/Exo2-Italic-VariableFont_wght.ttf'
 font_prop = FontProperties(fname=font_path)
 
 @app.route('/compare-teams', methods=['POST'])
@@ -77,5 +81,6 @@ def compare_teams():
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
+
 
 
