@@ -368,6 +368,26 @@ app.get('/api/rankings', async (_req, res) => {
   }
 });
 
+// Endpoint to get player stats
+app.get('/api/stats/player/season', async (req, res) => {
+  try {
+    const { year, team, seasonType, category } = req.query;
+    if (!year || !team || !seasonType || !category) {
+      return res.status(400).json({ error: 'year, team, seasonType, and category query parameters are required' });
+    }
+
+    const response = await apiClient.get('/stats/player/season', {
+      params: { year, team, seasonType, category },
+    });
+
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching player stats:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 // Endpoint to get advanced box score data
 app.get('/api/college-football/game/box/advanced', async (req, res) => {
   try {

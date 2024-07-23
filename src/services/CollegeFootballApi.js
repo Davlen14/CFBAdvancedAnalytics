@@ -191,6 +191,12 @@ export async function getAdvancedBoxScore(gameId) {
   return makeGetRequest('/api/college-football/game/box/advanced', { gameId });
 }
 
+// Function to get player stats for a season
+export async function getPlayerSeasonStats(year, team, seasonType, category) {
+  const params = { year, team, seasonType, category };
+  return makeGetRequest('/api/stats/player/season', params);
+}
+
 
 
 
