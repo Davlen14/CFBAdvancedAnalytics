@@ -1,1 +1,2 @@
-web: node src/server/proxy.js
+web: foreman start -f Procfile.dev
+
