@@ -69,16 +69,9 @@ const GamedayGPTComponent = () => {
         borderColor: getRandomColor(),
         backgroundColor: getRandomColor(),
         // Added to display team logos in the legend
-        pointStyle: new Image(),
+        pointStyle: team.logos ? team.logos[0] : '', // Safely access logos
         pointRadius: 10
       };
-    });
-
-    // Setting team logos for pointStyle
-    datasets.forEach((dataset, index) => {
-      const img = new Image();
-      img.src = selectedTeams[index]?.logos[0] || ''; // Add optional chaining and fallback
-      dataset.pointStyle = img;
     });
 
     return { labels: years, datasets };
@@ -203,6 +196,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 
