@@ -150,7 +150,25 @@ const GamedayGPTComponent = () => {
           </div>
           <div className="comparison-results">
             <h4>Comparison Plot</h4>
-            {comparisonData && <Line data={comparisonData} />}
+            {comparisonData && <Line data={comparisonData} options={{
+              plugins: {
+                legend: {
+                  labels: {
+                    generateLabels: (chart) => {
+                      const originalLabels = ChartJS.defaults.plugins.legend.labels.generateLabels(chart);
+                      originalLabels.forEach(label => {
+                        const team = selectedTeams.find(team => team.label === label.text);
+                        if (team && team.logos) {
+                          label.pointStyle = new Image();
+                          label.pointStyle.src = team.logos[0];
+                        }
+                      });
+                      return originalLabels;
+                    }
+                  }
+                }
+              }
+            }} />}
             <div className="key-insights">
               <h4>Key Insights</h4>
               <p>Insights derived from the comparison will be displayed here.</p>
@@ -195,6 +213,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 
