@@ -60,7 +60,7 @@ const GamedayGPTComponent = () => {
     const years = Array.from(new Set(data.map(record => record.year)));
     const datasets = selectedTeams.map(team => {
       return {
-        label: team.label,
+        label: team.label.props.children[1], // Extract the team name from the label
         data: years.map(year => {
           const record = data.find(d => d.year === year && d.team === team.value);
           return record ? record.total.wins : 0;
@@ -68,9 +68,16 @@ const GamedayGPTComponent = () => {
         fill: false,
         borderColor: team.color || getRandomColor(), // Use team color or random color
         backgroundColor: team.color || getRandomColor(),
-        pointStyle: team.logos ? team.logos[0] : '',
+        pointStyle: new Image(),
         pointRadius: 5 // Set smaller point radius
       };
+    });
+
+    // Setting team logos for pointStyle
+    datasets.forEach((dataset, index) => {
+      const img = new Image();
+      img.src = selectedTeams[index]?.label.props.children[0].props.src || ''; // Safely access logos
+      dataset.pointStyle = img;
     });
 
     return { labels: years, datasets };
@@ -157,10 +164,12 @@ const GamedayGPTComponent = () => {
                     generateLabels: (chart) => {
                       const originalLabels = ChartJS.defaults.plugins.legend.labels.generateLabels(chart);
                       originalLabels.forEach(label => {
-                        const team = selectedTeams.find(team => team.label === label.text);
+                        const team = selectedTeams.find(team => team.label.props.children[1] === label.text);
                         if (team && team.logos) {
-                          label.pointStyle = new Image();
-                          label.pointStyle.src = team.logos[0];
+                          const img = new Image();
+                          img.src = team.logos[0];
+                          label.text = team.label.props.children[1]; // Show team name in legend
+                          label.pointStyle = img;
                         }
                       });
                       return originalLabels;
@@ -213,6 +222,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 
