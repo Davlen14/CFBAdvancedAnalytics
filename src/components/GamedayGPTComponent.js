@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { Line } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import '../App.css';
-import { getFBSTeams, getRecords } from '../services/CollegeFootballApi'; // Ensure you have these functions
+import { getFBSTeams, getRecords } from '../services/CollegeFootballApi';
+
+// Register Chart.js components
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const GamedayGPTComponent = () => {
   const [teams, setTeams] = useState([]);
@@ -29,17 +33,21 @@ const GamedayGPTComponent = () => {
   const handleCompare = async () => {
     const years = selectedYears.map(year => year.value);
     const teams = selectedTeams.map(team => team.value);
+
     const data = await getRecords(Math.min(...years), Math.max(...years), teams);
     const chartData = generateChartData(data);
     setComparisonData(chartData);
   };
 
   const generateChartData = (data) => {
-    const years = selectedYears.map(year => year.value);
-    const datasets = data.map(teamData => {
+    const years = Array.from(new Set(data.map(record => record.year)));
+    const datasets = selectedTeams.map(team => {
       return {
-        label: teamData.team,
-        data: years.map(year => teamData.total[year] ? teamData.total[year].wins : 0),
+        label: team.label,
+        data: years.map(year => {
+          const record = data.find(d => d.year === year && d.team === team.value);
+          return record ? record.wins : 0;
+        }),
         fill: false,
         borderColor: getRandomColor(),
         backgroundColor: getRandomColor()
@@ -67,9 +75,9 @@ const GamedayGPTComponent = () => {
     )
   }));
 
-  const yearOptions = Array.from({ length: 24 }, (_, i) => i + 2000).map(year => ({
+  const yearOptions = Array.from({ length: (2023 - 2010 + 1) }, (_, i) => i + 2010).map(year => ({
     value: year,
-    label: year
+    label: year.toString()
   }));
 
   return (
@@ -167,6 +175,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 
