@@ -4,19 +4,6 @@ import { Line } from 'react-chartjs-2';
 import '../App.css';
 import { getFBSTeams } from '../services/CollegeFootballApi'; // Ensure you have this function
 
-const conferenceLogos = {
-  "ACC": "/conference-logos/ACC.png",
-  "American Athletic": "/conference-logos/American Athletic.png",
-  "Big 12": "/conference-logos/Big 12.png",
-  "Big Ten": "/conference-logos/Big Ten.png",
-  "Conference USA": "/conference-logos/Conference USA.png",
-  "FBS Independents": "/conference-logos/FBS Independents.png",
-  "Mid-American": "/conference-logos/Mid-American.png",
-  "Mountain West": "/conference-logos/Mountain West.png",
-  "Pac-12": "/conference-logos/Pac-12.png",
-  "SEC": "/conference-logos/SEC.png",
-  "Sun Belt": "/conference-logos/Sun Belt.png"
-};
 
 const GamedayGPTComponent = () => {
   const [teams, setTeams] = useState([]);
