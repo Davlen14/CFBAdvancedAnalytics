@@ -66,10 +66,10 @@ const GamedayGPTComponent = () => {
           return record ? record.total.wins : 0;
         }),
         fill: false,
-        borderColor: team.color || getRandomColor(), // Use team color or random color
-        backgroundColor: team.color || getRandomColor(),
+        borderColor: team.color, // Use team color
+        backgroundColor: team.alt_color, // Use alt color if needed
         pointStyle: new Image(),
-        pointRadius: 10 // Set larger point radius
+        pointRadius: 5 // Adjust point radius
       };
     });
 
@@ -85,15 +85,6 @@ const GamedayGPTComponent = () => {
     return { labels: years, datasets };
   };
 
-  const getRandomColor = () => {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  };
-
   const teamOptions = teams.map(team => ({
     value: team.school,
     label: (
@@ -101,7 +92,9 @@ const GamedayGPTComponent = () => {
         <img src={team.logos[0]} alt={`${team.school} logo`} className="team-logo" />
         {team.school}
       </div>
-    )
+    ),
+    color: team.color,
+    alt_color: team.alt_color
   }));
 
   const yearOptions = Array.from({ length: (2023 - 2010 + 1) }, (_, i) => i + 2010).map(year => ({
@@ -168,13 +161,12 @@ const GamedayGPTComponent = () => {
                       originalLabels.forEach(label => {
                         const team = selectedTeams.find(team => team.label.props.children[1] === label.text);
                         if (team && team.logos) {
-                          label.text = `${label.text} `;
-                          label.font = { size: 10 }; // Adjust font size for smaller text
                           const img = new Image();
                           img.src = team.logos[0];
                           img.width = 15; // Adjust width for smaller image
                           img.height = 15; // Adjust height for smaller image
-                          label.fillStyle = img;
+                          label.text = team.label.props.children[1]; // Show team name in legend
+                          label.pointStyle = img;
                         }
                       });
                       return originalLabels;
