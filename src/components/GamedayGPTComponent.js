@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { Line } from 'react-chartjs-2';
 import '../App.css';
-import { getFBSTeams } from '../services/CollegeFootballApi'; // Ensure you have this function
-
+import { getFBSTeams, getRecords } from '../services/CollegeFootballApi'; // Ensure you have these functions
 
 const GamedayGPTComponent = () => {
   const [teams, setTeams] = useState([]);
   const [selectedTeams, setSelectedTeams] = useState([]);
-  const [seasonRange, setSeasonRange] = useState('2010-2023');
+  const [selectedYears, setSelectedYears] = useState([]);
   const [comparisonData, setComparisonData] = useState(null);
 
   useEffect(() => {
@@ -23,31 +22,20 @@ const GamedayGPTComponent = () => {
     setSelectedTeams(selectedOptions);
   };
 
-  const handleSeasonRangeChange = (e) => {
-    setSeasonRange(e.target.value);
+  const handleYearChange = (selectedOptions) => {
+    setSelectedYears(selectedOptions);
   };
 
   const handleCompare = async () => {
-    const seasonRangeArray = seasonRange.split('-').map(Number);
-    const response = await fetch('https://my-betting-bot-davlen-2bc8e47f62ae.herokuapp.com/api/college-football/records', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ teams: selectedTeams.map(team => team.value), seasonRange: seasonRangeArray })
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      const chartData = generateChartData(data);
-      setComparisonData(chartData);
-    } else {
-      console.error('Error fetching comparison data');
-    }
+    const years = selectedYears.map(year => year.value);
+    const teams = selectedTeams.map(team => team.value);
+    const data = await getRecords(Math.min(...years), Math.max(...years), teams);
+    const chartData = generateChartData(data);
+    setComparisonData(chartData);
   };
 
   const generateChartData = (data) => {
-    const years = Object.keys(data[0].total).map(year => year);
+    const years = selectedYears.map(year => year.value);
     const datasets = data.map(teamData => {
       return {
         label: teamData.team,
@@ -77,6 +65,11 @@ const GamedayGPTComponent = () => {
         {team.school}
       </div>
     )
+  }));
+
+  const yearOptions = Array.from({ length: 24 }, (_, i) => i + 2000).map(year => ({
+    value: year,
+    label: year
   }));
 
   return (
@@ -118,11 +111,13 @@ const GamedayGPTComponent = () => {
               onChange={handleTeamChange}
               value={selectedTeams}
             />
-            <select className="season-range-selector" onChange={handleSeasonRangeChange} value={seasonRange}>
-              <option value="2000-2023">2000-2023</option>
-              <option value="2010-2023">2010-2023</option>
-              {/* Add more ranges as needed */}
-            </select>
+            <Select
+              isMulti
+              className="year-selection"
+              options={yearOptions}
+              onChange={handleYearChange}
+              value={selectedYears}
+            />
             <button className="compare-button" onClick={handleCompare}>Compare</button>
           </div>
           <div className="comparison-results">
