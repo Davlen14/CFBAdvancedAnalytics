@@ -35,7 +35,7 @@ const GamedayGPTComponent = () => {
       const years = selectedYears.map(year => year.value);
       const teams = selectedTeams.map(team => team.value);
 
-      const data = await getRecords(Math.min(...years), Math.max(...years), teams);
+      const data = await fetchTeamData(teams, years);
       if (!data || data.length === 0) {
         console.error('No data returned from API');
         return;
@@ -47,11 +47,20 @@ const GamedayGPTComponent = () => {
     }
   };
 
+  const fetchTeamData = async (teams, years) => {
+    const promises = [];
+    years.forEach(year => {
+      promises.push(getRecords(year, year, teams));
+    });
+    const results = await Promise.all(promises);
+    return results.flat();
+  };
+
   const generateChartData = (data) => {
     const years = Array.from(new Set(data.map(record => record.year)));
     const datasets = selectedTeams.map(team => {
       return {
-        label: team.value, // Use team value instead of label
+        label: team.label, // Use team label
         data: years.map(year => {
           const record = data.find(d => d.year === year && d.team === team.value);
           return record ? record.total.wins : 0; // Ensure correct data mapping
@@ -194,6 +203,8 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
+
 
 
 
