@@ -151,7 +151,7 @@ const GamedayGPTComponent = () => {
             <button className="compare-button" onClick={handleCompare}>Compare</button>
           </div>
           <div className="comparison-results">
-            <h4>Comparison Plot</h4>
+            <h4>Wins Over Years Comparison Plot</h4>
             {comparisonData && <Line data={comparisonData} options={{
               plugins: {
                 legend: {
