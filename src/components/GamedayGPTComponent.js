@@ -33,28 +33,40 @@ const GamedayGPTComponent = () => {
   const handleCompare = async () => {
     const years = selectedYears.map(year => year.value);
     const teams = selectedTeams.map(team => team.value);
-
+  
     const data = await getRecords(Math.min(...years), Math.max(...years), teams);
     const chartData = generateChartData(data);
     setComparisonData(chartData);
   };
-
+  
   const generateChartData = (data) => {
     const years = Array.from(new Set(data.map(record => record.year)));
     const datasets = selectedTeams.map(team => {
       return {
-        label: team.label,
+        label: team.value, // Use team value instead of label
         data: years.map(year => {
           const record = data.find(d => d.year === year && d.team === team.value);
-          return record ? record.wins : 0;
+          return record ? record.total.wins : 0; // Ensure correct data mapping
         }),
         fill: false,
         borderColor: getRandomColor(),
-        backgroundColor: getRandomColor()
+        backgroundColor: getRandomColor(),
+        // Added to display team logos in the legend
+        pointStyle: new Image(),
+        pointRadius: 10
       };
     });
+  
+    // Setting team logos for pointStyle
+    datasets.forEach((dataset, index) => {
+      const img = new Image();
+      img.src = selectedTeams[index].logos[0];
+      dataset.pointStyle = img;
+    });
+  
     return { labels: years, datasets };
   };
+  
 
   const getRandomColor = () => {
     const letters = '0123456789ABCDEF';
