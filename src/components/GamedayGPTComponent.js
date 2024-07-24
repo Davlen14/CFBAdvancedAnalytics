@@ -31,14 +31,22 @@ const GamedayGPTComponent = () => {
   };
 
   const handleCompare = async () => {
-    const years = selectedYears.map(year => year.value);
-    const teams = selectedTeams.map(team => team.value);
-  
-    const data = await getRecords(Math.min(...years), Math.max(...years), teams);
-    const chartData = generateChartData(data);
-    setComparisonData(chartData);
+    try {
+      const years = selectedYears.map(year => year.value);
+      const teams = selectedTeams.map(team => team.value);
+
+      const data = await getRecords(Math.min(...years), Math.max(...years), teams);
+      if (!data || data.length === 0) {
+        console.error('No data returned from API');
+        return;
+      }
+      const chartData = generateChartData(data);
+      setComparisonData(chartData);
+    } catch (error) {
+      console.error('Error fetching comparison data:', error);
+    }
   };
-  
+
   const generateChartData = (data) => {
     const years = Array.from(new Set(data.map(record => record.year)));
     const datasets = selectedTeams.map(team => {
@@ -56,17 +64,16 @@ const GamedayGPTComponent = () => {
         pointRadius: 10
       };
     });
-  
+
     // Setting team logos for pointStyle
     datasets.forEach((dataset, index) => {
       const img = new Image();
-      img.src = selectedTeams[index].logos[0];
+      img.src = selectedTeams[index]?.logos[0] || ''; // Add optional chaining and fallback
       dataset.pointStyle = img;
     });
-  
+
     return { labels: years, datasets };
   };
-  
 
   const getRandomColor = () => {
     const letters = '0123456789ABCDEF';
