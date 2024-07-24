@@ -60,17 +60,16 @@ const GamedayGPTComponent = () => {
     const years = Array.from(new Set(data.map(record => record.year)));
     const datasets = selectedTeams.map(team => {
       return {
-        label: team.label, // Use team label
+        label: team.label,
         data: years.map(year => {
           const record = data.find(d => d.year === year && d.team === team.value);
-          return record ? record.total.wins : 0; // Ensure correct data mapping
+          return record ? record.total.wins : 0;
         }),
         fill: false,
-        borderColor: getRandomColor(),
-        backgroundColor: getRandomColor(),
-        // Added to display team logos in the legend
-        pointStyle: team.logos ? team.logos[0] : '', // Safely access logos
-        pointRadius: 10
+        borderColor: team.color || getRandomColor(), // Use team color or random color
+        backgroundColor: team.color || getRandomColor(),
+        pointStyle: team.logos ? team.logos[0] : '',
+        pointRadius: 5 // Set smaller point radius
       };
     });
 
