@@ -69,7 +69,7 @@ const GamedayGPTComponent = () => {
         borderColor: team.color || getRandomColor(), // Use team color or random color
         backgroundColor: team.color || getRandomColor(),
         pointStyle: new Image(),
-        pointRadius: 5 // Set smaller point radius
+        pointRadius: 10 // Set larger point radius
       };
     });
 
@@ -77,6 +77,8 @@ const GamedayGPTComponent = () => {
     datasets.forEach((dataset, index) => {
       const img = new Image();
       img.src = selectedTeams[index]?.label.props.children[0].props.src || ''; // Safely access logos
+      img.width = 20; // Adjust width
+      img.height = 20; // Adjust height
       dataset.pointStyle = img;
     });
 
@@ -166,12 +168,13 @@ const GamedayGPTComponent = () => {
                       originalLabels.forEach(label => {
                         const team = selectedTeams.find(team => team.label.props.children[1] === label.text);
                         if (team && team.logos) {
+                          label.text = `${label.text} `;
+                          label.font = { size: 10 }; // Adjust font size for smaller text
                           const img = new Image();
                           img.src = team.logos[0];
-                          img.width = .0005; // Set the desired width
-                          img.height = .00005; // Set the desired height
-                          label.text = team.label.props.children[1]; // Show team name in legend
-                          label.pointStyle = img;
+                          img.width = 15; // Adjust width for smaller image
+                          img.height = 15; // Adjust height for smaller image
+                          label.fillStyle = img;
                         }
                       });
                       return originalLabels;
@@ -179,6 +182,7 @@ const GamedayGPTComponent = () => {
                   }
                 }
               }
+
             }} />}
             <div className="key-insights">
               <h4>Key Insights</h4>
