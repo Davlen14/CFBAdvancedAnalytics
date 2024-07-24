@@ -1571,17 +1571,28 @@ table tbody tr:nth-child(even) {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 
-.gamedaygpt-chat,
 .gamedaygpt-comparison {
   background-color: #ffffff; /* White background */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   padding: 20px;
   margin: 20px;
-  flex: 1 1 45%;
-  max-width: 500px;
+  flex: 1 1 100%; /* Increase flex-basis to 100% */
+  max-width: 1000px; /* Increase max-width */
+}
+
+.gamedaygpt-chat {
+  background-color: #ffffff; /* White background */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  padding: 20px;
+  margin: 20px;
+  flex: 1 1 90%; /* Increase flex-basis to 90% */
+  max-width: 800px; /* Increase max-width */
 }
 
 .gamedaygpt-form {
@@ -1706,7 +1717,10 @@ table tbody tr:nth-child(even) {
   margin-top: 20px;
 }
 
-.comparison-plot,
+.comparison-plot {
+  margin-top: 20px;
+}
+
 .key-insights,
 .trending-analyses,
 .featured-metrics,
@@ -1745,5 +1759,6 @@ table tbody tr:nth-child(even) {
   width: 30px;
   height: 30px;
 }
+
 
 

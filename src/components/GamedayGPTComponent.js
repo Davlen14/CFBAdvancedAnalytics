@@ -111,26 +111,6 @@ const GamedayGPTComponent = () => {
       </div>
 
       <div className="gamedaygpt-container">
-        <div className="gamedaygpt-chat">
-          <h3>Chat Interface</h3>
-          <form className="gamedaygpt-form">
-            <input
-              type="text"
-              placeholder="Ask me anything about college football..."
-              className="gamedaygpt-input"
-            />
-            <button type="submit" className="gamedaygpt-submit">Ask</button>
-          </form>
-          <div className="example-questions">
-            <h4>Example Questions:</h4>
-            <ul>
-              <li>Which team has the most wins in the last decade?</li>
-              <li>Compare Ohio State and Alabama's performance.</li>
-              <li>What are the key stats for the 2023 season?</li>
-            </ul>
-          </div>
-        </div>
-
         <div className="gamedaygpt-comparison">
           <h3>Team Comparison Tool</h3>
           <div className="filters-section">
@@ -174,12 +154,31 @@ const GamedayGPTComponent = () => {
                   }
                 }
               }
-
             }} />}
             <div className="key-insights">
               <h4>Key Insights</h4>
               <p>Insights derived from the comparison will be displayed here.</p>
             </div>
+          </div>
+        </div>
+
+        <div className="gamedaygpt-chat">
+          <h3>Chat Interface</h3>
+          <form className="gamedaygpt-form">
+            <input
+              type="text"
+              placeholder="Ask me anything about college football..."
+              className="gamedaygpt-input"
+            />
+            <button type="submit" className="gamedaygpt-submit">Ask</button>
+          </form>
+          <div className="example-questions">
+            <h4>Example Questions:</h4>
+            <ul>
+              <li>Which team has the most wins in the last decade?</li>
+              <li>Compare Ohio State and Alabama's performance.</li>
+              <li>What are the key stats for the 2023 season?</li>
+            </ul>
           </div>
         </div>
       </div>
