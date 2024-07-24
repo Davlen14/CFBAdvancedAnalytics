@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Line } from 'react-chartjs-2';
 import '../App.css'; // Ensure this path is correct
 
 const GamedayGPTComponent = () => {
   const [teams, setTeams] = useState(['Ohio State', 'Alabama']);
-  const [seasonRange, setSeasonRange] = useState('2010-2023');
+  const [startYear, setStartYear] = useState(2010);
+  const [endYear, setEndYear] = useState(2023);
   const [stat, setStat] = useState('wins');
-  const [comparisonPlot, setComparisonPlot] = useState('');
+  const [comparisonData, setComparisonData] = useState(null);
 
   const teamOptions = [
     'Alabama', 'Clemson', 'Florida', 'Georgia', 'LSU', 'Michigan', 'Notre Dame', 'Ohio State', 'Oklahoma', 'Texas',
@@ -26,8 +28,12 @@ const GamedayGPTComponent = () => {
     setTeams(selectedTeams);
   };
 
-  const handleSeasonRangeChange = (e) => {
-    setSeasonRange(e.target.value);
+  const handleStartYearChange = (e) => {
+    setStartYear(Number(e.target.value));
+  };
+
+  const handleEndYearChange = (e) => {
+    setEndYear(Number(e.target.value));
   };
 
   const handleStatChange = (e) => {
@@ -35,22 +41,36 @@ const GamedayGPTComponent = () => {
   };
 
   const handleCompare = async () => {
-    const seasonRangeArray = seasonRange.split('-').map(Number);
-    const response = await fetch('https://my-betting-bot-davlen-2bc8e47f62ae.herokuapp.com/compare-teams', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ teams, season_range: seasonRangeArray, stat }),
-    });
-
+    const response = await fetch(`https://my-betting-bot-davlen-2bc8e47f62ae.herokuapp.com/api/college-football/records?startYear=${startYear}&endYear=${endYear}&teams=${teams.join(',')}`);
     if (response.ok) {
-      const imageUrl = await response.blob();
-      setComparisonPlot(URL.createObjectURL(imageUrl));
+      const data = await response.json();
+      setComparisonData(processRecords(data, teams, stat));
     } else {
-      console.error('Error fetching comparison plot');
+      console.error('Error fetching comparison data');
     }
   };
+
+  const processRecords = (records, teams, stat) => {
+    const years = Array.from(new Set(records.map(record => record.year))).sort((a, b) => a - b);
+    const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']; // Add more colors as needed
+  
+    const datasets = teams.map((team, index) => {
+      const teamData = years.map(year => {
+        const record = records.find(record => record.team === team && record.year === year);
+        return record ? record[stat] : 0;
+      });
+      return {
+        label: team,
+        data: teamData,
+        fill: false,
+        borderColor: colors[index % colors.length],
+        backgroundColor: colors[index % colors.length]
+      };
+    });
+  
+    return { labels: years, datasets };
+  };
+  
 
   return (
     <div className="gamedaygpt-page main-content">
@@ -89,10 +109,15 @@ const GamedayGPTComponent = () => {
                 <option key={index} value={team}>{team}</option>
               ))}
             </select>
-            <select className="season-range-selector" onChange={handleSeasonRangeChange}>
-              <option value="2000-2023">2000-2023</option>
-              <option value="2010-2023">2010-2023</option>
-              {/* Add more ranges as needed */}
+            <select className="year-selector" value={startYear} onChange={handleStartYearChange}>
+              {Array.from({ length: 24 }, (_, i) => 2000 + i).map(year => (
+                <option key={year} value={year}>{year}</option>
+              ))}
+            </select>
+            <select className="year-selector" value={endYear} onChange={handleEndYearChange}>
+              {Array.from({ length: 24 }, (_, i) => 2000 + i).map(year => (
+                <option key={year} value={year}>{year}</option>
+              ))}
             </select>
             <select className="statistics-dropdown" onChange={handleStatChange}>
               <option value="wins">Wins</option>
@@ -103,7 +128,7 @@ const GamedayGPTComponent = () => {
           </div>
           <div className="comparison-results">
             <h4>Comparison Plot</h4>
-            {comparisonPlot && <img src={comparisonPlot} alt="Comparison Plot" className="comparison-plot" />}
+            {comparisonData && <Line data={comparisonData} />}
             <div className="key-insights">
               <h4>Key Insights</h4>
               <p>Insights derived from the comparison will be displayed here.</p>
@@ -148,3 +173,4 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+

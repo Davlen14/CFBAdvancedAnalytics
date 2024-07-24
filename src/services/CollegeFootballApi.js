@@ -50,9 +50,17 @@ export async function getUpcomingGamesForWeek(week) {
   }
 }
 
-export async function getRecords(year = 2023) {
-  return makeGetRequest(`/api/college-football/records?year=${year}`);
+export async function getRecords(startYear, endYear, teams) {
+  const promises = [];
+  for (let year = startYear; year <= endYear; year++) {
+    teams.forEach(team => {
+      promises.push(makeGetRequest(`/api/college-football/records?year=${year}&team=${team}`));
+    });
+  }
+  const results = await Promise.all(promises);
+  return results.flat();
 }
+
 
 export async function getGamesMedia() {
   return makeGetRequest('/api/college-football/games/media');
