@@ -1,29 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
 import { Line } from 'react-chartjs-2';
 import '../App.css';
+import { getFBSTeams } from '../services/CollegeFootballApi'; // Ensure you have this function
+
+const conferenceLogos = {
+  "ACC": "/conference-logos/ACC.png",
+  "American Athletic": "/conference-logos/American Athletic.png",
+  "Big 12": "/conference-logos/Big 12.png",
+  "Big Ten": "/conference-logos/Big Ten.png",
+  "Conference USA": "/conference-logos/Conference USA.png",
+  "FBS Independents": "/conference-logos/FBS Independents.png",
+  "Mid-American": "/conference-logos/Mid-American.png",
+  "Mountain West": "/conference-logos/Mountain West.png",
+  "Pac-12": "/conference-logos/Pac-12.png",
+  "SEC": "/conference-logos/SEC.png",
+  "Sun Belt": "/conference-logos/Sun Belt.png"
+};
 
 const GamedayGPTComponent = () => {
-  const [teams, setTeams] = useState(['Ohio State', 'Alabama']);
+  const [teams, setTeams] = useState([]);
+  const [selectedTeams, setSelectedTeams] = useState([]);
   const [seasonRange, setSeasonRange] = useState('2010-2023');
   const [comparisonData, setComparisonData] = useState(null);
 
-  const teamOptions = [
-    'Alabama', 'Clemson', 'Florida', 'Georgia', 'LSU', 'Michigan', 'Notre Dame', 'Ohio State', 'Oklahoma', 'Texas',
-    'Auburn', 'Florida State', 'Miami', 'Oregon', 'Penn State', 'USC', 'Wisconsin', 'Texas A&M', 'Iowa', 'Michigan State',
-    'Nebraska', 'Tennessee', 'UCLA', 'Washington', 'Stanford', 'Virginia Tech', 'Mississippi State', 'Ole Miss', 'Arkansas', 'TCU',
-    'Kansas State', 'Baylor', 'Oklahoma State', 'West Virginia', 'Utah', 'North Carolina', 'Kentucky', 'Missouri', 'South Carolina', 'Texas Tech',
-    'Arizona State', 'BYU', 'Boise State', 'Pittsburgh', 'Louisville', 'Memphis', 'Houston', 'Cincinnati', 'UCF', 'Navy'
-  ];
+  useEffect(() => {
+    const fetchTeams = async () => {
+      const teamsData = await getFBSTeams();
+      setTeams(teamsData);
+    };
+    fetchTeams();
+  }, []);
 
-  const handleTeamChange = (e) => {
-    const options = e.target.options;
-    const selectedTeams = [];
-    for (const option of options) {
-      if (option.selected) {
-        selectedTeams.push(option.value);
-      }
-    }
-    setTeams(selectedTeams);
+  const handleTeamChange = (selectedOptions) => {
+    setSelectedTeams(selectedOptions);
   };
 
   const handleSeasonRangeChange = (e) => {
@@ -37,7 +47,7 @@ const GamedayGPTComponent = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ teams, seasonRange: seasonRangeArray })
+      body: JSON.stringify({ teams: selectedTeams.map(team => team.value), seasonRange: seasonRangeArray })
     });
 
     if (response.ok) {
@@ -72,6 +82,16 @@ const GamedayGPTComponent = () => {
     return color;
   };
 
+  const teamOptions = teams.map(team => ({
+    value: team.school,
+    label: (
+      <div className="team-option">
+        <img src={team.logos[0]} alt={`${team.school} logo`} className="team-logo" />
+        {team.school}
+      </div>
+    )
+  }));
+
   return (
     <div className="gamedaygpt-page main-content">
       <div className="gamedaygpt-intro">
@@ -104,12 +124,14 @@ const GamedayGPTComponent = () => {
         <div className="gamedaygpt-comparison">
           <h3>Team Comparison Tool</h3>
           <div className="filters-section">
-            <select multiple={true} className="team-selection" onChange={handleTeamChange}>
-              {teamOptions.map((team, index) => (
-                <option key={index} value={team}>{team}</option>
-              ))}
-            </select>
-            <select className="season-range-selector" onChange={handleSeasonRangeChange}>
+            <Select
+              isMulti
+              className="team-selection"
+              options={teamOptions}
+              onChange={handleTeamChange}
+              value={selectedTeams}
+            />
+            <select className="season-range-selector" onChange={handleSeasonRangeChange} value={seasonRange}>
               <option value="2000-2023">2000-2023</option>
               <option value="2010-2023">2010-2023</option>
               {/* Add more ranges as needed */}
@@ -163,5 +185,6 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 

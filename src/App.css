@@ -1653,6 +1653,27 @@ table tbody tr:nth-child(even) {
   margin-bottom: 20px;
 }
 
+/* Custom styling for react-select */
+.team-selection .react-select__control {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow */
+}
+
+.team-selection .react-select__option img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.team-selection .react-select__single-value img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
 .team-selection,
 .season-range-selector,
 .statistics-dropdown {
@@ -1713,4 +1734,16 @@ table tbody tr:nth-child(even) {
   font-size: 16px;
   color: #333;
 }
+
+/* Team logo and conference logo */
+.metric-card img.team-logo {
+  width: 50px;
+  height: 50px;
+}
+
+.metric-card img.conference-logo {
+  width: 30px;
+  height: 30px;
+}
+
 
