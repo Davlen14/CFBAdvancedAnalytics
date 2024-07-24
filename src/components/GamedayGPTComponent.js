@@ -168,6 +168,8 @@ const GamedayGPTComponent = () => {
                         if (team && team.logos) {
                           const img = new Image();
                           img.src = team.logos[0];
+                          img.width = 20; // Set the desired width
+                          img.height = 20; // Set the desired height
                           label.text = team.label.props.children[1]; // Show team name in legend
                           label.pointStyle = img;
                         }
