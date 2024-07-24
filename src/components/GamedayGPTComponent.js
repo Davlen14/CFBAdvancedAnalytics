@@ -68,16 +68,8 @@ const GamedayGPTComponent = () => {
         fill: false,
         borderColor: team.color || getRandomColor(), // Use team color or random color
         backgroundColor: team.color || getRandomColor(),
-        pointStyle: new Image(),
         pointRadius: 5 // Set smaller point radius
       };
-    });
-
-    // Setting team logos for pointStyle
-    datasets.forEach((dataset, index) => {
-      const img = new Image();
-      img.src = selectedTeams[index]?.label.props.children[0].props.src || ''; // Safely access logos
-      dataset.pointStyle = img;
     });
 
     return { labels: years, datasets };
@@ -168,10 +160,10 @@ const GamedayGPTComponent = () => {
                         if (team && team.logos) {
                           const img = new Image();
                           img.src = team.logos[0];
-                          img.width = .00005; // Set the desired width
-                          img.height = .00005; // Set the desired height
-                          label.text = team.label.props.children[1]; // Show team name in legend
-                          label.pointStyle = img;
+                          img.width = 20; // Set the desired width of the logo
+                          img.height = 20; // Set the desired height of the logo
+                          label.text = `${team.label.props.children[1]} `; // Show team name in legend
+                          label.icon = img;
                         }
                       });
                       return originalLabels;
@@ -224,6 +216,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 
