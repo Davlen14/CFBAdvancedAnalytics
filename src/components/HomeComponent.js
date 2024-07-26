@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Slider from 'react-slick';
 import '../App.css';
 import aboutUsImage from '../assets/about.png';
@@ -12,8 +12,39 @@ import googlePlayLogo from '../assets/google-play.png'; // Google Play logo
 import appStoreLogo from '../assets/app-store.png'; // App Store logo
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getFBSTeams, getSpRatings } from '../services/CollegeFootballApi'; // Adjust the import path according to your project structure
+
 
 function HomeComponent() {
+  const [topTeams, setTopTeams] = useState([]);
+
+  useEffect(() => {
+    const fetchTopTeams = async () => {
+      try {
+        const spRatings = await getSpRatings(2023); // Fetching SP+ ratings for the year 2023
+        const teams = await getFBSTeams();
+        
+        const teamsMap = teams.reduce((acc, team) => {
+          acc[team.school] = team;
+          return acc;
+        }, {});
+
+        const sortedTeams = spRatings.sort((a, b) => a.ranking - b.ranking).slice(0, 10);
+        const enrichedTeams = sortedTeams.map(team => ({
+          ...team,
+          logo: teamsMap[team.team]?.logos[0] || null,
+          color: teamsMap[team.team]?.color || '#FFFFFF',
+          altColor: teamsMap[team.team]?.alt_color || '#000000',
+        }));
+
+        setTopTeams(enrichedTeams);
+      } catch (error) {
+        console.error('Error fetching top teams:', error);
+      }
+    };
+
+    fetchTopTeams();
+  }, []);
   const settings = {
     dots: true,
     infinite: true,
@@ -46,6 +77,24 @@ function HomeComponent() {
         <h2>Welcome to Game Day Analytics</h2>
         <p>Unleash the power of data to predict college football outcomes and enhance your betting strategy.</p>
       </section>
+
+      {/* Top 10 Teams Section */}
+      <section id="top-teams" className="content-section">
+        <h2>Top 10 Teams</h2>
+        <ul className="top-teams-list">
+          {topTeams.map((team) => (
+            <li key={team.team} className="top-team-item">
+              <img src={team.logo} alt={`${team.team} logo`} className="team-logo" />
+              <span className="team-name">{team.team}</span>
+              <span className="team-ranking">Ranking: {team.ranking}</span>
+              <span className="team-rating">Overall: {team.rating}</span>
+              <span className="team-offense">Offense: {team.offense_rating}</span>
+              <span className="team-defense">Defense: {team.defense_rating}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section id="about" className="content-section two-column">
         <div className="text-content">
           <h2>About Us</h2>
@@ -126,10 +175,3 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
-
-
-
-
-
-
-
