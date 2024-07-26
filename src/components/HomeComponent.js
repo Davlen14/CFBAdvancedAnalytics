@@ -14,7 +14,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getFBSTeams, getSpRatings } from '../services/CollegeFootballApi'; // Adjust the import path according to your project structure
 
-
 function HomeComponent() {
   const [topTeams, setTopTeams] = useState([]);
 
@@ -23,7 +22,7 @@ function HomeComponent() {
       try {
         const spRatings = await getSpRatings(2023); // Fetching SP+ ratings for the year 2023
         const teams = await getFBSTeams();
-        
+
         const teamsMap = teams.reduce((acc, team) => {
           acc[team.school] = team;
           return acc;
@@ -45,6 +44,7 @@ function HomeComponent() {
 
     fetchTopTeams();
   }, []);
+
   const settings = {
     dots: true,
     infinite: true,
@@ -83,13 +83,15 @@ function HomeComponent() {
         <h2>Top 10 Teams</h2>
         <ul className="top-teams-list">
           {topTeams.map((team) => (
-            <li key={team.team} className="top-team-item">
+            <li key={team.team} className="top-team-item" style={{ backgroundColor: team.color }}>
               <img src={team.logo} alt={`${team.team} logo`} className="team-logo" />
-              <span className="team-name">{team.team}</span>
-              <span className="team-ranking">Ranking: {team.ranking}</span>
-              <span className="team-rating">Overall: {team.rating}</span>
-              <span className="team-offense">Offense: {team.offense_rating}</span>
-              <span className="team-defense">Defense: {team.defense_rating}</span>
+              <div className="team-info">
+                <span className="team-name" style={{ color: team.altColor }}>{team.team}</span>
+                <span className="team-ranking" style={{ color: team.altColor }}>Ranking: {team.ranking}</span>
+                <span className="team-rating" style={{ color: team.altColor }}>Overall: {team.rating}</span>
+                <span className="team-offense" style={{ color: team.altColor }}>Offense: {team.offense_rating}</span>
+                <span className="team-defense" style={{ color: team.altColor }}>Defense: {team.defense_rating}</span>
+              </div>
             </li>
           ))}
         </ul>
@@ -175,3 +177,4 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
