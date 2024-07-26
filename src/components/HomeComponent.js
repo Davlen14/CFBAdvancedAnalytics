@@ -36,7 +36,7 @@ function HomeComponent() {
         const enrichedTeams = sortedTeams.map(team => {
           const primaryColor = teamsMap[team.team]?.color || '#FFFFFF';
           const altColor = teamsMap[team.team]?.alt_color || '#000000';
-          const textColor = primaryColor.toLowerCase() === altColor.toLowerCase() ? '#000000' : altColor;
+          const textColor = primaryColor.toLowerCase() === altColor.toLowerCase() ? '#FFFFFF' : altColor;
 
           return {
             ...team,
@@ -189,6 +189,7 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
 
 
 

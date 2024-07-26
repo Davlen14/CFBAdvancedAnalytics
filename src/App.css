@@ -195,8 +195,6 @@ body {
   border-radius: 8px;
 }
 
-
-
 .top-teams-container {
   padding: 20px;
   background-color: #f8f9fa;
@@ -226,6 +224,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
+  color: #ffffff;
 }
 
 .top-team-item:hover {
@@ -240,18 +239,18 @@ body {
 
 .team-info {
   display: flex;
-  flex-direction: column;
-  color: #ffffff;
-}
-
-.team-stats {
-  display: flex;
-  gap: 10px;
+  align-items: center;
 }
 
 .team-name {
   font-size: 1.2em;
   font-weight: bold;
+  margin-right: 20px;
+}
+
+.team-stats {
+  display: flex;
+  flex-direction: column;
 }
 
 .team-ranking,
@@ -259,7 +258,9 @@ body {
 .team-offense,
 .team-defense {
   font-size: 0.9em;
+  margin-right: 10px;
 }
+
 
 
 
