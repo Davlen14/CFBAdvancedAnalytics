@@ -87,24 +87,25 @@ function HomeComponent() {
 
       {/* Top 10 Teams Section */}
       <section id="top-teams" className="content-section">
-        <h2>Top 10 Teams</h2>
-        <ul className="top-teams-list">
-          {topTeams.map((team) => (
-            <li key={team.team} className="top-team-item">
-              <img src={team.logo} alt={`${team.team} logo`} className="team-logo" />
-              <div className="team-info" style={{ color: team.color }}>
-                <span className="team-name">{team.team}</span>
-                <div className="team-stats">
-                  <span className="team-ranking">Ranking: {team.ranking}</span>
-                  <span className="team-rating">Overall: {team.rating}</span>
-                  <span className="team-offense">Offense: {team.offense_rating}</span>
-                  <span className="team-defense">Defense: {team.defense_rating}</span>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
+  <h2>Top 10 Teams</h2>
+  <ul className="top-teams-list">
+    {topTeams.map((team) => (
+      <li key={team.team} className="top-team-item" style={{ backgroundColor: team.color }}>
+        <img src={team.logo} alt={`${team.team} logo`} className="team-logo" />
+        <div className="team-info" style={{ color: team.textColor }}>
+          <span className="team-name">{team.team}</span>
+          <div className="team-stats">
+            <span className="team-ranking">Ranking: {team.ranking}</span>
+            <span className="team-rating">Overall: {team.rating}</span>
+            <span className="team-offense">Offense: {team.offense_rating}</span>
+            <span className="team-defense">Defense: {team.defense_rating}</span>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>
+
 
       <section id="about" className="content-section two-column">
         <div className="text-content">

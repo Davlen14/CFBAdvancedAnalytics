@@ -240,18 +240,17 @@ body {
 .team-info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .team-stats {
   display: flex;
-  flex-direction: column;
+  gap: 10px; /* Added gap for spacing between stats */
 }
 
 .team-name {
   font-size: 1.2em;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-right: 20px;
 }
 
 .team-ranking,
@@ -261,7 +260,6 @@ body {
   font-size: 0.9em;
   margin-right: 10px;
 }
-
 
 
 
