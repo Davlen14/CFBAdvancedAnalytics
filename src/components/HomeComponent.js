@@ -35,14 +35,11 @@ function HomeComponent() {
 
         const enrichedTeams = sortedTeams.map(team => {
           const primaryColor = teamsMap[team.team]?.color || '#FFFFFF';
-          const altColor = teamsMap[team.team]?.alt_color || '#000000';
-          const textColor = primaryColor.toLowerCase() === altColor.toLowerCase() ? '#000000' : altColor;
 
           return {
             ...team,
             logo: teamsMap[team.team]?.logos[0] || null,
             color: primaryColor,
-            textColor,
           };
         });
 
@@ -93,15 +90,15 @@ function HomeComponent() {
         <h2>Top 10 Teams</h2>
         <ul className="top-teams-list">
           {topTeams.map((team) => (
-            <li key={team.team} className="top-team-item" style={{ backgroundColor: team.color }}>
+            <li key={team.team} className="top-team-item">
               <img src={team.logo} alt={`${team.team} logo`} className="team-logo" />
-              <div className="team-info">
-                <span className="team-name" style={{ color: team.textColor }}>{team.team}</span>
+              <div className="team-info" style={{ color: team.color }}>
+                <span className="team-name">{team.team}</span>
                 <div className="team-stats">
-                  <span className="team-ranking" style={{ color: team.textColor }}>Ranking: {team.ranking}</span>
-                  <span className="team-rating" style={{ color: team.textColor }}>Overall: {team.rating}</span>
-                  <span className="team-offense" style={{ color: team.textColor }}>Offense: {team.offense_rating}</span>
-                  <span className="team-defense" style={{ color: team.textColor }}>Defense: {team.defense_rating}</span>
+                  <span className="team-ranking">Ranking: {team.ranking}</span>
+                  <span className="team-rating">Overall: {team.rating}</span>
+                  <span className="team-offense">Offense: {team.offense_rating}</span>
+                  <span className="team-defense">Defense: {team.defense_rating}</span>
                 </div>
               </div>
             </li>
@@ -189,6 +186,7 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
 
 
 
