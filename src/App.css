@@ -196,12 +196,6 @@ body {
 }
 
 
-.top-teams-container {
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
 .top-teams-container {
   padding: 20px;
@@ -247,16 +241,12 @@ body {
 .team-info {
   display: flex;
   flex-direction: column;
-}
-
-.team-info span {
-  margin: 2px 0;
-  font-size: 14px;
-  font-weight: bold;
+  color: #ffffff;
 }
 
 .team-name {
   font-size: 1.2em;
+  font-weight: bold;
 }
 
 .team-ranking,
@@ -265,6 +255,7 @@ body {
 .team-defense {
   font-size: 0.9em;
 }
+
 
 
 

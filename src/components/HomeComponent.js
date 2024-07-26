@@ -36,7 +36,7 @@ function HomeComponent() {
         const enrichedTeams = sortedTeams.map(team => {
           const primaryColor = teamsMap[team.team]?.color || '#FFFFFF';
           const altColor = teamsMap[team.team]?.alt_color || '#000000';
-          const textColor = primaryColor.toLowerCase() === altColor.toLowerCase() ? '#000000' : altColor;
+          const textColor = getContrastYIQ(primaryColor);
 
           return {
             ...team,
@@ -54,6 +54,16 @@ function HomeComponent() {
 
     fetchTopTeams();
   }, []);
+
+  // Function to determine best text color based on background color
+  const getContrastYIQ = (hexcolor) => {
+    hexcolor = hexcolor.replace("#", "");
+    const r = parseInt(hexcolor.substr(0, 2), 16);
+    const g = parseInt(hexcolor.substr(2, 2), 16);
+    const b = parseInt(hexcolor.substr(4, 2), 16);
+    const yiq = ((r*299)+(g*587)+(b*114))/1000;
+    return (yiq >= 128) ? 'black' : 'white';
+  };
 
   const settings = {
     dots: true,
@@ -89,7 +99,7 @@ function HomeComponent() {
       </section>
 
       {/* Top 10 Teams Section */}
-      <section id="top-teams" className="content-section">
+      <section id="top-teams" className="content-section top-teams-container">
         <h2>Top 10 Teams</h2>
         <ul className="top-teams-list">
           {topTeams.map((team) => (
@@ -187,6 +197,7 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
 
 
 
