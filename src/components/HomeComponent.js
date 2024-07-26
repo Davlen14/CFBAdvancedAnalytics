@@ -36,13 +36,13 @@ function HomeComponent() {
         const enrichedTeams = sortedTeams.map(team => {
           const primaryColor = teamsMap[team.team]?.color || '#FFFFFF';
           const altColor = teamsMap[team.team]?.alt_color || '#000000';
-          const textColor = getContrastYIQ(primaryColor);
+          const textColor = primaryColor.toLowerCase() === altColor.toLowerCase() ? '#000000' : altColor;
 
           return {
             ...team,
             logo: teamsMap[team.team]?.logos[0] || null,
             color: primaryColor,
-            altColor: textColor,
+            textColor,
           };
         });
 
@@ -54,16 +54,6 @@ function HomeComponent() {
 
     fetchTopTeams();
   }, []);
-
-  // Function to determine best text color based on background color
-  const getContrastYIQ = (hexcolor) => {
-    hexcolor = hexcolor.replace("#", "");
-    const r = parseInt(hexcolor.substr(0, 2), 16);
-    const g = parseInt(hexcolor.substr(2, 2), 16);
-    const b = parseInt(hexcolor.substr(4, 2), 16);
-    const yiq = ((r*299)+(g*587)+(b*114))/1000;
-    return (yiq >= 128) ? 'black' : 'white';
-  };
 
   const settings = {
     dots: true,
@@ -99,18 +89,18 @@ function HomeComponent() {
       </section>
 
       {/* Top 10 Teams Section */}
-      <section id="top-teams" className="content-section top-teams-container">
+      <section id="top-teams" className="content-section">
         <h2>Top 10 Teams</h2>
         <ul className="top-teams-list">
           {topTeams.map((team) => (
             <li key={team.team} className="top-team-item" style={{ backgroundColor: team.color }}>
               <img src={team.logo} alt={`${team.team} logo`} className="team-logo" />
               <div className="team-info">
-                <span className="team-name" style={{ color: team.altColor }}>{team.team}</span>
-                <span className="team-ranking" style={{ color: team.altColor }}>Ranking: {team.ranking}</span>
-                <span className="team-rating" style={{ color: team.altColor }}>Overall: {team.rating}</span>
-                <span className="team-offense" style={{ color: team.altColor }}>Offense: {team.offense_rating}</span>
-                <span className="team-defense" style={{ color: team.altColor }}>Defense: {team.defense_rating}</span>
+                <span className="team-name" style={{ color: team.textColor }}>{team.team}</span>
+                <span className="team-ranking" style={{ color: team.textColor }}>Ranking: {team.ranking}</span>
+                <span className="team-rating" style={{ color: team.textColor }}>Overall: {team.rating}</span>
+                <span className="team-offense" style={{ color: team.textColor }}>Offense: {team.offense_rating}</span>
+                <span className="team-defense" style={{ color: team.textColor }}>Defense: {team.defense_rating}</span>
               </div>
             </li>
           ))}
@@ -197,6 +187,7 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
 
 
 
