@@ -28,13 +28,23 @@ function HomeComponent() {
           return acc;
         }, {});
 
-        const sortedTeams = spRatings.sort((a, b) => a.ranking - b.ranking).slice(0, 10);
-        const enrichedTeams = sortedTeams.map(team => ({
-          ...team,
-          logo: teamsMap[team.team]?.logos[0] || null,
-          color: teamsMap[team.team]?.color || '#FFFFFF',
-          altColor: teamsMap[team.team]?.alt_color || '#000000',
-        }));
+        const sortedTeams = spRatings
+          .filter((team) => team.team !== 'nationalAverages')
+          .sort((a, b) => a.ranking - b.ranking)
+          .slice(0, 10);
+
+        const enrichedTeams = sortedTeams.map(team => {
+          const primaryColor = teamsMap[team.team]?.color || '#FFFFFF';
+          const altColor = teamsMap[team.team]?.alt_color || '#000000';
+          const textColor = primaryColor.toLowerCase() === altColor.toLowerCase() ? '#000000' : altColor;
+
+          return {
+            ...team,
+            logo: teamsMap[team.team]?.logos[0] || null,
+            color: primaryColor,
+            altColor: textColor,
+          };
+        });
 
         setTopTeams(enrichedTeams);
       } catch (error) {
@@ -177,5 +187,6 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
 
 
