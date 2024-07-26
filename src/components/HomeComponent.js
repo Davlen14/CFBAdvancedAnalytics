@@ -97,10 +97,12 @@ function HomeComponent() {
               <img src={team.logo} alt={`${team.team} logo`} className="team-logo" />
               <div className="team-info">
                 <span className="team-name" style={{ color: team.textColor }}>{team.team}</span>
-                <span className="team-ranking" style={{ color: team.textColor }}>Ranking: {team.ranking}</span>
-                <span className="team-rating" style={{ color: team.textColor }}>Overall: {team.rating}</span>
-                <span className="team-offense" style={{ color: team.textColor }}>Offense: {team.offense_rating}</span>
-                <span className="team-defense" style={{ color: team.textColor }}>Defense: {team.defense_rating}</span>
+                <div className="team-stats">
+                  <span className="team-ranking" style={{ color: team.textColor }}>Ranking: {team.ranking}</span>
+                  <span className="team-rating" style={{ color: team.textColor }}>Overall: {team.rating}</span>
+                  <span className="team-offense" style={{ color: team.textColor }}>Offense: {team.offense_rating}</span>
+                  <span className="team-defense" style={{ color: team.textColor }}>Defense: {team.defense_rating}</span>
+                </div>
               </div>
             </li>
           ))}
@@ -187,6 +189,7 @@ function HomeComponent() {
 }
 
 export default HomeComponent;
+
 
 
 
