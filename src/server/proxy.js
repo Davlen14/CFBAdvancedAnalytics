@@ -20,7 +20,6 @@ const corsOptions = {
 app.use(cors(corsOptions)); // Enable CORS with specific options for all routes
 app.options('*', cors(corsOptions)); // Handle preflight requests
 
-// Setup axios instance with the base URL and headers for the College Football Data API
 const apiClient = axios.create({
   baseURL: 'https://api.collegefootballdata.com',
   headers: {
@@ -41,37 +40,10 @@ const loadAllTeams = async () => {
   }
 };
 
-// Call loadAllTeams when the server starts
 loadAllTeams();
 
 const extractTeamsFromQuestion = (question) => {
   return allTeams.filter(team => question.toLowerCase().includes(team.toLowerCase()));
-};
-
-const compareTeams = async (team1, team2) => {
-  try {
-    const response = await apiClient.get('/ratings/sp', {
-      params: { year: 2023, team: `${team1},${team2}` },
-    });
-
-    const data = response.data;
-    console.log('API response data:', data);
-    const team1Data = data.find(d => d.team === team1);
-    const team2Data = data.find(d => d.team === team2);
-
-    if (!team1Data || !team2Data) {
-      return 'Unable to find data for one or both teams.';
-    }
-
-    return `
-      Comparison between ${team1} and ${team2}:
-      - ${team1}: Overall rating: ${team1Data.rating}, Offense rating: ${team1Data.offense_rating}, Defense rating: ${team1Data.defense_rating}
-      - ${team2}: Overall rating: ${team2Data.rating}, Offense rating: ${team2Data.offense_rating}, Defense rating: ${team2Data.defense_rating}
-    `;
-  } catch (error) {
-    console.error('Error comparing teams:', error);
-    return 'Internal server error';
-  }
 };
 
 const getTeamRecord = async (team, year) => {
@@ -80,11 +52,11 @@ const getTeamRecord = async (team, year) => {
       params: { year },
     });
     const data = response.data;
-    const teamData = data.find(d => d.team.toLowerCase() === team.toLowerCase());
+    const teamData = data.find(d => d.team === team);
     if (!teamData) {
       return `No data found for ${team} in ${year}.`;
     }
-    return `${team} record in ${year}: ${teamData.total.wins} wins, ${teamData.total.losses} losses.`;
+    return `${team}'s record in ${year}: ${teamData.total.wins} wins, ${teamData.total.losses} losses, ${teamData.total.ties} ties.`;
   } catch (error) {
     console.error('Error fetching team record:', error);
     return 'Internal server error';
@@ -106,8 +78,8 @@ const compareRecords = async (team1, team2, year) => {
 
     return `
       Comparison of ${team1} and ${team2} records in ${year}:
-      - ${team1}: ${team1Data.total.wins} wins, ${team1Data.total.losses} losses
-      - ${team2}: ${team2Data.total.wins} wins, ${team2Data.total.losses} losses
+      - ${team1}: ${team1Data.total.wins} wins, ${team1Data.total.losses} losses, ${team1Data.total.ties} ties
+      - ${team2}: ${team2Data.total.wins} wins, ${team2Data.total.losses} losses, ${team2Data.total.ties} ties
     `;
   } catch (error) {
     console.error('Error comparing records:', error);
@@ -117,28 +89,27 @@ const compareRecords = async (team1, team2, year) => {
 
 const processQuestion = async (question) => {
   console.log('Received question:', question);
-  
-  const teams = extractTeamsFromQuestion(question);
-  console.log('Extracted teams:', teams);
-  
-  if (teams.length === 1) {
-    if (question.includes('record')) {
+  if (question.includes('compare') || question.includes('vs')) {
+    const teams = extractTeamsFromQuestion(question);
+    console.log('Extracted teams:', teams);
+    if (teams.length === 2) {
       const yearMatch = question.match(/\b\d{4}\b/);
       const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
+      const result = await compareRecords(teams[0], teams[1], year);
+      console.log('Comparison result:', result);
+      return result;
+    } else {
+      return 'Please specify two teams to compare.';
+    }
+  } else if (question.includes('record')) {
+    const yearMatch = question.match(/\b\d{4}\b/);
+    const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
+    const teams = extractTeamsFromQuestion(question);
+    if (teams.length === 1) {
       const result = await getTeamRecord(teams[0], year);
       return result;
-    }
-  } else if (teams.length === 2) {
-    if (question.includes('compare') || question.includes('vs')) {
-      if (question.includes('record')) {
-        const yearMatch = question.match(/\b\d{4}\b/);
-        const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
-        const result = await compareRecords(teams[0], teams[1], year);
-        return result;
-      } else {
-        const result = await compareTeams(teams[0], teams[1]);
-        return result;
-      }
+    } else {
+      return 'Please specify one team to get the record.';
     }
   }
 
@@ -155,7 +126,6 @@ app.post('/api/chatbot', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 
 // Other existing endpoints
