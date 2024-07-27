@@ -222,7 +222,7 @@ body {
   align-items: center;
   padding: 10px;
   border-radius: 5px;
-  background-color: #ffffff;
+  background-color: #ffffff; /* Set background to white */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
 }
@@ -240,6 +240,7 @@ body {
 .team-info {
   display: flex;
   flex-direction: column;
+  color: #000000; /* Set text color to black */
 }
 
 .team-stats {
@@ -260,6 +261,7 @@ body {
   font-size: 0.9em;
   margin-right: 10px;
 }
+
 
 
 
