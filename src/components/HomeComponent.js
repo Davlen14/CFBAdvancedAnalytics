@@ -85,14 +85,14 @@ function HomeComponent() {
         <p>Unleash the power of data to predict college football outcomes and enhance your betting strategy.</p>
       </section>
 
-      {/* Top 10 Teams Section */}
-      <section id="top-teams" className="content-section">
+{/* Top 10 Teams Section */}
+<section id="top-teams" className="content-section">
   <h2>Top 10 Teams</h2>
   <ul className="top-teams-list">
     {topTeams.map((team) => (
-      <li key={team.team} className="top-team-item" style={{ backgroundColor: team.color }}>
+      <li key={team.team} className="top-team-item">
         <img src={team.logo} alt={`${team.team} logo`} className="team-logo" />
-        <div className="team-info" style={{ color: team.textColor }}>
+        <div className="team-info">
           <span className="team-name">{team.team}</span>
           <div className="team-stats">
             <span className="team-ranking">Ranking: {team.ranking}</span>
@@ -105,6 +105,7 @@ function HomeComponent() {
     ))}
   </ul>
 </section>
+
 
 
       <section id="about" className="content-section two-column">
