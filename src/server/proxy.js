@@ -80,7 +80,7 @@ const getTeamRecord = async (team, year) => {
       params: { year },
     });
     const data = response.data;
-    const teamData = data.find(d => d.team === team);
+    const teamData = data.find(d => d.team.toLowerCase() === team.toLowerCase());
     if (!teamData) {
       return `No data found for ${team} in ${year}.`;
     }
@@ -117,40 +117,35 @@ const compareRecords = async (team1, team2, year) => {
 
 const processQuestion = async (question) => {
   console.log('Received question:', question);
-  if (question.includes('compare') || question.includes('vs')) {
-    const teams = extractTeamsFromQuestion(question);
-    console.log('Extracted teams:', teams);
-    if (teams.length === 2) {
+  
+  const teams = extractTeamsFromQuestion(question);
+  console.log('Extracted teams:', teams);
+  
+  if (teams.length === 1) {
+    if (question.includes('record')) {
+      const yearMatch = question.match(/\b\d{4}\b/);
+      const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
+      const result = await getTeamRecord(teams[0], year);
+      return result;
+    }
+  } else if (teams.length === 2) {
+    if (question.includes('compare') || question.includes('vs')) {
       if (question.includes('record')) {
         const yearMatch = question.match(/\b\d{4}\b/);
         const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
         const result = await compareRecords(teams[0], teams[1], year);
-        console.log('Comparison result:', result);
         return result;
       } else {
         const result = await compareTeams(teams[0], teams[1]);
-        console.log('Comparison result:', result);
         return result;
       }
-    } else {
-      return 'Please specify two teams to compare.';
-    }
-  } else if (question.includes('record')) {
-    const yearMatch = question.match(/\b\d{4}\b/);
-    const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
-    const teams = extractTeamsFromQuestion(question);
-    if (teams.length === 1) {
-      const result = await getTeamRecord(teams[0], year);
-      return result;
-    } else {
-      return 'Please specify one team to get the record.';
     }
   }
 
   return 'Sorry, I can only compare teams or provide team records for now.';
 };
 
-app.post('/api/question', async (req, res) => {
+app.post('/api/chatbot', async (req, res) => {
   const { question } = req.body;
   try {
     const answer = await processQuestion(question);
@@ -160,6 +155,8 @@ app.post('/api/question', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
 
 // Other existing endpoints
 app.get('/api/college-football/games/teams', async (req, res) => {

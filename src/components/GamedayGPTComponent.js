@@ -5,7 +5,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import '../App.css';
 import { getFBSTeams, getRecords } from '../services/CollegeFootballApi';
 
-// Register Chart.js components
+// Register ChartJS components
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const GamedayGPTComponent = () => {
@@ -107,7 +107,7 @@ const GamedayGPTComponent = () => {
   const handleQuestionSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/question', {
+      const response = await fetch('/api/chatbot', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -254,6 +254,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 
