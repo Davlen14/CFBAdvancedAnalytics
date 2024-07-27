@@ -29,6 +29,67 @@ const apiClient = axios.create({
   },
 });
 
+let allTeams = [];
+
+const loadAllTeams = async () => {
+  try {
+    const response = await apiClient.get('/teams/fbs');
+    allTeams = response.data.map(team => team.school);
+    console.log('All teams loaded:', allTeams);
+  } catch (error) {
+    console.error('Error fetching all teams:', error);
+  }
+};
+
+// Call loadAllTeams when the server starts
+loadAllTeams();
+
+const extractTeamsFromQuestion = (question) => {
+  return allTeams.filter(team => question.toLowerCase().includes(team.toLowerCase()));
+};
+
+const compareTeams = async (team1, team2) => {
+  try {
+    const response = await apiClient.get('/ratings/sp', {
+      params: { year: 2023, team: `${team1},${team2}` },
+    });
+
+    const data = response.data;
+    console.log('API response data:', data);
+    const team1Data = data.find(d => d.team === team1);
+    const team2Data = data.find(d => d.team === team2);
+
+    if (!team1Data || !team2Data) {
+      return 'Unable to find data for one or both teams.';
+    }
+
+    return `
+      Comparison between ${team1} and ${team2}:
+      - ${team1}: Overall rating: ${team1Data.rating}, Offense rating: ${team1Data.offense_rating}, Defense rating: ${team1Data.defense_rating}
+      - ${team2}: Overall rating: ${team2Data.rating}, Offense rating: ${team2Data.offense_rating}, Defense rating: ${team2Data.defense_rating}
+    `;
+  } catch (error) {
+    console.error('Error comparing teams:', error);
+    return 'Internal server error';
+  }
+};
+
+const processQuestion = async (question) => {
+  console.log('Received question:', question);
+  if (question.includes('compare') || question.includes('vs')) {
+    const teams = extractTeamsFromQuestion(question);
+    console.log('Extracted teams:', teams);
+    if (teams.length === 2) {
+      const result = await compareTeams(teams[0], teams[1]);
+      console.log('Comparison result:', result);
+      return result;
+    } else {
+      return 'Please specify two teams to compare.';
+    }
+  }
+
+  return 'Sorry, I can only compare teams for now.';
+};
 // Endpoint to get detailed game stats by year, seasonType, and week
 app.get('/api/college-football/games/teams', async (req, res) => {
   try {
@@ -418,6 +479,8 @@ app.get('/api/college-football/game/box/advanced', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
 
 // Test endpoint to verify environment variable
 app.get('/test-env', (_req, res) => {
