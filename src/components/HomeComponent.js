@@ -95,10 +95,9 @@ function HomeComponent() {
         <div className="team-info">
           <span className="team-name">{team.team}</span>
           <div className="team-stats">
-            <span className="team-ranking">Ranking: {team.ranking}</span>
-            <span className="team-rating">Overall: {team.rating}</span>
-            <span className="team-offense">Offense: {team.offense_rating}</span>
-            <span className="team-defense">Defense: {team.defense_rating}</span>
+            <span className="team-ranking">Overall Rank: {team.ranking}</span>
+            <span className="team-offense">Offense Rank: {team.offense.ranking}</span>
+            <span className="team-defense">Defense Rank: {team.defense.ranking}</span>
           </div>
         </div>
       </li>
