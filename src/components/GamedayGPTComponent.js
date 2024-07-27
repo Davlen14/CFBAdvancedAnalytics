@@ -13,6 +13,8 @@ const GamedayGPTComponent = () => {
   const [selectedTeams, setSelectedTeams] = useState([]);
   const [selectedYears, setSelectedYears] = useState([]);
   const [comparisonData, setComparisonData] = useState(null);
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -102,6 +104,24 @@ const GamedayGPTComponent = () => {
     label: year.toString()
   }));
 
+  const handleQuestionSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/question', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ question }),
+      });
+      const data = await response.json();
+      setAnswer(data.answer);
+    } catch (error) {
+      console.error('Error submitting question:', error);
+      setAnswer('Sorry, there was an error processing your question.');
+    }
+  };
+
   return (
     <div className="gamedaygpt-page main-content">
       <div className="gamedaygpt-intro">
@@ -164,14 +184,22 @@ const GamedayGPTComponent = () => {
 
         <div className="gamedaygpt-chat">
           <h3>Chat Interface</h3>
-          <form className="gamedaygpt-form">
+          <form className="gamedaygpt-form" onSubmit={handleQuestionSubmit}>
             <input
               type="text"
               placeholder="Ask me anything about college football..."
               className="gamedaygpt-input"
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
             />
             <button type="submit" className="gamedaygpt-submit">Ask</button>
           </form>
+          {answer && (
+            <div className="gamedaygpt-answer">
+              <h4>Answer:</h4>
+              <p>{answer}</p>
+            </div>
+          )}
           <div className="example-questions">
             <h4>Example Questions:</h4>
             <ul>
@@ -219,6 +247,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 
