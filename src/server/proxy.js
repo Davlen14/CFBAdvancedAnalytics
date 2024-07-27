@@ -74,6 +74,46 @@ const compareTeams = async (team1, team2) => {
   }
 };
 
+const getTeamRecord = async (team, year) => {
+  try {
+    const response = await apiClient.get('/records', { params: { year, team } });
+    const data = response.data;
+
+    if (!data || data.length === 0) {
+      return `No records found for ${team} in ${year}.`;
+    }
+
+    const record = data[0];
+    return `${team} had a record of ${record.total.wins}-${record.total.losses}-${record.total.ties} in ${year}.`;
+  } catch (error) {
+    console.error('Error fetching team record:', error);
+    return 'Internal server error';
+  }
+};
+
+const getTeamStats = async (team, year) => {
+  try {
+    const response = await apiClient.get('/stats/season', { params: { year, team } });
+    const data = response.data;
+
+    if (!data || data.length === 0) {
+      return `No statistics found for ${team} in ${year}.`;
+    }
+
+    const stats = data[0];
+    return `
+      Statistics for ${team} in ${year}:
+      - Points per game: ${stats.points_per_game}
+      - Yards per game: ${stats.yards_per_game}
+      - Passing yards per game: ${stats.passing_yards_per_game}
+      - Rushing yards per game: ${stats.rushing_yards_per_game}
+    `;
+  } catch (error) {
+    console.error('Error fetching team stats:', error);
+    return 'Internal server error';
+  }
+};
+
 const processQuestion = async (question) => {
   console.log('Received question:', question);
   if (question.includes('compare') || question.includes('vs')) {
@@ -86,11 +126,44 @@ const processQuestion = async (question) => {
     } else {
       return 'Please specify two teams to compare.';
     }
+  } else if (question.includes('record')) {
+    const team = extractTeamsFromQuestion(question)[0];
+    if (team) {
+      const year = question.match(/\d{4}/);
+      const result = await getTeamRecord(team, year ? year[0] : new Date().getFullYear());
+      console.log('Team record result:', result);
+      return result;
+    } else {
+      return 'Please specify a team to get the record.';
+    }
+  } else if (question.includes('stats') || question.includes('statistics')) {
+    const team = extractTeamsFromQuestion(question)[0];
+    if (team) {
+      const year = question.match(/\d{4}/);
+      const result = await getTeamStats(team, year ? year[0] : new Date().getFullYear());
+      console.log('Team stats result:', result);
+      return result;
+    } else {
+      return 'Please specify a team to get the statistics.';
+    }
   }
 
-  return 'Sorry, I can only compare teams for now.';
+  return 'Sorry, I can only compare teams, get records, or provide statistics for now.';
 };
-// Endpoint to get detailed game stats by year, seasonType, and week
+
+// Endpoint to process chatbot questions
+app.post('/api/chatbot', async (req, res) => {
+  const { question } = req.body;
+  try {
+    const answer = await processQuestion(question);
+    res.json({ answer });
+  } catch (error) {
+    console.error('Error processing question:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Other existing endpoints
 app.get('/api/college-football/games/teams', async (req, res) => {
   try {
     const { year, seasonType, week, classification } = req.query;
@@ -109,7 +182,6 @@ app.get('/api/college-football/games/teams', async (req, res) => {
   }
 });
 
-// Endpoint to get upcoming games
 app.get('/api/college-football/upcoming-games', async (req, res) => {
   try {
     const year = req.query.year || new Date().getFullYear();
@@ -143,7 +215,6 @@ app.get('/api/college-football/upcoming-games', async (req, res) => {
   }
 });
 
-// Endpoint to get records
 app.get('/api/college-football/records', async (req, res) => {
   try {
     const year = req.query.year || 2023;
@@ -159,7 +230,6 @@ app.get('/api/college-football/records', async (req, res) => {
   }
 });
 
-// Endpoint to get FBS teams
 app.get('/api/college-football/teams-fbs', async (_req, res) => {
   try {
     const response = await apiClient.get('/teams/fbs');
@@ -170,7 +240,6 @@ app.get('/api/college-football/teams-fbs', async (_req, res) => {
   }
 });
 
-// Endpoint to get games
 app.get('/api/college-football/games', async (req, res) => {
   try {
     const { year, seasonType, week, division } = req.query;
@@ -184,7 +253,6 @@ app.get('/api/college-football/games', async (req, res) => {
   }
 });
 
-// Endpoint to get games media
 app.get('/api/college-football/games/media', async (req, res) => {
   try {
     const year = req.query.year || new Date().getFullYear();
@@ -202,7 +270,6 @@ app.get('/api/college-football/games/media', async (req, res) => {
   }
 });
 
-// Endpoint to get team rosters
 app.get('/api/college-football/roster', async (req, res) => {
   try {
     const teamId = req.query.teamId;
@@ -221,7 +288,6 @@ app.get('/api/college-football/roster', async (req, res) => {
   }
 });
 
-// New endpoint to get SP+ ratings
 app.get('/api/ratings/sp', async (req, res) => {
   try {
     const { year, team } = req.query;
@@ -237,9 +303,6 @@ app.get('/api/ratings/sp', async (req, res) => {
   }
 });
 
-// New endpoints for additional metrics and ratings data
-
-// Endpoint to get historical SRS ratings
 app.get('/api/ratings/srs', async (_req, res) => {
   try {
     const response = await apiClient.get('/ratings/srs');
@@ -250,7 +313,6 @@ app.get('/api/ratings/srs', async (_req, res) => {
   }
 });
 
-// Endpoint to get historical SP+ ratings by conference
 app.get('/api/ratings/sp/conferences', async (_req, res) => {
   try {
     const response = await apiClient.get('/ratings/sp/conferences');
@@ -261,7 +323,6 @@ app.get('/api/ratings/sp/conferences', async (_req, res) => {
   }
 });
 
-// Endpoint to get historical Elo ratings
 app.get('/api/ratings/elo', async (_req, res) => {
   try {
     const response = await apiClient.get('/ratings/elo');
@@ -272,7 +333,6 @@ app.get('/api/ratings/elo', async (_req, res) => {
   }
 });
 
-// Endpoint to get historical FPI ratings
 app.get('/api/ratings/fpi', async (_req, res) => {
   try {
     const response = await apiClient.get('/ratings/fpi');
@@ -283,7 +343,6 @@ app.get('/api/ratings/fpi', async (_req, res) => {
   }
 });
 
-// Endpoint to get predicted points (EP)
 app.get('/api/ppa/predicted', async (_req, res) => {
   try {
     const response = await apiClient.get('/ppa/predicted');
@@ -294,7 +353,6 @@ app.get('/api/ppa/predicted', async (_req, res) => {
   }
 });
 
-// Endpoint to get Predicted Points Added (PPA/EPA) data by team
 app.get('/api/ppa/teams', async (_req, res) => {
   try {
     const response = await apiClient.get('/ppa/teams');
@@ -305,7 +363,6 @@ app.get('/api/ppa/teams', async (_req, res) => {
   }
 });
 
-// Endpoint to get Team Predicted Points Added (PPA/EPA) by game
 app.get('/api/ppa/games', async (_req, res) => {
   try {
     const response = await apiClient.get('/ppa/games');
@@ -316,7 +373,6 @@ app.get('/api/ppa/games', async (_req, res) => {
   }
 });
 
-// Endpoint to get Player Predicted Points Added (PPA/EPA) by game
 app.get('/api/ppa/players/games', async (_req, res) => {
   try {
     const response = await apiClient.get('/ppa/players/games');
@@ -327,7 +383,6 @@ app.get('/api/ppa/players/games', async (_req, res) => {
   }
 });
 
-// Endpoint to get Player Predicted Points Added (PPA/EPA) by season
 app.get('/api/ppa/players/season', async (_req, res) => {
   try {
     const response = await apiClient.get('/ppa/players/season');
@@ -338,7 +393,6 @@ app.get('/api/ppa/players/season', async (_req, res) => {
   }
 });
 
-// Endpoint to get field goal expected points
 app.get('/api/metrics/fg/ep', async (_req, res) => {
   try {
     const response = await apiClient.get('/metrics/fg/ep');
@@ -349,7 +403,6 @@ app.get('/api/metrics/fg/ep', async (_req, res) => {
   }
 });
 
-// Endpoint to get win probability chart data
 app.get('/api/metrics/wp', async (_req, res) => {
   try {
     const response = await apiClient.get('/metrics/wp');
@@ -360,7 +413,6 @@ app.get('/api/metrics/wp', async (_req, res) => {
   }
 });
 
-// Endpoint to get pregame win probability data
 app.get('/api/metrics/wp/pregame', async (req, res) => {
   try {
     const { year, week, seasonType } = req.query;
@@ -374,7 +426,6 @@ app.get('/api/metrics/wp/pregame', async (req, res) => {
   }
 });
 
-// Endpoint to get team statistics by season
 app.get('/api/stats/season', async (_req, res) => {
   try {
     const response = await apiClient.get('/stats/season');
@@ -385,7 +436,6 @@ app.get('/api/stats/season', async (_req, res) => {
   }
 });
 
-// Endpoint to get advanced team metrics by season
 app.get('/api/stats/season/advanced', async (_req, res) => {
   try {
     const response = await apiClient.get('/stats/season/advanced');
@@ -396,7 +446,6 @@ app.get('/api/stats/season/advanced', async (_req, res) => {
   }
 });
 
-// Endpoint to get advanced team metrics by game
 app.get('/api/stats/game/advanced', async (_req, res) => {
   try {
     const response = await apiClient.get('/stats/game/advanced');
@@ -407,7 +456,6 @@ app.get('/api/stats/game/advanced', async (_req, res) => {
   }
 });
 
-// Endpoint to get team stat categories
 app.get('/api/stats/categories', async (_req, res) => {
   try {
     const response = await apiClient.get('/stats/categories');
@@ -418,7 +466,6 @@ app.get('/api/stats/categories', async (_req, res) => {
   }
 });
 
-// Endpoint to get historical polls and rankings
 app.get('/api/rankings', async (_req, res) => {
   try {
     const response = await apiClient.get('/rankings');
@@ -429,7 +476,6 @@ app.get('/api/rankings', async (_req, res) => {
   }
 });
 
-// Endpoint to get player stats
 app.get('/api/stats/player/season', async (req, res) => {
   try {
     const { year, team, seasonType, category } = req.query;
@@ -448,7 +494,6 @@ app.get('/api/stats/player/season', async (req, res) => {
   }
 });
 
-// Endpoint to get player game stats
 app.get('/api/stats/player/game', async (req, res) => {
   const { year, week, seasonType, team, conference, category, gameId } = req.query;
   try {
@@ -460,8 +505,6 @@ app.get('/api/stats/player/game', async (req, res) => {
   }
 });
 
-
-// Endpoint to get advanced box score data
 app.get('/api/college-football/game/box/advanced', async (req, res) => {
   try {
     const { gameId } = req.query;
@@ -480,7 +523,16 @@ app.get('/api/college-football/game/box/advanced', async (req, res) => {
   }
 });
 
-
+app.post('/api/chatbot', async (req, res) => {
+  const { question } = req.body;
+  try {
+    const answer = await processQuestion(question);
+    res.json({ answer });
+  } catch (error) {
+    console.error('Error processing question:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // Test endpoint to verify environment variable
 app.get('/test-env', (_req, res) => {
@@ -490,6 +542,7 @@ app.get('/test-env', (_req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
