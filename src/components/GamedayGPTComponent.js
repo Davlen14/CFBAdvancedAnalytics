@@ -114,8 +114,15 @@ const GamedayGPTComponent = () => {
         },
         body: JSON.stringify({ question }),
       });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       const data = await response.json();
-      setAnswer(data.answer);
+      if (data.error) {
+        setAnswer('Sorry, there was an error processing your question.');
+      } else {
+        setAnswer(data.answer);
+      }
     } catch (error) {
       console.error('Error submitting question:', error);
       setAnswer('Sorry, there was an error processing your question.');
@@ -247,6 +254,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 

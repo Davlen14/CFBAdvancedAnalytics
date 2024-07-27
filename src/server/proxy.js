@@ -76,40 +76,41 @@ const compareTeams = async (team1, team2) => {
 
 const getTeamRecord = async (team, year) => {
   try {
-    const response = await apiClient.get('/records', { params: { year, team } });
+    const response = await apiClient.get('/records', {
+      params: { year },
+    });
     const data = response.data;
-
-    if (!data || data.length === 0) {
-      return `No records found for ${team} in ${year}.`;
+    const teamData = data.find(d => d.team === team);
+    if (!teamData) {
+      return `No data found for ${team} in ${year}.`;
     }
-
-    const record = data[0];
-    return `${team} had a record of ${record.total.wins}-${record.total.losses}-${record.total.ties} in ${year}.`;
+    return `${team} record in ${year}: ${teamData.total.wins} wins, ${teamData.total.losses} losses.`;
   } catch (error) {
     console.error('Error fetching team record:', error);
     return 'Internal server error';
   }
 };
 
-const getTeamStats = async (team, year) => {
+const compareRecords = async (team1, team2, year) => {
   try {
-    const response = await apiClient.get('/stats/season', { params: { year, team } });
+    const response = await apiClient.get('/records', {
+      params: { year },
+    });
     const data = response.data;
+    const team1Data = data.find(d => d.team === team1);
+    const team2Data = data.find(d => d.team === team2);
 
-    if (!data || data.length === 0) {
-      return `No statistics found for ${team} in ${year}.`;
+    if (!team1Data || !team2Data) {
+      return 'Unable to find data for one or both teams.';
     }
 
-    const stats = data[0];
     return `
-      Statistics for ${team} in ${year}:
-      - Points per game: ${stats.points_per_game}
-      - Yards per game: ${stats.yards_per_game}
-      - Passing yards per game: ${stats.passing_yards_per_game}
-      - Rushing yards per game: ${stats.rushing_yards_per_game}
+      Comparison of ${team1} and ${team2} records in ${year}:
+      - ${team1}: ${team1Data.total.wins} wins, ${team1Data.total.losses} losses
+      - ${team2}: ${team2Data.total.wins} wins, ${team2Data.total.losses} losses
     `;
   } catch (error) {
-    console.error('Error fetching team stats:', error);
+    console.error('Error comparing records:', error);
     return 'Internal server error';
   }
 };
@@ -120,39 +121,36 @@ const processQuestion = async (question) => {
     const teams = extractTeamsFromQuestion(question);
     console.log('Extracted teams:', teams);
     if (teams.length === 2) {
-      const result = await compareTeams(teams[0], teams[1]);
-      console.log('Comparison result:', result);
-      return result;
+      if (question.includes('record')) {
+        const yearMatch = question.match(/\b\d{4}\b/);
+        const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
+        const result = await compareRecords(teams[0], teams[1], year);
+        console.log('Comparison result:', result);
+        return result;
+      } else {
+        const result = await compareTeams(teams[0], teams[1]);
+        console.log('Comparison result:', result);
+        return result;
+      }
     } else {
       return 'Please specify two teams to compare.';
     }
   } else if (question.includes('record')) {
-    const team = extractTeamsFromQuestion(question)[0];
-    if (team) {
-      const year = question.match(/\d{4}/);
-      const result = await getTeamRecord(team, year ? year[0] : new Date().getFullYear());
-      console.log('Team record result:', result);
+    const yearMatch = question.match(/\b\d{4}\b/);
+    const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
+    const teams = extractTeamsFromQuestion(question);
+    if (teams.length === 1) {
+      const result = await getTeamRecord(teams[0], year);
       return result;
     } else {
-      return 'Please specify a team to get the record.';
-    }
-  } else if (question.includes('stats') || question.includes('statistics')) {
-    const team = extractTeamsFromQuestion(question)[0];
-    if (team) {
-      const year = question.match(/\d{4}/);
-      const result = await getTeamStats(team, year ? year[0] : new Date().getFullYear());
-      console.log('Team stats result:', result);
-      return result;
-    } else {
-      return 'Please specify a team to get the statistics.';
+      return 'Please specify one team to get the record.';
     }
   }
 
-  return 'Sorry, I can only compare teams, get records, or provide statistics for now.';
+  return 'Sorry, I can only compare teams or provide team records for now.';
 };
 
-// Endpoint to process chatbot questions
-app.post('/api/chatbot', async (req, res) => {
+app.post('/api/question', async (req, res) => {
   const { question } = req.body;
   try {
     const answer = await processQuestion(question);
