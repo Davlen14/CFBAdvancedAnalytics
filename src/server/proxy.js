@@ -103,7 +103,7 @@ const processQuestion = async (question) => {
     } else {
       return 'Please specify two teams to compare.';
     }
-  } else if (question.includes('record')) {
+  } else if (question.includes('record') || question.includes('wins') || question.includes('losses')) {
     const yearMatch = question.match(/\b\d{4}\b/);
     const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
     const teams = extractTeamsFromQuestion(question);
@@ -128,7 +128,6 @@ app.post('/api/chatbot', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 // Other existing endpoints
 app.get('/api/college-football/games/teams', async (req, res) => {
@@ -490,17 +489,6 @@ app.get('/api/college-football/game/box/advanced', async (req, res) => {
   }
 });
 
-app.post('/api/chatbot', async (req, res) => {
-  const { question } = req.body;
-  try {
-    const answer = await processQuestion(question);
-    res.json({ answer });
-  } catch (error) {
-    console.error('Error processing question:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
 // Test endpoint to verify environment variable
 app.get('/test-env', (_req, res) => {
   res.send(`REACT_APP_API_BASE_URL: ${process.env.REACT_APP_API_BASE_URL}`);
@@ -509,6 +497,7 @@ app.get('/test-env', (_req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
