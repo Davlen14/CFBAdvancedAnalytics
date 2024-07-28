@@ -116,7 +116,7 @@ const GamedayGPTComponent = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question: 'What was Ohio State\'s record in 2022?' }),
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -132,6 +132,7 @@ const GamedayGPTComponent = () => {
       setAnswer('Sorry, there was an error processing your question.');
     }
   };
+  
 
   return (
     <div className="gamedaygpt-page main-content">

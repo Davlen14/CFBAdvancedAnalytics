@@ -91,12 +91,13 @@ const processQuestion = async (question) => {
     return 'The server is still loading team data, please try again in a moment.';
   }
 
+  const yearMatch = question.match(/\b\d{4}\b/);
+  const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
+  const teams = extractTeamsFromQuestion(question);
+
   if (question.includes('compare') || question.includes('vs')) {
-    const teams = extractTeamsFromQuestion(question);
-    console.log('Extracted teams:', teams);
+    console.log('Extracted teams for comparison:', teams);
     if (teams.length === 2) {
-      const yearMatch = question.match(/\b\d{4}\b/);
-      const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
       const result = await compareRecords(teams[0], teams[1], year);
       console.log('Comparison result:', result);
       return result;
@@ -104,9 +105,7 @@ const processQuestion = async (question) => {
       return 'Please specify two teams to compare.';
     }
   } else if (question.includes('record') || question.includes('wins') || question.includes('losses')) {
-    const yearMatch = question.match(/\b\d{4}\b/);
-    const year = yearMatch ? yearMatch[0] : new Date().getFullYear();
-    const teams = extractTeamsFromQuestion(question);
+    console.log('Extracted teams for record retrieval:', teams);
     if (teams.length === 1) {
       const result = await getTeamRecord(teams[0], year);
       return result;
