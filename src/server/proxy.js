@@ -40,6 +40,7 @@ const loadAllTeams = async () => {
   }
 };
 
+// Call loadAllTeams when the server starts
 loadAllTeams();
 
 const extractTeamsFromQuestion = (question) => {
@@ -48,11 +49,9 @@ const extractTeamsFromQuestion = (question) => {
 
 const getTeamRecord = async (team, year) => {
   try {
-    const response = await apiClient.get('/records', {
-      params: { year },
-    });
+    const response = await apiClient.get('/records', { params: { year } });
     const data = response.data;
-    const teamData = data.find(d => d.team === team);
+    const teamData = data.find(d => d.team.toLowerCase() === team.toLowerCase());
     if (!teamData) {
       return `No data found for ${team} in ${year}.`;
     }
@@ -65,12 +64,10 @@ const getTeamRecord = async (team, year) => {
 
 const compareRecords = async (team1, team2, year) => {
   try {
-    const response = await apiClient.get('/records', {
-      params: { year },
-    });
+    const response = await apiClient.get('/records', { params: { year } });
     const data = response.data;
-    const team1Data = data.find(d => d.team === team1);
-    const team2Data = data.find(d => d.team === team2);
+    const team1Data = data.find(d => d.team.toLowerCase() === team1.toLowerCase());
+    const team2Data = data.find(d => d.team.toLowerCase() === team2.toLowerCase());
 
     if (!team1Data || !team2Data) {
       return 'Unable to find data for one or both teams.';
@@ -89,6 +86,11 @@ const compareRecords = async (team1, team2, year) => {
 
 const processQuestion = async (question) => {
   console.log('Received question:', question);
+  if (!allTeams.length) {
+    console.error('All teams not loaded yet.');
+    return 'The server is still loading team data, please try again in a moment.';
+  }
+
   if (question.includes('compare') || question.includes('vs')) {
     const teams = extractTeamsFromQuestion(question);
     console.log('Extracted teams:', teams);

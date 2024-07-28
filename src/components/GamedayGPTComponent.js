@@ -18,8 +18,12 @@ const GamedayGPTComponent = () => {
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const teamsData = await getFBSTeams();
-      setTeams(teamsData);
+      try {
+        const teamsData = await getFBSTeams();
+        setTeams(teamsData);
+      } catch (error) {
+        console.error('Error fetching teams:', error);
+      }
     };
     fetchTeams();
   }, []);
@@ -107,7 +111,7 @@ const GamedayGPTComponent = () => {
   const handleQuestionSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/chatbot', {
+      const response = await fetch('https://my-betting-bot-davlen-2bc8e47f62ae.herokuapp.com/api/chatbot', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -159,29 +163,31 @@ const GamedayGPTComponent = () => {
           </div>
           <div className="comparison-results">
             <h4>Wins Over Years Comparison Plot</h4>
-            {comparisonData && <Line data={comparisonData} options={{
-              plugins: {
-                legend: {
-                  labels: {
-                    generateLabels: (chart) => {
-                      const originalLabels = ChartJS.defaults.plugins.legend.labels.generateLabels(chart);
-                      originalLabels.forEach(label => {
-                        const team = selectedTeams.find(team => team.label.props.children[1] === label.text);
-                        if (team && team.logos) {
-                          const img = new Image();
-                          img.src = team.logos[0];
-                          img.width = 15; // Adjust width for smaller image
-                          img.height = 15; // Adjust height for smaller image
-                          label.text = team.label.props.children[1]; // Show team name in legend
-                          label.pointStyle = img;
-                        }
-                      });
-                      return originalLabels;
+            {comparisonData && (
+              <Line data={comparisonData} options={{
+                plugins: {
+                  legend: {
+                    labels: {
+                      generateLabels: (chart) => {
+                        const originalLabels = ChartJS.defaults.plugins.legend.labels.generateLabels(chart);
+                        originalLabels.forEach(label => {
+                          const team = selectedTeams.find(team => team.label.props.children[1] === label.text);
+                          if (team && team.logos) {
+                            const img = new Image();
+                            img.src = team.logos[0];
+                            img.width = 15; // Adjust width for smaller image
+                            img.height = 15; // Adjust height for smaller image
+                            label.text = team.label.props.children[1]; // Show team name in legend
+                            label.pointStyle = img;
+                          }
+                        });
+                        return originalLabels;
+                      }
                     }
                   }
                 }
-              }
-            }} />}
+              }} />
+            )}
             <div className="key-insights">
               <h4>Key Insights</h4>
               <p>Insights derived from the comparison will be displayed here.</p>
@@ -254,6 +260,7 @@ const GamedayGPTComponent = () => {
 };
 
 export default GamedayGPTComponent;
+
 
 
 
