@@ -57,7 +57,6 @@ const UpcomingGamesComponent = ({ conference }) => {
 
         const gamesWithDetails = gamesData.map((game) => {
           const mediaInfo = gamesMediaMap[game.id];
-          const pregameWinProb = pregameWinProbMap[game.id];
           return {
             ...game,
             homeTeamLogo: teamLogosMap[game.home_id],
@@ -65,9 +64,7 @@ const UpcomingGamesComponent = ({ conference }) => {
             homeTeamRecord: teamRecordsMap[game.home_id]?.winsLosses,
             awayTeamRecord: teamRecordsMap[game.away_id]?.winsLosses,
             outlet: mediaInfo ? mediaInfo.outlet : 'Unknown Outlet',
-            location: game.venue || 'Unknown Location',
-            homeWinProbability: pregameWinProb ? pregameWinProb.homeWinProb : 'N/A',
-            awayWinProbability: pregameWinProb ? pregameWinProb.awayWinProb : 'N/A',
+            location: game.venue || 'Unknown Location'
           };
         }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
 
@@ -128,8 +125,6 @@ const UpcomingGamesComponent = ({ conference }) => {
               <FontAwesomeIcon icon={faTv} /> {game.outlet} {/* TV Icon followed by the outlet name */}
             </div>
             <div className="scorecard-location">Location: {game.venue}</div>
-            <div className="scorecard-probability">Home Win Probability: {game.homeWinProbability}</div>
-            <div className="scorecard-probability">Away Win Probability: {game.awayWinProbability}</div>
             <div className="scorecard-competitors">
               <div className="scorecard-competitor">
                 <img
@@ -145,7 +140,7 @@ const UpcomingGamesComponent = ({ conference }) => {
                 <div className="scorecard-odds">
                   {getOddsForGame(game.id, game.home_team.school).map(odd => (
                     <div key={odd.bookmaker} className="scorecard-odds-entry">
-                      <img src={bookmakerLogos[odd.bookmaker] || '/logos/default.png'} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
+                      <img src={bookmakerLogos[odd.bookmaker] || null} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
                       <span>{odd.price} ({odd.point})</span>
                     </div>
                   ))}
@@ -165,7 +160,7 @@ const UpcomingGamesComponent = ({ conference }) => {
                 <div className="scorecard-odds">
                   {getOddsForGame(game.id, game.away_team.school).map(odd => (
                     <div key={odd.bookmaker} className="scorecard-odds-entry">
-                      <img src={bookmakerLogos[odd.bookmaker] || '/logos/default.png'} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
+                      <img src={bookmakerLogos[odd.bookmaker] || null} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
                       <span>{odd.price} ({odd.point})</span>
                     </div>
                   ))}
@@ -180,6 +175,7 @@ const UpcomingGamesComponent = ({ conference }) => {
 };
 
 export default UpcomingGamesComponent;
+
 
 
 
