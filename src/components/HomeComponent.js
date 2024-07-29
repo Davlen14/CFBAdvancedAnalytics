@@ -37,14 +37,10 @@ function HomeComponent() {
           .sort((a, b) => a.ranking - b.ranking)
           .slice(0, 10);
 
-        const enrichedTeams = sortedTeams.map(team => {
-          const primaryColor = teamsMap[team.team]?.color || '#FFFFFF';
-          return {
-            ...team,
-            logo: teamsMap[team.team]?.logos[0] || null,
-            color: primaryColor,
-          };
-        });
+        const enrichedTeams = sortedTeams.map(team => ({
+          ...team,
+          logo: teamsMap[team.team]?.logos[0] || null,
+        }));
 
         setTopTeams(enrichedTeams);
       } catch (error) {
@@ -132,7 +128,7 @@ function HomeComponent() {
       <section className="scoreboard-section">
         {loading && <p>Loading games...</p>}
         {error && <p>Error loading games: {error.toString()}</p>}
-        <Slider {...settings}>
+        <div className="scoreboard-container">
           {games.map(game => (
             <div key={game.id} className="scoreboard-item">
               <div className="team-logos">
@@ -145,8 +141,9 @@ function HomeComponent() {
               </div>
             </div>
           ))}
-        </Slider>
+        </div>
       </section>
+      
       {/* Hero Section */}
       <section className="hero-section">
         <h2>Welcome to Game Day Analytics</h2>

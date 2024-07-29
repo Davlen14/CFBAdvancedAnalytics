@@ -17,7 +17,7 @@ body {
   padding: 5px 20px; /* Reduce padding to make the navbar smaller */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added shadow for a modern look */
   position: fixed; /* Fixed navbar at the top */
-  top: 0; /* Ensure it's at the top */
+  top: 60px; /* Ensure it's below the scoreboard section */
   left: 0; /* Ensure it stretches to the left */
   right: 0; /* Ensure it stretches to the right */
   width: 100%; /* Full width */
@@ -30,7 +30,7 @@ body {
   display: flex;
   align-items: center;
   font-family: "vox", sans-serif;
-  font-size: 28px; /* Keep the font size the same */
+  font-size: 24px; /* Slightly smaller font size */
   font-style: italic;
   color: #ff0000; /* Your chosen color */
   font-weight: bold; /* Make the title bold */
@@ -67,7 +67,7 @@ body {
   gap: 5px;
   background-color: #ff0000; /* Red button background */
   border: none;
-  padding: 10px 15px;
+  padding: 8px 10px; /* Reduced padding for smaller buttons */
   color: white; /* White text color */
   border-radius: 5px;
   cursor: pointer;
@@ -92,7 +92,7 @@ body {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 60px; /* Adjust based on your navbar height */
+    top: 50px; /* Adjust based on your navbar height */
     left: 0;
     right: 0;
     background-color: #ffffff; /* Match navbar background */
@@ -118,95 +118,30 @@ body {
 
 @media (max-width: 480px) {
   .nav-button {
-    font-size: 16px;
-    padding: 8px 10px;
+    font-size: 14px; /* Slightly smaller font size */
+    padding: 6px 8px; /* Reduced padding */
   }
 }
 
-
 /* Home Component styles */
 .home {
-  padding-top: 70px; /* Adjusted for more spacing */
+  padding-top: 120px; /* Adjusted for scoreboard and navbar spacing */
   font-family: "vox", sans-serif;
 }
 
-/* Hero Section */
-.hero-section {
-  background: linear-gradient(to right, #cc0000, #ff6666);
-  color: white;
-  padding: 4rem 2rem; /* Increased padding for more open look */
-  text-align: center;
-  border-radius: 8px;
-  margin-bottom: 3rem; /* Increased margin for more spacing */
-}
-
-.hero-section h2 {
-  font-size: 3rem; /* Larger font size */
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-}
-
-.hero-section p {
-  font-size: 1.5rem; /* Larger font size */
-  margin-bottom: 1.5rem;
-}
-/* Styles for the scoreboard section */
-.scoreboard-section {
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-bottom: 2px solid #ddd;
-}
-
-.scoreboard-section h2 {
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* Styles for each scoreboard item */
-.scoreboard-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
-}
-
-/* Styles for team logos */
-.team-logos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.team-logos img {
-  width: 50px;
-  height: 50px;
-  margin: 0 10px;
-}
-
-/* Styles for game information */
-.game-info {
-  text-align: center;
-  font-size: 16px;
-  color: #333;
-}
-
-.game-info span {
-  display: block;
-  margin: 5px 0;
-}
+/* Week Filter and Scoreboard Section */
 .week-filter-section {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background-color: #f8f8f8; /* Light background to distinguish from navbar */
-  padding: 10px 0;
+  padding: 10px 20px;
+  background-color: #f8f8f8; /* Light background for differentiation */
   border-bottom: 1px solid #ddd; /* Subtle border for separation */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001; /* Higher than navbar */
 }
 
 .week-filter-section select {
@@ -217,6 +152,53 @@ body {
   cursor: pointer;
   color: #333; /* Ensure text is visible */
 }
+
+.scoreboard-section {
+  padding: 10px 0; /* Less padding for a more compact look */
+  background-color: #ffffff;
+  border-bottom: 2px solid #ddd;
+  position: fixed;
+  top: 40px; /* Below the week filter */
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Below the week filter but above the navbar */
+}
+
+.scoreboard-container {
+  overflow-x: auto;
+  display: flex;
+  padding: 10px 0;
+}
+
+.scoreboard-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px; /* Smaller width for compactness */
+  margin: 0 5px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+}
+
+.team-logos img {
+  width: 30px; /* Smaller size for compactness */
+  height: 30px;
+  margin: 0 5px;
+}
+
+.game-info {
+  text-align: center;
+  font-size: 12px; /* Smaller font for compactness */
+  color: #333;
+}
+
+.game-info span {
+  display: block;
+  margin: 3px 0;
+}
+
 
 
 /* Content Sections */
