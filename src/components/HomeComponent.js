@@ -72,6 +72,8 @@ function HomeComponent() {
             id: game.id,
             homeTeamLogo: teamLogosMap[game.home_id],
             awayTeamLogo: teamLogosMap[game.away_id],
+            homeTeam: game.home_team,
+            awayTeam: game.away_team,
             startDate: game.start_date,
             outlet: mediaInfo ? mediaInfo.outlet : 'Unknown Outlet',
           };
@@ -125,18 +127,22 @@ function HomeComponent() {
         {error && <p>Error loading games: {error.toString()}</p>}
         <div className="scoreboard-container">
           {games.map(game => (
-                          <div key={game.id} className="scoreboard-item">
-                <div className="team-logos">
+            <div key={game.id} className="scoreboard-item">
+              <div className="team-logos">
+                <div className="team">
                   <img src={game.homeTeamLogo} alt="Home Team Logo" />
-                  <div className="team-name">{game.home_team ? game.home_team.school : 'Home Team'}</div>
-                  <img src={game.awayTeamLogo} alt="Away Team Logo" />
-                  <div className="team-name">{game.away_team ? game.away_team.school : 'Away Team'}</div>
+                  <div className="team-name">{game.homeTeam ? game.homeTeam.school : 'Home Team'}</div>
                 </div>
-                <div className="game-info">
-                  <span>{new Date(game.startDate).toLocaleTimeString()}</span>
-                  <span>{game.outlet}</span>
+                <div className="team">
+                  <img src={game.awayTeamLogo} alt="Away Team Logo" />
+                  <div className="team-name">{game.awayTeam ? game.awayTeam.school : 'Away Team'}</div>
                 </div>
               </div>
+              <div className="game-info">
+                <span>{new Date(game.startDate).toLocaleTimeString()}</span>
+                <span>{game.outlet}</span>
+              </div>
+            </div>
           ))}
         </div>
       </section>
