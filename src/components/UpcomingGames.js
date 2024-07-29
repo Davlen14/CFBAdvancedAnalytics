@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import WeekFilter from './WeekFilter';
 import Papa from 'papaparse';
-import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
+import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia } from '../services/CollegeFootballApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
 import betmgmLogo from '../logos/betmgm.png';
@@ -27,12 +27,11 @@ const UpcomingGamesComponent = ({ conference }) => {
     const fetchGamesAndLogos = async () => {
       setLoading(true);
       try {
-        const [gamesData, fbsTeams, recordsData, gamesMediaData, pregameWinProbData] = await Promise.all([
+        const [gamesData, fbsTeams, recordsData, gamesMediaData] = await Promise.all([
           getUpcomingGamesForWeek(currentWeek),
           getFBSTeams(),
           getRecords(),
-          getGamesMedia(),
-          getPregameWinProbabilityData(year, currentWeek, null, seasonType) // Fetch pregame win probabilities
+          getGamesMedia()
         ]);
 
         const teamLogosMap = fbsTeams.reduce((acc, team) => {
@@ -47,11 +46,6 @@ const UpcomingGamesComponent = ({ conference }) => {
 
         const gamesMediaMap = gamesMediaData.reduce((acc, media) => {
           acc[media.id] = media;
-          return acc;
-        }, {});
-
-        const pregameWinProbMap = pregameWinProbData.reduce((acc, game) => {
-          acc[game.gameId] = game;
           return acc;
         }, {});
 
@@ -175,6 +169,7 @@ const UpcomingGamesComponent = ({ conference }) => {
 };
 
 export default UpcomingGamesComponent;
+
 
 
 
