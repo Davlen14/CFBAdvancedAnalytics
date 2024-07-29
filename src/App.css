@@ -196,18 +196,19 @@ body {
 }
 
 .team-name {
-  font-size: 14px; /* Adjust font size */
-  font-weight: bold;
-  color: #333;
+  font-size: 0.5rem; /* Smaller font size */
+  font-weight: 100; /* Lighter font weight */
+  margin-right: 1rem; /* Margin to the right for spacing */
+  color: #333; /* Text color (if different, you can adjust) */
   text-align: center; /* Center the text */
-  margin-top: 5px; /* Space between logo and name */
 }
+
 
 .game-info {
   display: flex;
   flex-direction: column; /* Stack time and channel */
   align-items: flex-start; /* Align left */
-  font-size: 12px; /* Smaller font size */
+  font-size: 10px; /* Smaller font size */
   color: #333;
 }
 
