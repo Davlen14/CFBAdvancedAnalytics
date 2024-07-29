@@ -196,11 +196,11 @@ body {
 }
 
 .team-names {
-  font-size: 5px; /* Adjust font size */
-  font-weight: bold;
+  font-size: .5rem; /* Adjust font size */
+  font-weight: 100;
   color: #333;
   text-align: center; /* Center the text */
-  margin-top: 5px; /* Space between logo and name */
+  margin-left: 5px; /* Space between logo and name */
 }
 
 .game-info {
