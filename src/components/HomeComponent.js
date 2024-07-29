@@ -125,16 +125,18 @@ function HomeComponent() {
         {error && <p>Error loading games: {error.toString()}</p>}
         <div className="scoreboard-container">
           {games.map(game => (
-            <div key={game.id} className="scoreboard-item">
-              <div className="team-logos">
-                <img src={game.homeTeamLogo} alt="Home Team Logo" />
-                <img src={game.awayTeamLogo} alt="Away Team Logo" />
+                          <div key={game.id} className="scoreboard-item">
+                <div className="team-logos">
+                  <img src={game.homeTeamLogo} alt="Home Team Logo" />
+                  <div className="team-name">{game.home_team ? game.home_team.school : 'Home Team'}</div>
+                  <img src={game.awayTeamLogo} alt="Away Team Logo" />
+                  <div className="team-name">{game.away_team ? game.away_team.school : 'Away Team'}</div>
+                </div>
+                <div className="game-info">
+                  <span>{new Date(game.startDate).toLocaleTimeString()}</span>
+                  <span>{game.outlet}</span>
+                </div>
               </div>
-              <div className="game-info">
-                <span>{new Date(game.startDate).toLocaleTimeString()}</span>
-                <span>{game.outlet}</span>
-              </div>
-            </div>
           ))}
         </div>
       </section>
