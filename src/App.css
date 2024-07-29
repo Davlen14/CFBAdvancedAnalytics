@@ -195,13 +195,26 @@ body {
   margin-bottom: 5px; /* Space between logos */
 }
 
-.team-name {
-  font-size: 5px; /* Adjust font size */
-  font-weight: bold;
+/* Home Team Name */
+.team-name-home {
+  font-size: 0.7rem; /* Adjust font size */
+  font-weight: 400;
+  margin-right: 5px;
   color: #333;
   text-align: center; /* Center the text */
   margin-top: 5px; /* Space between logo and name */
 }
+
+/* Away Team Name */
+.team-name-away {
+  font-size: 0.7rem; /* Adjust font size */
+  font-weight: 400;
+  margin-right: 5px;
+  color: #333;
+  text-align: center; /* Center the text */
+  margin-top: 5px; /* Space between logo and name */
+}
+
 
 .game-info {
   display: flex;
