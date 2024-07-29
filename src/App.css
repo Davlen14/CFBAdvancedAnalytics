@@ -1835,6 +1835,26 @@ table tbody tr:nth-child(even) {
   width: 30px;
   height: 30px;
 }
+/* Odds section styles */
+.scorecard-odds {
+  margin-top: 10px;
+}
+
+.scorecard-odds h5 {
+  margin-bottom: 5px;
+}
+
+.scorecard-odds-entry {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.scorecard-odds-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
 
 
 
