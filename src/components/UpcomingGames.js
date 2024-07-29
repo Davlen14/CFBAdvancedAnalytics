@@ -66,7 +66,7 @@ const UpcomingGamesComponent = ({ conference }) => {
 
   useEffect(() => {
     const fetchOdds = async () => {
-      const response = await fetch('CFBAdvancedAnalytics/public/Game_Odds.csv');
+      const response = await fetch('/Game_Odds.csv');
       const reader = response.body.getReader();
       const result = await reader.read();
       const decoder = new TextDecoder('utf-8');
@@ -111,16 +111,15 @@ const UpcomingGamesComponent = ({ conference }) => {
                 <img
                   src={game.homeTeamLogo}
                   alt={`${game.home_team} logo`}
-                  className="scorecard-logo"
-                />
+                  className="scorecard-logo"/>
                 <div className="scorecard-team-name">{game.home_team ? game.home_team : 'Home Team'}</div>
                 <div className="scorecard-record">
                   {game.homeTeamRecord ? `${game.homeTeamRecord.total.wins}-${game.homeTeamRecord.total.losses} (${game.homeTeamRecord.conference})` : ''}
                 </div>
                 <div className="scorecard-odds">
                   {getOddsForGame(game.id, game.home_team).map(odd => (
-                    <div key={odd.bookmaker}>
-                      <img src={`/logos/${odd.bookmaker}.png`} alt={`${odd.bookmaker} logo`} />
+                    <div key={odd.bookmaker} className="scorecard-odds-entry">
+                      <img src={`/logos/${odd.bookmaker}.png`} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
                       <span>{odd.price} ({odd.point})</span>
                     </div>
                   ))}
@@ -138,8 +137,8 @@ const UpcomingGamesComponent = ({ conference }) => {
                 </div>
                 <div className="scorecard-odds">
                   {getOddsForGame(game.id, game.away_team).map(odd => (
-                    <div key={odd.bookmaker}>
-                      <img src={`/logos/${odd.bookmaker}.png`} alt={`${odd.bookmaker} logo`} />
+                    <div key={odd.bookmaker} className="scorecard-odds-entry">
+                      <img src={`/logos/${odd.bookmaker}.png`} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
                       <span>{odd.price} ({odd.point})</span>
                     </div>
                   ))}
@@ -154,5 +153,6 @@ const UpcomingGamesComponent = ({ conference }) => {
 };
 
 export default UpcomingGamesComponent;
+
 
 
