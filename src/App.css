@@ -182,10 +182,17 @@ body {
   background-color: #f1f1f1;
 }
 
+.team-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
 .team-logos img {
   width: 30px; /* Smaller size for compactness */
   height: 30px;
-  margin: 0 5px;
+  margin: 5px 0;
 }
 
 .game-info {

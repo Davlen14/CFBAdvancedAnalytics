@@ -119,11 +119,6 @@ function HomeComponent() {
 
   return (
     <div className="home">
-      {/* Week Filter */}
-      <section className="week-filter-section">
-        <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
-      </section>
-
       {/* Scoreboard Section */}
       <section className="scoreboard-section">
         {loading && <p>Loading games...</p>}
@@ -142,6 +137,11 @@ function HomeComponent() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Week Filter */}
+      <section className="week-filter-section">
+        <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
       </section>
       
       {/* Hero Section */}
