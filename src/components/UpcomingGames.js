@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import WeekFilter from './WeekFilter';
-import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
+import Papa from 'papaparse';
+import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia } from '../services/CollegeFootballApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
 
 const UpcomingGamesComponent = ({ conference }) => {
   const [games, setGames] = useState([]);
+  const [odds, setOdds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentWeek, setCurrentWeek] = useState(1);
@@ -16,12 +18,11 @@ const UpcomingGamesComponent = ({ conference }) => {
     const fetchGamesAndLogos = async () => {
       setLoading(true);
       try {
-        const [gamesData, fbsTeams, recordsData, gamesMediaData, pregameWinProbData] = await Promise.all([
+        const [gamesData, fbsTeams, recordsData, gamesMediaData] = await Promise.all([
           getUpcomingGamesForWeek(currentWeek),
           getFBSTeams(),
           getRecords(),
-          getGamesMedia(),
-          getPregameWinProbabilityData(year, currentWeek, null, seasonType) // Fetch pregame win probabilities
+          getGamesMedia()
         ]);
 
         const teamLogosMap = fbsTeams.reduce((acc, team) => {
@@ -39,14 +40,8 @@ const UpcomingGamesComponent = ({ conference }) => {
           return acc;
         }, {});
 
-        const pregameWinProbMap = pregameWinProbData.reduce((acc, game) => {
-          acc[game.gameId] = game;
-          return acc;
-        }, {});
-
         const gamesWithDetails = gamesData.map((game) => {
           const mediaInfo = gamesMediaMap[game.id];
-          const pregameWinProb = pregameWinProbMap[game.id];
           return {
             ...game,
             homeTeamLogo: teamLogosMap[game.home_id],
@@ -55,12 +50,8 @@ const UpcomingGamesComponent = ({ conference }) => {
             awayTeamRecord: teamRecordsMap[game.away_id]?.winsLosses,
             outlet: mediaInfo ? mediaInfo.outlet : 'Unknown Outlet',
             location: game.venue || 'Unknown Location',
-            homeWinProbability: pregameWinProb ? pregameWinProb.homeWinProb : 'N/A',
-            awayWinProbability: pregameWinProb ? pregameWinProb.awayWinProb : 'N/A',
           };
         }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
-
-        console.log(gamesWithDetails);
 
         setGames(gamesWithDetails);
       } catch (err) {
@@ -72,6 +63,28 @@ const UpcomingGamesComponent = ({ conference }) => {
 
     fetchGamesAndLogos();
   }, [currentWeek, year, seasonType]);
+
+  useEffect(() => {
+    const fetchOdds = async () => {
+      const response = await fetch('CFBAdvancedAnalytics/public/Game_Odds.csv');
+      const reader = response.body.getReader();
+      const result = await reader.read();
+      const decoder = new TextDecoder('utf-8');
+      const csv = decoder.decode(result.value);
+      const results = Papa.parse(csv, { header: true });
+      setOdds(results.data);
+    };
+
+    fetchOdds();
+  }, []);
+
+  const getOddsForGame = (gameId, team) => {
+    return odds.filter(odd => odd.game_id === gameId && odd.label === team).map(odd => ({
+      bookmaker: odd.bookmaker,
+      price: odd.price,
+      point: odd.point
+    }));
+  };
 
   const handleWeekChange = (week) => {
     setCurrentWeek(week);
@@ -93,31 +106,43 @@ const UpcomingGamesComponent = ({ conference }) => {
               <FontAwesomeIcon icon={faTv} /> {game.outlet} {/* TV Icon followed by the outlet name */}
             </div>
             <div className="scorecard-location">Location: {game.venue}</div>
-            <div className="scorecard-probability">Home Win Probability: {game.homeWinProbability}</div>
-            <div className="scorecard-probability">Away Win Probability: {game.awayWinProbability}</div>
             <div className="scorecard-competitors">
               <div className="scorecard-competitor">
                 <img
                   src={game.homeTeamLogo}
-                  alt={`${game.home_team.school} logo`}
+                  alt={`${game.home_team} logo`}
                   className="scorecard-logo"
                 />
-                <div className="scorecard-team-name">{game.home_team ? game.home_team.school : 'Home Team'}</div>
-                <div className="scorecard-score"><b>{game.homeScore}</b></div>
+                <div className="scorecard-team-name">{game.home_team ? game.home_team : 'Home Team'}</div>
                 <div className="scorecard-record">
                   {game.homeTeamRecord ? `${game.homeTeamRecord.total.wins}-${game.homeTeamRecord.total.losses} (${game.homeTeamRecord.conference})` : ''}
+                </div>
+                <div className="scorecard-odds">
+                  {getOddsForGame(game.id, game.home_team).map(odd => (
+                    <div key={odd.bookmaker}>
+                      <img src={`/logos/${odd.bookmaker}.png`} alt={`${odd.bookmaker} logo`} />
+                      <span>{odd.price} ({odd.point})</span>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="scorecard-competitor">
                 <img
                   src={game.awayTeamLogo}
-                  alt={`${game.away_team.school} logo`}
+                  alt={`${game.away_team} logo`}
                   className="scorecard-logo"
                 />
-                <div className="scorecard-team-name">{game.away_team ? game.away_team.school : 'Away Team'}</div>
-                <div className="scorecard-score"><b>{game.awayScore}</b></div>
+                <div className="scorecard-team-name">{game.away_team ? game.away_team : 'Away Team'}</div>
                 <div className="scorecard-record">
                   {game.awayTeamRecord ? `${game.awayTeamRecord.total.wins}-${game.awayTeamRecord.total.losses} (${game.awayTeamRecord.conference})` : ''}
+                </div>
+                <div className="scorecard-odds">
+                  {getOddsForGame(game.id, game.away_team).map(odd => (
+                    <div key={odd.bookmaker}>
+                      <img src={`/logos/${odd.bookmaker}.png`} alt={`${odd.bookmaker} logo`} />
+                      <span>{odd.price} ({odd.point})</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
