@@ -12,7 +12,8 @@ import googlePlayLogo from '../assets/google-play.png';
 import appStoreLogo from '../assets/app-store.png';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { getFBSTeams, getSpRatings, getUpcomingGamesForWeek, getRecords, getGamesMedia } from '../services/CollegeFootballApi';
+import { getFBSTeams, getSpRatings, getUpcomingGamesForWeek, getGamesMedia } from '../services/CollegeFootballApi';
+import WeekFilter from './WeekFilter';
 
 function HomeComponent() {
   const [topTeams, setTopTeams] = useState([]);
@@ -128,6 +129,12 @@ function HomeComponent() {
 
   return (
     <div className="home">
+      {/* Week Filter */}
+      <section className="week-filter-section">
+        <h2>Week {currentWeek}</h2>
+        <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
+      </section>
+
       {/* Scoreboard Section */}
       <section className="scoreboard-section">
         <h2>Upcoming Games</h2>
