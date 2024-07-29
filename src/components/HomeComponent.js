@@ -21,8 +21,6 @@ function HomeComponent() {
   const [currentWeek, setCurrentWeek] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [year] = useState(2024);
-  const [seasonType] = useState('regular');
 
   useEffect(() => {
     // Fetch top teams
