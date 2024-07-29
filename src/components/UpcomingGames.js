@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import WeekFilter from './WeekFilter';
+import Papa from 'papaparse';
 import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
 
 const UpcomingGamesComponent = ({ conference }) => {
   const [games, setGames] = useState([]);
+  const [odds, setOdds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentWeek, setCurrentWeek] = useState(1);
@@ -25,7 +27,7 @@ const UpcomingGamesComponent = ({ conference }) => {
         ]);
 
         const teamLogosMap = fbsTeams.reduce((acc, team) => {
-          acc[team.id] = team.logos[0];
+          acc[team.id] = team.logos[0].replace('http://', 'https://');
           return acc;
         }, {});
 
@@ -60,8 +62,6 @@ const UpcomingGamesComponent = ({ conference }) => {
           };
         }).filter(game => game.homeTeamLogo && game.awayTeamLogo);
 
-        console.log(gamesWithDetails);
-
         setGames(gamesWithDetails);
       } catch (err) {
         setError(err);
@@ -72,6 +72,28 @@ const UpcomingGamesComponent = ({ conference }) => {
 
     fetchGamesAndLogos();
   }, [currentWeek, year, seasonType]);
+
+  useEffect(() => {
+    const fetchOdds = async () => {
+      const response = await fetch('/Game_Odds.csv');
+      const reader = response.body.getReader();
+      const result = await reader.read();
+      const decoder = new TextDecoder('utf-8');
+      const csv = decoder.decode(result.value);
+      const results = Papa.parse(csv, { header: true });
+      setOdds(results.data);
+    };
+
+    fetchOdds();
+  }, []);
+
+  const getOddsForGame = (gameId, team) => {
+    return odds.filter(odd => odd.game_id === gameId && odd.label === team).map(odd => ({
+      bookmaker: odd.bookmaker,
+      price: odd.price,
+      point: odd.point
+    }));
+  };
 
   const handleWeekChange = (week) => {
     setCurrentWeek(week);
@@ -107,6 +129,14 @@ const UpcomingGamesComponent = ({ conference }) => {
                 <div className="scorecard-record">
                   {game.homeTeamRecord ? `${game.homeTeamRecord.total.wins}-${game.homeTeamRecord.total.losses} (${game.homeTeamRecord.conference})` : ''}
                 </div>
+                <div className="scorecard-odds">
+                  {getOddsForGame(game.id, game.home_team.school).map(odd => (
+                    <div key={odd.bookmaker} className="scorecard-odds-entry">
+                      <img src={`/logos/${odd.bookmaker}.png`} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
+                      <span>{odd.price} ({odd.point})</span>
+                    </div>
+                  ))}
+                </div>
               </div>
               <div className="scorecard-competitor">
                 <img
@@ -119,6 +149,14 @@ const UpcomingGamesComponent = ({ conference }) => {
                 <div className="scorecard-record">
                   {game.awayTeamRecord ? `${game.awayTeamRecord.total.wins}-${game.awayTeamRecord.total.losses} (${game.awayTeamRecord.conference})` : ''}
                 </div>
+                <div className="scorecard-odds">
+                  {getOddsForGame(game.id, game.away_team.school).map(odd => (
+                    <div key={odd.bookmaker} className="scorecard-odds-entry">
+                      <img src={`/logos/${odd.bookmaker}.png`} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
+                      <span>{odd.price} ({odd.point})</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -129,5 +167,6 @@ const UpcomingGamesComponent = ({ conference }) => {
 };
 
 export default UpcomingGamesComponent;
+
 
 
