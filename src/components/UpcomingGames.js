@@ -4,6 +4,15 @@ import Papa from 'papaparse';
 import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia, getPregameWinProbabilityData } from '../services/CollegeFootballApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
+import betmgmLogo from '../logos/betmgm.png';
+import draftkingsLogo from '../logos/draftkings.png';
+import fanduelLogo from '../logos/fanduel.png';
+
+const bookmakerLogos = {
+  BetMGM: betmgmLogo,
+  DraftKings: draftkingsLogo,
+  FanDuel: fanduelLogo
+};
 
 const UpcomingGamesComponent = ({ conference }) => {
   const [games, setGames] = useState([]);
@@ -88,7 +97,11 @@ const UpcomingGamesComponent = ({ conference }) => {
   }, []);
 
   const getOddsForGame = (gameId, team) => {
-    return odds.filter(odd => odd.game_id === gameId && odd.label === team).map(odd => ({
+    const filteredOdds = odds.filter(odd => odd.game_id === gameId && odd.label === team && ['DraftKings', 'FanDuel', 'BetMGM'].includes(odd.bookmaker));
+    if (filteredOdds.length === 0) {
+      return [{ bookmaker: 'null', price: 'null', point: 'null' }];
+    }
+    return filteredOdds.map(odd => ({
       bookmaker: odd.bookmaker,
       price: odd.price,
       point: odd.point
@@ -132,7 +145,7 @@ const UpcomingGamesComponent = ({ conference }) => {
                 <div className="scorecard-odds">
                   {getOddsForGame(game.id, game.home_team.school).map(odd => (
                     <div key={odd.bookmaker} className="scorecard-odds-entry">
-                      <img src={`/logos/${odd.bookmaker}.png`} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
+                      <img src={bookmakerLogos[odd.bookmaker] || '/logos/default.png'} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
                       <span>{odd.price} ({odd.point})</span>
                     </div>
                   ))}
@@ -152,7 +165,7 @@ const UpcomingGamesComponent = ({ conference }) => {
                 <div className="scorecard-odds">
                   {getOddsForGame(game.id, game.away_team.school).map(odd => (
                     <div key={odd.bookmaker} className="scorecard-odds-entry">
-                      <img src={`/logos/${odd.bookmaker}.png`} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
+                      <img src={bookmakerLogos[odd.bookmaker] || '/logos/default.png'} alt={`${odd.bookmaker} logo`} className="scorecard-odds-logo" />
                       <span>{odd.price} ({odd.point})</span>
                     </div>
                   ))}
@@ -167,6 +180,7 @@ const UpcomingGamesComponent = ({ conference }) => {
 };
 
 export default UpcomingGamesComponent;
+
 
 
 
