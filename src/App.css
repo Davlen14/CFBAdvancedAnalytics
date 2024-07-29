@@ -126,7 +126,7 @@ body {
 
 /* Home Component styles */
 .home {
-  padding-top: 100px; /* Adjusted for more spacing */
+  padding-top: 70px; /* Adjusted for more spacing */
   font-family: "vox", sans-serif;
 }
 
@@ -200,6 +200,24 @@ body {
   display: block;
   margin: 5px 0;
 }
+.week-filter-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f8; /* Light background to distinguish from navbar */
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd; /* Subtle border for separation */
+}
+
+.week-filter-section select {
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  padding: 5px;
+  cursor: pointer;
+  color: #333; /* Ensure text is visible */
+}
+
 
 /* Content Sections */
 .content-section {

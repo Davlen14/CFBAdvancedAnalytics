@@ -23,7 +23,6 @@ function HomeComponent() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch top teams
     const fetchTopTeams = async () => {
       try {
         const spRatings = await getSpRatings(2023);
@@ -53,7 +52,6 @@ function HomeComponent() {
       }
     };
 
-    // Fetch upcoming games
     const fetchGamesAndLogos = async () => {
       try {
         const [gamesData, fbsTeams, gamesMediaData] = await Promise.all([
@@ -100,7 +98,7 @@ function HomeComponent() {
   };
 
   const settings = {
-    dots: true,
+    dots: false,  // Removed dots for a cleaner look
     infinite: true,
     speed: 500,
     slidesToShow: 3,
@@ -110,9 +108,7 @@ function HomeComponent() {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true
+          slidesToScroll: 1
         }
       },
       {
@@ -129,13 +125,11 @@ function HomeComponent() {
     <div className="home">
       {/* Week Filter */}
       <section className="week-filter-section">
-        <h2>Week {currentWeek}</h2>
         <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
       </section>
 
       {/* Scoreboard Section */}
       <section className="scoreboard-section">
-        <h2>Upcoming Games</h2>
         {loading && <p>Loading games...</p>}
         {error && <p>Error loading games: {error.toString()}</p>}
         <Slider {...settings}>
@@ -153,7 +147,6 @@ function HomeComponent() {
           ))}
         </Slider>
       </section>
-
       {/* Hero Section */}
       <section className="hero-section">
         <h2>Welcome to Game Day Analytics</h2>
