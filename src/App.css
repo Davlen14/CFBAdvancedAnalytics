@@ -129,46 +129,55 @@ body {
   font-family: "vox", sans-serif;
 }
 
-/* Remove the .week-filter-section styles and section */
-
-/* Scoreboard Section */
 .scoreboard-section {
+  padding: 10px 0; /* Less padding for a more compact look */
+  background-color: #ffffff;
+  border-bottom: 2px solid #ddd;
+  position: fixed;
+  top: 40px; /* Below the week filter */
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Below the week filter but above the navbar */
+}
+
+.scoreboard-container {
+  overflow-x: auto;
   display: flex;
+  padding: 10px 0;
+  margin-left: 20px; /* Adjust to align with week filter */
+}
+
+
+/* Week Filters and Scoreboard Section */
+.week-filters {
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
   padding: 10px 20px;
   background-color: #f8f8f8;
   border-bottom: 1px solid #ddd;
   position: fixed;
-  top: 0; /* Fixed to the top */
+  top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* Above the navbar */
-}
-
-.week-filters {
-  margin-right: 20px; /* Space from the right edge */
+  z-index: 1001;
 }
 
 .week-filters select {
-  border: 1px solid #ddd;
-  background-color: #fff;
+  border: none;
+  background-color: transparent;
   font-size: 16px;
   padding: 5px;
   cursor: pointer;
   color: #333;
 }
 
-.scoreboard-container {
-  overflow-x: auto;
-  display: flex;
-  margin-left: 20px; /* Adjust to align with week filter */
-}
 
 .scoreboard-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Horizontal layout */
   align-items: center;
-  min-width: 150px;
+  min-width: 150px; /* Adjust the width as needed */
   margin: 0 5px;
   padding: 5px;
   border: 1px solid #ddd;
@@ -176,39 +185,38 @@ body {
   background-color: #f1f1f1;
 }
 
-/* Team logos and names */
 .team-logos {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  margin-right: 10px; /* Space between logos and info */
 }
 
 .team-logos img {
-  width: 30px;
+  width: 30px; /* Adjust size as needed */
   height: 30px;
-  margin-right: 5px;
+  margin-bottom: 5px; /* Space between logos */
 }
 
 .team-names {
-  font-size: 0.7rem;
+  font-size: .5rem; /* Adjust font size */
   font-weight: 100;
   color: #333;
-  text-align: center;
+  text-align: center; /* Center the text */
   margin-left: 5px; /* Space between logo and name */
 }
 
-/* Game info */
 .game-info {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  font-size: 12px;
+  flex-direction: column; /* Stack time and channel */
+  align-items: flex-start; /* Align left */
+  font-size: 12px; /* Smaller font size */
   color: #333;
 }
 
 .game-info span {
-  margin: 2px 0;
+  margin: 2px 0; /* Space between time and channel */
 }
-
 
 
 
