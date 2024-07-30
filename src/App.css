@@ -15,7 +15,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow added */
+  border-bottom: 2px solid #ff0000; /* Red line added */
   position: fixed;
   top: 0; /* Navbar at the very top */
   left: 0;
@@ -24,6 +24,7 @@ body {
   z-index: 1000; /* Ensure it's above all other elements */
   height: 50px; /* Fixed height */
 }
+
 
 /* Navbar title styling */
 .navbar-title {
