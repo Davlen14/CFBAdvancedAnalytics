@@ -35,29 +35,33 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
         <div className="player-modal-stats-container">
           <div className="team-stats home-team">
             <h3>{game.home_team.school} Stats</h3>
-            {homeTeamStats.length > 0 ? (
-              homeTeamStats.map((stat, index) => (
-                <div key={index} className="player-modal-stat-entry">
-                  <h4>{stat.player}</h4>
-                  <p>{stat.statType}: {stat.stat}</p>
-                </div>
-              ))
-            ) : (
-              <p>No player stats available.</p>
-            )}
+            <div className="stats-column">
+              {homeTeamStats.length > 0 ? (
+                homeTeamStats.map((stat, index) => (
+                  <div key={index} className="player-modal-stat-entry">
+                    <h4>{stat.player}</h4>
+                    <p>{stat.statType}: {stat.stat}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No player stats available.</p>
+              )}
+            </div>
           </div>
           <div className="team-stats away-team">
             <h3>{game.away_team.school} Stats</h3>
-            {awayTeamStats.length > 0 ? (
-              awayTeamStats.map((stat, index) => (
-                <div key={index} className="player-modal-stat-entry">
-                  <h4>{stat.player}</h4>
-                  <p>{stat.statType}: {stat.stat}</p>
-                </div>
-              ))
-            ) : (
-              <p>No player stats available.</p>
-            )}
+            <div className="stats-column">
+              {awayTeamStats.length > 0 ? (
+                awayTeamStats.map((stat, index) => (
+                  <div key={index} className="player-modal-stat-entry">
+                    <h4>{stat.player}</h4>
+                    <p>{stat.statType}: {stat.stat}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No player stats available.</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -66,6 +70,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
 };
 
 export default PlayerStatsModal;
+
 
 
 
