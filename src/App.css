@@ -15,7 +15,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
-  border-bottom: 2px solid #ff0000; /* Red line added */
+  border-bottom: .5px solid #ff0000; /* Red line added */
   position: fixed;
   top: 0; /* Navbar at the very top */
   left: 0;
@@ -149,7 +149,7 @@ body {
 .scoreboard-section {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
+  padding: 15px 20px;
   background-color: #ffffff;
   border-bottom: 2px solid #ddd;
   position: fixed;
@@ -788,7 +788,7 @@ body {
 /* Styles for the Home Component */
 /* Adjusting padding for the main content to avoid being hidden by the navbar */
 .home {
-  padding-top: 80px; /* Adjust the value to match the height of your navbar */
+  padding-top: 150px; /* Adjust the value to match the height of your navbar */
 }
 
 /* Hero Section */
