@@ -111,12 +111,21 @@ const UpcomingGamesComponent = ({ conference }) => {
     setSelectedGame(game);
     setIsModalOpen(true);
     try {
-      const passingStats = await getPlayerSeasonStats(2023, game.home_team.school, seasonType, 'passing');
-      const rushingStats = await getPlayerSeasonStats(2023, game.home_team.school, seasonType, 'rushing');
-      const receivingStats = await getPlayerSeasonStats(2023, game.home_team.school, seasonType, 'receiving');
+      // Fetch stats for the home team
+      const homePassingStats = await getPlayerSeasonStats(2023, game.home_team.school, seasonType, 'passing');
+      const homeRushingStats = await getPlayerSeasonStats(2023, game.home_team.school, seasonType, 'rushing');
+      const homeReceivingStats = await getPlayerSeasonStats(2023, game.home_team.school, seasonType, 'receiving');
   
-      // Combine stats from all categories
-      const combinedStats = [...passingStats, ...rushingStats, ...receivingStats];
+      // Fetch stats for the away team
+      const awayPassingStats = await getPlayerSeasonStats(2023, game.away_team.school, seasonType, 'passing');
+      const awayRushingStats = await getPlayerSeasonStats(2023, game.away_team.school, seasonType, 'rushing');
+      const awayReceivingStats = await getPlayerSeasonStats(2023, game.away_team.school, seasonType, 'receiving');
+  
+      // Combine stats from all categories for both teams
+      const combinedStats = [
+        ...homePassingStats, ...homeRushingStats, ...homeReceivingStats,
+        ...awayPassingStats, ...awayRushingStats, ...awayReceivingStats,
+      ];
   
       setPlayerStats(combinedStats);
     } catch (error) {
@@ -124,6 +133,7 @@ const UpcomingGamesComponent = ({ conference }) => {
     }
   };
   
+
   const closeModal = () => {
     setIsModalOpen(false);
     setPlayerStats([]);
