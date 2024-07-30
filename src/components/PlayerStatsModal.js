@@ -11,17 +11,31 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
     return teamLogosMap[teamName];
   };
 
-  // Split stats into categories
-  const getCategorizedStats = (stats) => {
-    return {
-      passing: stats.filter(stat => ['COMPLETIONS', 'PASSING_TDS', 'PASSING_YARDS', 'PCT'].includes(stat.statType)),
-      rushing: stats.filter(stat => ['RUSHING_ATTEMPTS', 'RUSHING_TDS', 'RUSHING_YARDS', 'YPC'].includes(stat.statType)),
-      receiving: stats.filter(stat => ['RECEPTIONS', 'RECEIVING_TDS', 'RECEIVING_YARDS', 'YPR'].includes(stat.statType)),
-    };
+  // Split stats into categories and team arrays
+  const categorizeStats = (stats) => {
+    const categories = { passing: [], rushing: [], receiving: [] };
+
+    stats.forEach(stat => {
+      switch (stat.category) {
+        case 'passing':
+          categories.passing.push(stat);
+          break;
+        case 'rushing':
+          categories.rushing.push(stat);
+          break;
+        case 'receiving':
+          categories.receiving.push(stat);
+          break;
+        default:
+          break;
+      }
+    });
+
+    return categories;
   };
 
-  const homeTeamStats = getCategorizedStats(playerSeasonStats.filter(stat => stat.team === game.home_team.school));
-  const awayTeamStats = getCategorizedStats(playerSeasonStats.filter(stat => stat.team === game.away_team.school));
+  const homeTeamStats = categorizeStats(playerSeasonStats.filter(stat => stat.team === game.home_team.school));
+  const awayTeamStats = categorizeStats(playerSeasonStats.filter(stat => stat.team === game.away_team.school));
 
   return (
     <div className="player-modal">
@@ -45,72 +59,84 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
             <h3>{game.home_team.school} Stats</h3>
             <div className="stats-section">
               <h4>Passing</h4>
-              <div className="stats-column">
-                {homeTeamStats.passing.map((stat, index) => (
-                  <div key={index} className="player-modal-stat-entry">
-                    <h4>{stat.player}</h4>
+              {homeTeamStats.passing.length > 0 ? (
+                homeTeamStats.passing.map((stat, index) => (
+                  <div key={index} className="stat-box">
+                    <p><strong>{stat.player}</strong></p>
                     <p>{stat.statType}: {stat.stat}</p>
                   </div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <p>No passing stats available.</p>
+              )}
             </div>
             <div className="stats-section">
               <h4>Rushing</h4>
-              <div className="stats-column">
-                {homeTeamStats.rushing.map((stat, index) => (
-                  <div key={index} className="player-modal-stat-entry">
-                    <h4>{stat.player}</h4>
+              {homeTeamStats.rushing.length > 0 ? (
+                homeTeamStats.rushing.map((stat, index) => (
+                  <div key={index} className="stat-box">
+                    <p><strong>{stat.player}</strong></p>
                     <p>{stat.statType}: {stat.stat}</p>
                   </div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <p>No rushing stats available.</p>
+              )}
             </div>
             <div className="stats-section">
               <h4>Receiving</h4>
-              <div className="stats-column">
-                {homeTeamStats.receiving.map((stat, index) => (
-                  <div key={index} className="player-modal-stat-entry">
-                    <h4>{stat.player}</h4>
+              {homeTeamStats.receiving.length > 0 ? (
+                homeTeamStats.receiving.map((stat, index) => (
+                  <div key={index} className="stat-box">
+                    <p><strong>{stat.player}</strong></p>
                     <p>{stat.statType}: {stat.stat}</p>
                   </div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <p>No receiving stats available.</p>
+              )}
             </div>
           </div>
           <div className="team-stats away-team">
             <h3>{game.away_team.school} Stats</h3>
             <div className="stats-section">
               <h4>Passing</h4>
-              <div className="stats-column">
-                {awayTeamStats.passing.map((stat, index) => (
-                  <div key={index} className="player-modal-stat-entry">
-                    <h4>{stat.player}</h4>
+              {awayTeamStats.passing.length > 0 ? (
+                awayTeamStats.passing.map((stat, index) => (
+                  <div key={index} className="stat-box">
+                    <p><strong>{stat.player}</strong></p>
                     <p>{stat.statType}: {stat.stat}</p>
                   </div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <p>No passing stats available.</p>
+              )}
             </div>
             <div className="stats-section">
               <h4>Rushing</h4>
-              <div className="stats-column">
-                {awayTeamStats.rushing.map((stat, index) => (
-                  <div key={index} className="player-modal-stat-entry">
-                    <h4>{stat.player}</h4>
+              {awayTeamStats.rushing.length > 0 ? (
+                awayTeamStats.rushing.map((stat, index) => (
+                  <div key={index} className="stat-box">
+                    <p><strong>{stat.player}</strong></p>
                     <p>{stat.statType}: {stat.stat}</p>
                   </div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <p>No rushing stats available.</p>
+              )}
             </div>
             <div className="stats-section">
               <h4>Receiving</h4>
-              <div className="stats-column">
-                {awayTeamStats.receiving.map((stat, index) => (
-                  <div key={index} className="player-modal-stat-entry">
-                    <h4>{stat.player}</h4>
+              {awayTeamStats.receiving.length > 0 ? (
+                awayTeamStats.receiving.map((stat, index) => (
+                  <div key={index} className="stat-box">
+                    <p><strong>{stat.player}</strong></p>
                     <p>{stat.statType}: {stat.stat}</p>
                   </div>
-                ))}
-              </div>
+                ))
+              ) : (
+                <p>No receiving stats available.</p>
+              )}
             </div>
           </div>
         </div>
@@ -120,6 +146,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
 };
 
 export default PlayerStatsModal;
+
 
 
 
