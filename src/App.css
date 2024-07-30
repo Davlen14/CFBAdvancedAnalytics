@@ -980,13 +980,15 @@ body {
 .player-modal-stats-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
   width: 100%;
+  margin-top: 20px;
+  gap: 20px; /* Add some gap between the two sets of stats */
 }
 
 .team-stats {
   width: 48%;
   padding: 10px;
+  box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
 .home-team {
@@ -997,10 +999,21 @@ body {
   padding-left: 20px;
 }
 
+.stats-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Add gap between the player entries */
+}
+
 .player-modal-stat-entry {
+  display: flex;
+  justify-content: space-between; /* Ensure space between player name and stats */
   margin-bottom: 10px;
 }
 
+.player-stat-info {
+  display: inline-block;
+}
 
 
 
