@@ -24,7 +24,7 @@ const UpcomingGamesComponent = ({ conference }) => {
   const [year] = useState(2024); // Assuming year is 2024
   const [seasonType] = useState('regular'); // Assuming seasonType is 'regular', adjust as needed
   const [selectedGame, setSelectedGame] = useState(null); // State for selected game
-  const [playerSeasonStats, setPlayerSeasonStats] = useState([]); // State for player season stats
+  const [playerStats, setPlayerStats] = useState([]); // State for player stats
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
   useEffect(() => {
@@ -112,22 +112,22 @@ const UpcomingGamesComponent = ({ conference }) => {
     setIsModalOpen(true);
     try {
       const stats = await getPlayerSeasonStats(year, game.home_team.school, seasonType, 'passing');
-      setPlayerSeasonStats(stats);
+      setPlayerStats(stats);
     } catch (error) {
-      console.error('Error fetching player season stats:', error);
+      console.error('Error fetching player stats:', error);
     }
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setPlayerSeasonStats([]);
+    setPlayerStats([]);
   };
 
   if (loading) return <p>Loading games...</p>;
   if (error) return <p>Error loading games: {error.toString()}</p>;
 
   return (
-    <div className="upcoming-games-container">
+    <div>
       <h2> Week {currentWeek}</h2>
       <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
       <div className="scorecards-container">
@@ -136,7 +136,7 @@ const UpcomingGamesComponent = ({ conference }) => {
             <div className="scorecard-final">Final</div>
             <div className="scorecard-time">{new Date(game.start_date).toLocaleTimeString()}</div>
             <div className="scorecard-media-type">
-              <FontAwesomeIcon icon={faTv} /> {game.outlet}
+              <FontAwesomeIcon icon={faTv} /> {game.outlet} {/* TV Icon followed by the outlet name */}
             </div>
             <div className="scorecard-location">Location: {game.venue}</div>
             <div className="scorecard-competitors">
@@ -185,15 +185,13 @@ const UpcomingGamesComponent = ({ conference }) => {
         ))}
       </div>
       {isModalOpen && (
-        <PlayerStatsModal game={selectedGame} playerSeasonStats={playerSeasonStats} closeModal={closeModal} />
+        <PlayerStatsModal game={selectedGame} playerStats={playerStats} closeModal={closeModal} />
       )}
     </div>
   );
 };
 
 export default UpcomingGamesComponent;
-
-
 
 
 
