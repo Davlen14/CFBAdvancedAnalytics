@@ -27,16 +27,11 @@ const getUniqueLeaders = (stats, statTypes) => {
   };
   
 
-// Define key stat types for game outlook
-// Define key stat types for game outlook
-const statTypes = [
-    'completionAttempts', 'passingTDs', 'netPassingYards', 'interceptions',
-    'rushingAttempts', 'rushingTDs', 'rushingYards',
-    'receptions', 'receivingTDs', 'receivingYards',
-    'sacks', 'tackles', 'interceptionYards', 'totalYards', 'turnovers'
+  // Define all stat types to display
+  const statTypes = [
+    'COMPLETIONS', 'INT', 'PCT', 'TD', 'YPA', 'YDS', 'ATT', 'CAR', 'LONG',
+    'YPC', 'REC', 'YPR', 'YPC', 'TD', 'LONG', 'YDS'
   ];
-  
-  
 
   // Get leaders for each stat type without repetition
 const homeTeamLeaders = getUniqueLeaders(playerSeasonStats.filter(stat => stat.team === game.home_team.school), statTypes);
