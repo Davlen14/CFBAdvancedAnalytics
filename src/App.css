@@ -10,19 +10,19 @@ body {
 
 /* Navbar styles */
 .navbar {
-  background-color: #ffffff; 
+  background-color: #ffffff;
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
-  padding: 5px 20px; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  position: fixed; 
-  top: 0; /* Changed top to 0 */
-  left: 0; 
-  right: 0; 
-  width: 100%; 
-  z-index: 1000; /* High enough to be above other elements */
-  height: 50px; /* Set a fixed height for the navbar */
+  padding: 5px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow added */
+  position: fixed;
+  top: 0; /* Navbar at the very top */
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it's above all other elements */
+  height: 50px; /* Fixed height */
 }
 
 /* Navbar title styling */
@@ -34,7 +34,7 @@ body {
   font-style: italic;
   color: #ff0000; /* Your chosen color */
   font-weight: bold; /* Make the title bold */
-  margin-left: 10px; /* Ensure it's pushed closer to the left edge */
+  margin-left: 10px; /* Push closer to the left edge */
 }
 
 /* Container for the title and nav buttons */
@@ -58,7 +58,7 @@ body {
 .nav-buttons {
   display: flex;
   gap: 5px;
-  margin-right: 10px; /* Pushes the buttons closer to the right edge */
+  margin-right: 10px; /* Push buttons closer to the right edge */
 }
 
 .nav-button {
@@ -67,18 +67,18 @@ body {
   gap: 5px;
   background-color: #ff0000; /* Red button background */
   border: none;
-  padding: 8px 10px; /* Reduced padding for smaller buttons */
+  padding: 8px 10px; /* Reduced padding */
   color: white; /* White text color */
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s; /* Add transform for pop-out effect */
+  transition: background-color 0.2s, transform 0.2s; /* Pop-out effect */
   font-size: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Added shadow to buttons */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow to buttons */
 }
 
 .nav-button:hover {
-  background-color: #e60000; /* Darker red for hover */
-  transform: scale(1.05); /* Slightly increase size on hover for pop-out effect */
+  background-color: #e60000; /* Darker red on hover */
+  transform: scale(1.05); /* Slightly larger on hover */
   color: #ffffff;
 }
 
@@ -92,11 +92,11 @@ body {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 50px; /* Adjust based on your navbar height */
+    top: 50px; /* Adjusted for navbar height */
     left: 0;
     right: 0;
     background-color: #ffffff; /* Match navbar background */
-    z-index: 999;
+    z-index: 999; /* Below navbar */
   }
 
   .nav-buttons.active {
@@ -107,7 +107,7 @@ body {
     width: 100%;
     text-align: center;
     background-color: #ff0000; /* Match navbar button color */
-    border: 1px solid #ff0000; /* Border to match the button color */
+    border: 1px solid #ff0000; /* Match button border color */
   }
 
   .nav-button:hover {
@@ -118,35 +118,16 @@ body {
 
 @media (max-width: 480px) {
   .nav-button {
-    font-size: 14px; /* Slightly smaller font size */
+    font-size: 14px; /* Smaller font size */
     padding: 6px 8px; /* Reduced padding */
   }
 }
 
 /* Home Component styles */
 .home {
-  padding-top: 120px; /* Adjusted for scoreboard and navbar spacing */
+  padding-top: 100px; /* Space for navbar and scoreboard */
   font-family: "vox", sans-serif;
 }
-
-.scoreboard-section {
-  padding: 10px 0; /* Less padding for a more compact look */
-  background-color: #ffffff;
-  border-bottom: 2px solid #ddd;
-  position: fixed;
-  top: 40px; /* Below the week filter */
-  left: 0;
-  right: 0;
-  z-index: 1000; /* Below the week filter but above the navbar */
-}
-
-.scoreboard-container {
-  overflow-x: auto;
-  display: flex;
-  padding: 10px 0;
-  margin-left: 20px; /* Adjust to align with week filter */
-}
-
 
 /* Week Filters */
 .week-filters {
@@ -174,20 +155,21 @@ body {
   top: 50px; /* Below the navbar */
   left: 0;
   right: 0;
-  z-index: 1000; /* Higher than other content */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  z-index: 999; /* Below the navbar */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
 }
 
 .scoreboard-container {
   overflow-x: auto;
   display: flex;
   align-items: center;
+  margin-left: auto; /* Align with filters */
 }
 
 .scoreboard-item {
   display: flex;
   align-items: center;
-  min-width: 150px; /* Adjust the width as needed */
+  min-width: 150px; /* Adjust as needed */
   margin: 0 5px;
   padding: 5px;
   border: 1px solid #ddd;
@@ -203,7 +185,7 @@ body {
 }
 
 .team-logos img {
-  width: 30px; /* Adjust size as needed */
+  width: 30px; /* Adjust as needed */
   height: 30px;
   margin-bottom: 5px; /* Space between logos */
 }
@@ -212,7 +194,7 @@ body {
   font-size: .5rem; /* Adjust font size */
   font-weight: 100;
   color: #333;
-  text-align: center; /* Center the text */
+  text-align: center; /* Center text */
   margin-left: 5px; /* Space between logo and name */
 }
 
@@ -227,7 +209,6 @@ body {
 .game-info span {
   margin: 2px 0; /* Space between time and channel */
 }
-
 
 /* Content Sections */
 .content-section {
