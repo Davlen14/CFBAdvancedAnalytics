@@ -3,9 +3,18 @@ body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Prevent horizontal overflow */
+  overflow-x: hidden;
   font-family: "vox", sans-serif;
-  line-height: 1.6; /* Increased line height for better readability */
+  line-height: 1.6;
+  background-color: #ffffff; /* Default background */
+  color: #333; /* Default text color */
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+  }
 }
 
 /* Navbar styles */
@@ -15,27 +24,39 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
-  border-bottom: .5px solid #ff0000; /* Red line added */
+  border-bottom: .5px solid #ff0000;
   position: fixed;
-  top: 0; /* Navbar at the very top */
+  top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 1000; /* Ensure it's above all other elements */
-  height: 50px; /* Fixed height */
+  z-index: 1000;
+  height: 50px;
 }
 
+@media (prefers-color-scheme: dark) {
+  .navbar {
+    background-color: #333333; /* Dark navbar */
+    border-bottom: .5px solid #990000; /* Dark red line */
+  }
+}
 
 /* Navbar title styling */
 .navbar-title {
   display: flex;
   align-items: center;
   font-family: "vox", sans-serif;
-  font-size: 24px; /* Slightly smaller font size */
+  font-size: 24px;
   font-style: italic;
-  color: #ff0000; /* Your chosen color */
-  font-weight: bold; /* Make the title bold */
-  margin-left: 10px; /* Push closer to the left edge */
+  color: #ff0000;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .navbar-title {
+    color: #ff6666; /* Lighter red for dark mode */
+  }
 }
 
 /* Container for the title and nav buttons */
@@ -44,43 +65,53 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1410px; /* Maximum width for larger screens */
+  max-width: 1410px;
 }
 
 .hamburger-menu {
   display: none;
   font-size: 28px;
-  color: #ff0000; /* Red color for the hamburger menu icon */
+  color: #ff0000;
   background: none;
   border: none;
   cursor: pointer;
 }
 
+@media (prefers-color-scheme: dark) {
+  .hamburger-menu {
+    color: #ff6666; /* Adjusted for dark mode */
+  }
+}
+
 .nav-buttons {
   display: flex;
   gap: 5px;
-  margin-right: 10px; /* Push buttons closer to the right edge */
+  margin-right: 10px;
 }
 
 .nav-button {
   display: flex;
   align-items: center;
   gap: 5px;
-  background-color: #ff0000; /* Red button background */
+  background-color: #ff0000;
   border: none;
-  padding: 8px 10px; /* Reduced padding */
-  color: white; /* White text color */
+  padding: 8px 10px;
+  color: white;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s; /* Pop-out effect */
+  transition: background-color 0.2s, transform 0.2s;
   font-size: 12px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow to buttons */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.nav-button:hover {
-  background-color: #e60000; /* Darker red on hover */
-  transform: scale(1.05); /* Slightly larger on hover */
-  color: #ffffff;
+@media (prefers-color-scheme: dark) {
+  .nav-button {
+    background-color: #990000; /* Darker red */
+  }
+
+  .nav-button:hover {
+    background-color: #cc0000; /* Slightly lighter on hover */
+  }
 }
 
 /* Responsive adjustments for the navbar */
@@ -93,11 +124,17 @@ body {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 50px; /* Adjusted for navbar height */
+    top: 50px;
     left: 0;
     right: 0;
-    background-color: #ffffff; /* Match navbar background */
-    z-index: 999; /* Below navbar */
+    background-color: #ffffff;
+    z-index: 999;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .nav-buttons {
+      background-color: #333333; /* Dark background */
+    }
   }
 
   .nav-buttons.active {
@@ -107,33 +144,33 @@ body {
   .nav-button {
     width: 100%;
     text-align: center;
-    background-color: #ff0000; /* Match navbar button color */
-    border: 1px solid #ff0000; /* Match button border color */
+    background-color: #ff0000;
+    border: 1px solid #ff0000;
   }
 
   .nav-button:hover {
-    background-color: #e60000; /* Red hover background */
-    color: #ffffff; /* White text color */
+    background-color: #e60000;
+    color: #ffffff;
   }
 }
 
 @media (max-width: 480px) {
   .nav-button {
-    font-size: 14px; /* Smaller font size */
-    padding: 6px 8px; /* Reduced padding */
+    font-size: 14px;
+    padding: 6px 8px;
   }
 }
 
 /* Home Component styles */
 .home {
-  padding-top: 150px; /* Space for navbar and scoreboard */
+  padding-top: 150px;
   font-family: "vox", sans-serif;
 }
 
 /* Week Filters */
 .week-filters {
   display: inline-block;
-  margin-right: 20px; /* Space between filters and first game */
+  margin-right: 20px;
 }
 
 .week-filters select {
@@ -145,6 +182,12 @@ body {
   color: #333;
 }
 
+@media (prefers-color-scheme: dark) {
+  .week-filters select {
+    color: #e0e0e0;
+  }
+}
+
 /* Scoreboard Section */
 .scoreboard-section {
   display: flex;
@@ -153,24 +196,31 @@ body {
   background-color: #ffffff;
   border-bottom: 2px solid #ddd;
   position: fixed;
-  top: 50px; /* Below the navbar */
+  top: 50px;
   left: 0;
   right: 0;
-  z-index: 999; /* Below the navbar */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  z-index: 999;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .scoreboard-section {
+    background-color: #222222; /* Dark background */
+    border-bottom: 2px solid #444444; /* Darker border */
+  }
 }
 
 .scoreboard-container {
   overflow-x: auto;
   display: flex;
   align-items: center;
-  margin-left: auto; /* Align with filters */
+  margin-left: auto;
 }
 
 .scoreboard-item {
   display: flex;
   align-items: center;
-  min-width: 150px; /* Adjust as needed */
+  min-width: 150px;
   margin: 0 5px;
   padding: 5px;
   border: 1px solid #ddd;
@@ -178,57 +228,83 @@ body {
   background-color: #f1f1f1;
 }
 
+@media (prefers-color-scheme: dark) {
+  .scoreboard-item {
+    background-color: #333333; /* Dark background */
+    border-color: #444444; /* Darker border */
+  }
+}
+
 .team-logos {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 10px; /* Space between logos and info */
+  margin-right: 10px;
 }
 
 .team-logos img {
-  width: 30px; /* Adjust as needed */
+  width: 30px;
   height: 30px;
-  margin-bottom: 5px; /* Space between logos */
+  margin-bottom: 5px;
 }
 
 .team-names {
-  font-size: .5rem; /* Adjust font size */
+  font-size: .5rem;
   font-weight: 100;
   color: #333;
-  text-align: center; /* Center text */
-  margin-left: 5px; /* Space between logo and name */
+  text-align: center;
+  margin-left: 5px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .team-names {
+    color: #e0e0e0; /* Light text for dark mode */
+  }
 }
 
 .game-info {
   display: flex;
-  flex-direction: column; /* Stack time and channel */
-  align-items: flex-start; /* Align left */
-  font-size: 12px; /* Smaller font size */
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 12px;
   color: #333;
 }
 
 .game-info span {
-  margin: 2px 0; /* Space between time and channel */
+  margin: 2px 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .game-info span {
+    color: #e0e0e0; /* Light text for dark mode */
+  }
 }
 
 /* Content Sections */
 .content-section {
-  padding: 6rem 4rem; /* Increased padding */
+  padding: 6rem 4rem;
   text-align: center;
   border-radius: 8px;
-  margin-bottom: 4rem; /* Increased margin for more spacing */
+  margin-bottom: 4rem;
   background: #f8f9fa;
 }
 
+@media (prefers-color-scheme: dark) {
+  .content-section {
+    background: #1e1e1e; /* Dark background */
+    color: #e0e0e0; /* Light text */
+  }
+}
+
 .content-section h2 {
-  font-size: 3rem; /* Larger font size */
+  font-size: 3rem;
   font-weight: bold;
   margin-bottom: 2rem;
 }
 
 .content-section p,
 .content-section li {
-  font-size: 1.5rem; /* Larger font size */
+  font-size: 1.5rem;
   margin-bottom: 2rem;
 }
 
