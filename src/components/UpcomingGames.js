@@ -185,8 +185,8 @@ const UpcomingGamesComponent = ({ conference }) => {
         ))}
       </div>
       {isModalOpen && (
-        <PlayerStatsModal game={selectedGame} playerStats={playerStats} closeModal={closeModal} />
-      )}
+  <PlayerStatsModal game={selectedGame} playerSeasonStats={playerSeasonStats} closeModal={closeModal} />
+)}
     </div>
   );
 };
