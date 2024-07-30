@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import WeekFilter from './WeekFilter';
 import Papa from 'papaparse';
-import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia, getPlayerStats } from '../services/CollegeFootballApi';
+import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia, getPlayerSeasonStats } from '../services/CollegeFootballApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
 import betmgmLogo from '../logos/betmgm.png';
@@ -111,7 +111,7 @@ const UpcomingGamesComponent = ({ conference }) => {
     setSelectedGame(game);
     setIsModalOpen(true);
     try {
-      const stats = await getPlayerStats(game.home_team.school, game.away_team.school);
+      const stats = await getPlayerSeasonStats(year, game.home_team.school, seasonType, 'passing');
       setPlayerStats(stats);
     } catch (error) {
       console.error('Error fetching player stats:', error);
@@ -192,6 +192,7 @@ const UpcomingGamesComponent = ({ conference }) => {
 };
 
 export default UpcomingGamesComponent;
+
 
 
 

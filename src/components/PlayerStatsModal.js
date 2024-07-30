@@ -1,15 +1,15 @@
 import React from 'react';
 import '../App.css';
 
-const PlayerStatsModal = ({ game, playerStats, closeModal }) => {
+const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
   return (
     <div className="player-modal">
       <div className="player-modal-content">
         <span className="player-modal-close" onClick={closeModal}>&times;</span>
-        <h2>Player Stats for {game.home_team.school} vs {game.away_team.school}</h2>
+        <h2>Player Season Stats for {game.home_team.school} vs {game.away_team.school}</h2>
         <div className="player-modal-stats-container">
-          {playerStats.length > 0 ? (
-            playerStats.map((stat, index) => (
+          {playerSeasonStats.length > 0 ? (
+            playerSeasonStats.map((stat, index) => (
               <div key={index} className="player-modal-stat-entry">
                 <h3>{stat.player}</h3>
                 <p>{stat.statType}: {stat.stat}</p>
@@ -25,3 +25,4 @@ const PlayerStatsModal = ({ game, playerStats, closeModal }) => {
 };
 
 export default PlayerStatsModal;
+
