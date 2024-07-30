@@ -999,6 +999,10 @@ body {
   padding-left: 20px;
 }
 
+.stats-section {
+  margin-bottom: 20px;
+}
+
 .stats-column {
   display: flex;
   flex-direction: column;
