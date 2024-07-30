@@ -2,7 +2,6 @@ import React from 'react';
 import '../App.css';
 
 const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
-  // Function to get the team logo based on the team name
   const getTeamLogo = (teamName) => {
     const teamLogosMap = {
       [game.home_team.school]: game.homeTeamLogo,
@@ -11,26 +10,22 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
     return teamLogosMap[teamName];
   };
 
-  // Split stats into categories and team arrays
+  // Function to get top performer in a category
+  const getTopPerformers = (stats, category) => {
+    if (stats.length === 0) return [];
+    // Find the player with the max value for the given category
+    const topPlayer = stats.reduce((top, stat) => (stat[category] > top[category] ? stat : top), stats[0]);
+    return [topPlayer];
+  };
+
+  // Categorize stats by team and type
   const categorizeStats = (stats) => {
     const categories = { passing: [], rushing: [], receiving: [] };
-
     stats.forEach(stat => {
-      switch (stat.category) {
-        case 'passing':
-          categories.passing.push(stat);
-          break;
-        case 'rushing':
-          categories.rushing.push(stat);
-          break;
-        case 'receiving':
-          categories.receiving.push(stat);
-          break;
-        default:
-          break;
-      }
+      if (stat.category === 'passing') categories.passing.push(stat);
+      if (stat.category === 'rushing') categories.rushing.push(stat);
+      if (stat.category === 'receiving') categories.receiving.push(stat);
     });
-
     return categories;
   };
 
@@ -58,83 +53,59 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
           <div className="team-stats home-team">
             <div className="stats-section">
               <h4>Passing</h4>
-              {homeTeamStats.passing.length > 0 ? (
-                homeTeamStats.passing.map((stat, index) => (
-                  <div key={index} className="stat-box">
-                    <p><strong>{stat.player}</strong></p>
-                    <p>{stat.statType}: {stat.stat}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No passing stats available.</p>
-              )}
+              {getTopPerformers(homeTeamStats.passing, 'yards').map((stat, index) => (
+                <div key={index} className="stat-box">
+                  <p><strong>{stat.player}</strong></p>
+                  <p>{stat.statType}: {stat.stat}</p>
+                </div>
+              ))}
             </div>
             <div className="stats-section">
               <h4>Rushing</h4>
-              {homeTeamStats.rushing.length > 0 ? (
-                homeTeamStats.rushing.map((stat, index) => (
-                  <div key={index} className="stat-box">
-                    <p><strong>{stat.player}</strong></p>
-                    <p>{stat.statType}: {stat.stat}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No rushing stats available.</p>
-              )}
+              {getTopPerformers(homeTeamStats.rushing, 'yards').map((stat, index) => (
+                <div key={index} className="stat-box">
+                  <p><strong>{stat.player}</strong></p>
+                  <p>{stat.statType}: {stat.stat}</p>
+                </div>
+              ))}
             </div>
             <div className="stats-section">
               <h4>Receiving</h4>
-              {homeTeamStats.receiving.length > 0 ? (
-                homeTeamStats.receiving.map((stat, index) => (
-                  <div key={index} className="stat-box">
-                    <p><strong>{stat.player}</strong></p>
-                    <p>{stat.statType}: {stat.stat}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No receiving stats available.</p>
-              )}
+              {getTopPerformers(homeTeamStats.receiving, 'yards').map((stat, index) => (
+                <div key={index} className="stat-box">
+                  <p><strong>{stat.player}</strong></p>
+                  <p>{stat.statType}: {stat.stat}</p>
+                </div>
+              ))}
             </div>
           </div>
           <div className="team-stats away-team">
             <div className="stats-section">
               <h4>Passing</h4>
-              {awayTeamStats.passing.length > 0 ? (
-                awayTeamStats.passing.map((stat, index) => (
-                  <div key={index} className="stat-box">
-                    <p><strong>{stat.player}</strong></p>
-                    <p>{stat.statType}: {stat.stat}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No passing stats available.</p>
-              )}
+              {getTopPerformers(awayTeamStats.passing, 'yards').map((stat, index) => (
+                <div key={index} className="stat-box">
+                  <p><strong>{stat.player}</strong></p>
+                  <p>{stat.statType}: {stat.stat}</p>
+                </div>
+              ))}
             </div>
             <div className="stats-section">
               <h4>Rushing</h4>
-              {awayTeamStats.rushing.length > 0 ? (
-                awayTeamStats.rushing.map((stat, index) => (
-                  <div key={index} className="stat-box">
-                    <p><strong>{stat.player}</strong></p>
-                    <p>{stat.statType}: {stat.stat}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No rushing stats available.</p>
-              )}
+              {getTopPerformers(awayTeamStats.rushing, 'yards').map((stat, index) => (
+                <div key={index} className="stat-box">
+                  <p><strong>{stat.player}</strong></p>
+                  <p>{stat.statType}: {stat.stat}</p>
+                </div>
+              ))}
             </div>
             <div className="stats-section">
               <h4>Receiving</h4>
-              {awayTeamStats.receiving.length > 0 ? (
-                awayTeamStats.receiving.map((stat, index) => (
-                  <div key={index} className="stat-box">
-                    <p><strong>{stat.player}</strong></p>
-                    <p>{stat.statType}: {stat.stat}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No receiving stats available.</p>
-              )}
+              {getTopPerformers(awayTeamStats.receiving, 'yards').map((stat, index) => (
+                <div key={index} className="stat-box">
+                  <p><strong>{stat.player}</strong></p>
+                  <p>{stat.statType}: {stat.stat}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -144,6 +115,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
 };
 
 export default PlayerStatsModal;
+
 
 
 
