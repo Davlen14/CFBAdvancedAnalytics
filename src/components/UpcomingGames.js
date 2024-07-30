@@ -111,13 +111,19 @@ const UpcomingGamesComponent = ({ conference }) => {
     setSelectedGame(game);
     setIsModalOpen(true);
     try {
-      const stats = await getPlayerSeasonStats(year, game.home_team.school, seasonType, 'passing');
-      setPlayerStats(stats);
+      const passingStats = await getPlayerSeasonStats(2023, game.home_team.school, seasonType, 'passing');
+      const rushingStats = await getPlayerSeasonStats(2023, game.home_team.school, seasonType, 'rushing');
+      const receivingStats = await getPlayerSeasonStats(2023, game.home_team.school, seasonType, 'receiving');
+  
+      // Combine stats from all categories
+      const combinedStats = [...passingStats, ...rushingStats, ...receivingStats];
+  
+      setPlayerStats(combinedStats);
     } catch (error) {
       console.error('Error fetching player stats:', error);
     }
   };
-
+  
   const closeModal = () => {
     setIsModalOpen(false);
     setPlayerStats([]);
