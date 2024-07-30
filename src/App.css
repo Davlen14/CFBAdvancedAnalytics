@@ -980,13 +980,22 @@ body {
 .player-modal-stats-container {
   display: flex;
   justify-content: space-between;
-  width: 100%;
   margin-top: 20px;
 }
 
 .team-stats {
   width: 48%;
+  padding: 10px; /* Optional: Add padding for better separation */
 }
+
+.home-team {
+  border-right: 1px solid #ddd; /* Optional: Add a border to separate the teams */
+}
+
+.away-team {
+  padding-left: 20px; /* Optional: Add padding for better separation */
+}
+
 
 .player-modal-team-logo {
   width: 20px;
@@ -995,9 +1004,8 @@ body {
   vertical-align: middle;
 }
 
+
 .player-modal-stat-entry {
-  display: flex;
-  align-items: center;
   margin-bottom: 10px;
 }
 
