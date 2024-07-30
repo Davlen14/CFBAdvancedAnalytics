@@ -144,13 +144,8 @@ body {
   z-index: 1001; /* Higher than navbar */
 }
 
-.week-filter-section select {
-  border: none;
-  background-color: transparent;
-  font-size: 16px;
-  padding: 5px;
-  cursor: pointer;
-  color: #333; /* Ensure text is visible */
+.week-filter {
+  margin-right: auto; /* Align to the left */
 }
 
 .scoreboard-section {
@@ -167,7 +162,8 @@ body {
 .scoreboard-container {
   overflow-x: auto;
   display: flex;
-  padding: 10px 0;
+  padding: 10px 20px; /* Adjust padding to ensure visibility */
+  margin-top: 40px; /* Space for navbar visibility */
 }
 
 .scoreboard-item {
@@ -207,13 +203,14 @@ body {
   display: flex;
   flex-direction: column; /* Stack time and channel */
   align-items: flex-start; /* Align left */
-  font-size: 10px; /* Smaller font size */
+  font-size: 12px; /* Smaller font size */
   color: #333;
 }
 
 .game-info span {
   margin: 2px 0; /* Space between time and channel */
 }
+
 
 
 

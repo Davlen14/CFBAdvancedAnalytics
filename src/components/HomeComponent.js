@@ -120,37 +120,37 @@ function HomeComponent() {
   };
 
   return (
-    <div className="home">
-      {/* Scoreboard Section */}
-      <section className="scoreboard-section">
-        {loading && <p>Loading games...</p>}
-        {error && <p>Error loading games: {error.toString()}</p>}
-        <div className="scoreboard-container">
-          {games.map(game => (
-            <div key={game.id} className="scoreboard-item">
-              <div className="team-logos">
-                <div className="team">
-                  <img src={game.homeTeamLogo} alt="Home Team Logo" />
-                  <div className="team-names">{game.homeTeam ? game.homeTeam.school : 'Home Team'}</div>
-                </div>
-                <div className="team">
-                  <img src={game.awayTeamLogo} alt="Away Team Logo" />
-                  <div className="team-names">{game.awayTeam ? game.awayTeam.school : 'Away Team'}</div>
-                </div>
+<div className="home">
+  {/* Week Filter and Scoreboard Section */}
+  <section className="week-filter-section">
+    <div className="week-filter">
+      <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
+    </div>
+    <div className="scoreboard-section">
+      {loading && <p>Loading games...</p>}
+      {error && <p>Error loading games: {error.toString()}</p>}
+      <div className="scoreboard-container">
+        {games.map((game) => (
+          <div key={game.id} className="scoreboard-item">
+            <div className="team-logos">
+              <div className="team">
+                <img src={game.homeTeamLogo} alt="Home Team Logo" />
+                <div className="team-names">{game.homeTeam ? game.homeTeam.school : 'Home Team'}</div>
               </div>
-              <div className="game-info">
-                <span>{new Date(game.startDate).toLocaleTimeString()}</span>
-                <span>{game.outlet}</span>
+              <div className="team">
+                <img src={game.awayTeamLogo} alt="Away Team Logo" />
+                <div className="team-names">{game.awayTeam ? game.awayTeam.school : 'Away Team'}</div>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Week Filter */}
-      <section className="week-filter-section">
-        <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
-      </section>
+            <div className="game-info">
+              <span>{new Date(game.startDate).toLocaleTimeString()}</span>
+              <span>{game.outlet}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
       
       {/* Hero Section */}
       <section className="hero-section">
