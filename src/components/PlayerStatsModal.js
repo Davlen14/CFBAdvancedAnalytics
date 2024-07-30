@@ -28,12 +28,14 @@ const getUniqueLeaders = (stats, statTypes) => {
   
 
 // Define key stat types for game outlook
+// Define key stat types for game outlook
 const statTypes = [
-    'COMPLETIONS', 'PASSING_TDS', 'PASSING_YARDS', 'INTERCEPTIONS',
-    'RUSHING_ATTEMPTS', 'RUSHING_TDS', 'RUSHING_YARDS',
-    'RECEPTIONS', 'RECEIVING_TDS', 'RECEIVING_YARDS',
-    'SACKS', 'TACKLES', 'INTERCEPTION_YARDS', 'TOTAL_YARDS', 'TURNOVERS'
+    'completionAttempts', 'passingTDs', 'netPassingYards', 'interceptions',
+    'rushingAttempts', 'rushingTDs', 'rushingYards',
+    'receptions', 'receivingTDs', 'receivingYards',
+    'sacks', 'tackles', 'interceptionYards', 'totalYards', 'turnovers'
   ];
+  
   
 
   // Get leaders for each stat type without repetition
