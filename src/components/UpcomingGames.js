@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import WeekFilter from './WeekFilter';
 import Papa from 'papaparse';
-import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia } from '../services/CollegeFootballApi';
+import { getUpcomingGamesForWeek, getFBSTeams, getRecords, getGamesMedia, getPlayerStats } from '../services/CollegeFootballApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTv } from '@fortawesome/free-solid-svg-icons';
 import betmgmLogo from '../logos/betmgm.png';
 import draftkingsLogo from '../logos/draftkings.png';
 import fanduelLogo from '../logos/fanduel.png';
+import PlayerStatsModal from './PlayerStatsModal';
 
 const bookmakerLogos = {
   BetMGM: betmgmLogo,
@@ -22,6 +23,9 @@ const UpcomingGamesComponent = ({ conference }) => {
   const [currentWeek, setCurrentWeek] = useState(1);
   const [year] = useState(2024); // Assuming year is 2024
   const [seasonType] = useState('regular'); // Assuming seasonType is 'regular', adjust as needed
+  const [selectedGame, setSelectedGame] = useState(null); // State for selected game
+  const [playerStats, setPlayerStats] = useState([]); // State for player stats
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
   useEffect(() => {
     const fetchGamesAndLogos = async () => {
@@ -103,6 +107,22 @@ const UpcomingGamesComponent = ({ conference }) => {
     setCurrentWeek(week);
   };
 
+  const handleGameClick = async (game) => {
+    setSelectedGame(game);
+    setIsModalOpen(true);
+    try {
+      const stats = await getPlayerStats(game.home_team.school, game.away_team.school);
+      setPlayerStats(stats);
+    } catch (error) {
+      console.error('Error fetching player stats:', error);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setPlayerStats([]);
+  };
+
   if (loading) return <p>Loading games...</p>;
   if (error) return <p>Error loading games: {error.toString()}</p>;
 
@@ -112,7 +132,7 @@ const UpcomingGamesComponent = ({ conference }) => {
       <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
       <div className="scorecards-container">
         {games.map((game) => (
-          <div key={game.id} className="scorecard">
+          <div key={game.id} className="scorecard" onClick={() => handleGameClick(game)}>
             <div className="scorecard-final">Final</div>
             <div className="scorecard-time">{new Date(game.start_date).toLocaleTimeString()}</div>
             <div className="scorecard-media-type">
@@ -164,11 +184,15 @@ const UpcomingGamesComponent = ({ conference }) => {
           </div>
         ))}
       </div>
+      {isModalOpen && (
+        <PlayerStatsModal game={selectedGame} playerStats={playerStats} closeModal={closeModal} />
+      )}
     </div>
   );
 };
 
 export default UpcomingGamesComponent;
+
 
 
 
