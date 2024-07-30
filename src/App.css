@@ -947,8 +947,21 @@ body {
   margin-top: 20px;
 }
 
+.player-modal-team-logo {
+  width: 24px; /* Set the width to your desired size */
+  height: 24px; /* Maintain aspect ratio or adjust height if necessary */
+  margin-right: 8px; /* Space between the logo and the text */
+  vertical-align: middle; /* Aligns the logo with the text */
+}
+
 .player-modal-stat-entry {
+  display: flex; /* Display logo and info inline */
+  align-items: center; /* Center align items */
   margin-bottom: 15px;
+}
+
+.player-stat-info {
+  display: inline-block; /* Keep player name and stats in a block */
 }
 
 /* Styles for the Home Component */

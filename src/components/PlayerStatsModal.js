@@ -25,8 +25,10 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
                   alt={`${stat.team} logo`}
                   className="player-modal-team-logo"
                 />
-                <h3>{stat.player}</h3>
-                <p>{stat.statType}: {stat.stat}</p>
+                <div className="player-stat-info">
+                  <h3>{stat.player}</h3>
+                  <p>{stat.statType}: {stat.stat}</p>
+                </div>
               </div>
             ))
           ) : (
@@ -39,5 +41,6 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
 };
 
 export default PlayerStatsModal;
+
 
 
