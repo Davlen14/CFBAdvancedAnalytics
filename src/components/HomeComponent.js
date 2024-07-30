@@ -126,9 +126,9 @@ function HomeComponent() {
         <div className="week-filters">
           <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
         </div>
-        {loading && <p>Loading games...</p>}
-        {error && <p>Error loading games: {error.toString()}</p>}
         <div className="scoreboard-container">
+          {loading && <p>Loading games...</p>}
+          {error && <p>Error loading games: {error.toString()}</p>}
           {games.map(game => (
             <div key={game.id} className="scoreboard-item">
               <div className="team-logos">
