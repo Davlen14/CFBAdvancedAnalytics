@@ -11,22 +11,31 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
     return teamLogosMap[teamName];
   };
 
-  // Function to get the leader for a specific stat type
-  const getLeader = (stats, statType) => {
-    return stats
-      .filter(stat => stat.statType === statType)
-      .reduce((leader, current) => (current.stat > leader.stat ? current : leader), stats[0]);
+// Function to get the leader for a specific stat type, ensuring unique entries
+const getUniqueLeaders = (stats, statTypes) => {
+    const leaders = {};
+    statTypes.forEach(statType => {
+      const filteredStats = stats.filter(stat => stat.statType === statType);
+      if (filteredStats.length > 0) {
+        const leader = filteredStats.reduce((max, stat) => (stat.stat > max.stat ? stat : max), filteredStats[0]);
+        if (!leaders[statType] || leader.stat !== leaders[statType].stat) {
+          leaders[statType] = leader;
+        }
+      }
+    });
+    return Object.values(leaders);
   };
+  
 
-  // Define all stat types to display
   const statTypes = [
-    'COMPLETIONS', 'INT', 'PCT', 'TD', 'YPA', 'YDS', 'ATT', 'CAR', 'LONG',
-    'YPC', 'REC', 'YPR', 'YPC', 'TD', 'LONG', 'YDS'
+    'PASS_COMPLETIONS', 'PASS_INT', 'PASS_PCT', 'PASS_TD', 'PASS_YPA', 'PASS_YDS',
+    'RUSH_ATT', 'RUSH_CAR', 'RUSH_LONG', 'RUSH_YPC', 'RUSH_YDS', 'RUSH_TD',
+    'REC', 'REC_YPR', 'REC_YDS', 'REC_TD', 'LONG', 'YDS'
   ];
 
-  // Get leaders for each stat type
-  const homeTeamLeaders = statTypes.map(statType => getLeader(playerSeasonStats.filter(stat => stat.team === game.home_team.school), statType));
-  const awayTeamLeaders = statTypes.map(statType => getLeader(playerSeasonStats.filter(stat => stat.team === game.away_team.school), statType));
+  // Get leaders for each stat type without repetition
+const homeTeamLeaders = getUniqueLeaders(playerSeasonStats.filter(stat => stat.team === game.home_team.school), statTypes);
+const awayTeamLeaders = getUniqueLeaders(playerSeasonStats.filter(stat => stat.team === game.away_team.school), statTypes);
 
   return (
     <div className="player-modal">
