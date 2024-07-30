@@ -11,31 +11,9 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
     return teamLogosMap[teamName];
   };
 
-// Function to get the leader for a specific stat type, ensuring unique entries
-const getUniqueLeaders = (stats, statTypes) => {
-    const leaders = {};
-    statTypes.forEach(statType => {
-      const filteredStats = stats.filter(stat => stat.statType === statType);
-      if (filteredStats.length > 0) {
-        const leader = filteredStats.reduce((max, stat) => (stat.stat > max.stat ? stat : max), filteredStats[0]);
-        if (!leaders[statType] || leader.stat !== leaders[statType].stat) {
-          leaders[statType] = leader;
-        }
-      }
-    });
-    return Object.values(leaders);
-  };
-  
-
-  // Define all stat types to display
-  const statTypes = [
-    'COMPLETIONS', 'INT', 'PCT', 'TD', 'YPA', 'YDS', 'ATT', 'CAR', 'LONG',
-    'YPC', 'REC', 'YPR', 'YPC', 'TD', 'LONG', 'YDS'
-  ];
-
-  // Get leaders for each stat type without repetition
-const homeTeamLeaders = getUniqueLeaders(playerSeasonStats.filter(stat => stat.team === game.home_team.school), statTypes);
-const awayTeamLeaders = getUniqueLeaders(playerSeasonStats.filter(stat => stat.team === game.away_team.school), statTypes);
+  // Split stats into home and away team arrays
+  const homeTeamStats = playerSeasonStats.filter(stat => stat.team === game.home_team.school);
+  const awayTeamStats = playerSeasonStats.filter(stat => stat.team === game.away_team.school);
 
   return (
     <div className="player-modal">
@@ -56,33 +34,33 @@ const awayTeamLeaders = getUniqueLeaders(playerSeasonStats.filter(stat => stat.t
         </div>
         <div className="player-modal-stats-container">
           <div className="team-stats home-team">
-            <h3>{game.home_team.school} Leaders</h3>
+            <h3>{game.home_team.school} Stats</h3>
             <div className="stats-column">
-              {homeTeamLeaders.map((leader, index) => (
-                leader ? (
+              {homeTeamStats.length > 0 ? (
+                homeTeamStats.map((stat, index) => (
                   <div key={index} className="player-modal-stat-entry">
-                    <h4>{leader.player}</h4>
-                    <p>{leader.statType}: {leader.stat}</p>
+                    <h4>{stat.player}</h4>
+                    <p>{stat.statType}: {stat.stat}</p>
                   </div>
-                ) : (
-                  <p key={index}>No leader available for {statTypes[index]}</p>
-                )
-              ))}
+                ))
+              ) : (
+                <p>No player stats available.</p>
+              )}
             </div>
           </div>
           <div className="team-stats away-team">
-            <h3>{game.away_team.school} Leaders</h3>
+            <h3>{game.away_team.school} Stats</h3>
             <div className="stats-column">
-              {awayTeamLeaders.map((leader, index) => (
-                leader ? (
+              {awayTeamStats.length > 0 ? (
+                awayTeamStats.map((stat, index) => (
                   <div key={index} className="player-modal-stat-entry">
-                    <h4>{leader.player}</h4>
-                    <p>{leader.statType}: {leader.stat}</p>
+                    <h4>{stat.player}</h4>
+                    <p>{stat.statType}: {stat.stat}</p>
                   </div>
-                ) : (
-                  <p key={index}>No leader available for {statTypes[index]}</p>
-                )
-              ))}
+                ))
+              ) : (
+                <p>No player stats available.</p>
+              )}
             </div>
           </div>
         </div>
@@ -92,7 +70,6 @@ const awayTeamLeaders = getUniqueLeaders(playerSeasonStats.filter(stat => stat.t
 };
 
 export default PlayerStatsModal;
-
 
 
 
