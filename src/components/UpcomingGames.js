@@ -24,7 +24,7 @@ const UpcomingGamesComponent = ({ conference }) => {
   const [year] = useState(2024); // Assuming year is 2024
   const [seasonType] = useState('regular'); // Assuming seasonType is 'regular', adjust as needed
   const [selectedGame, setSelectedGame] = useState(null); // State for selected game
-  const [playerStats, setPlayerStats] = useState([]); // State for player stats
+  const [playerSeasonStats, setPlayerStats] = useState([]); // State for player stats
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
   useEffect(() => {
