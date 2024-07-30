@@ -123,6 +123,9 @@ function HomeComponent() {
     <div className="home">
       {/* Scoreboard Section */}
       <section className="scoreboard-section">
+        <div className="week-filters">
+          <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
+        </div>
         {loading && <p>Loading games...</p>}
         {error && <p>Error loading games: {error.toString()}</p>}
         <div className="scoreboard-container">
@@ -147,11 +150,6 @@ function HomeComponent() {
         </div>
       </section>
 
-      {/* Week Filter */}
-      <section className="week-filter-section">
-        <WeekFilter currentWeek={currentWeek} onWeekChange={handleWeekChange} />
-      </section>
-      
       {/* Hero Section */}
       <section className="hero-section">
         <h2>Welcome to Game Day Analytics</h2>
