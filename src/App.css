@@ -934,7 +934,7 @@ body {
 
 .player-modal-close {
   color: #aaa;
-  align-self: flex-end; /* Changed to align-self for better control */
+  align-self: flex-end;
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
@@ -980,30 +980,27 @@ body {
 .player-modal-stats-container {
   display: flex;
   justify-content: space-between;
-  width: 100%;
   margin-top: 20px;
+  width: 100%;
 }
 
 .team-stats {
   width: 48%;
+  padding: 10px;
 }
 
-.player-modal-team-logo {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
-  vertical-align: middle;
+.home-team {
+  border-right: 1px solid #ddd;
+}
+
+.away-team {
+  padding-left: 20px;
 }
 
 .player-modal-stat-entry {
-  display: flex;
-  align-items: center;
   margin-bottom: 10px;
 }
 
-.player-stat-info {
-  display: inline-block;
-}
 
 
 
