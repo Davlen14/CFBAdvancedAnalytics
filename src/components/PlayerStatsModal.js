@@ -11,29 +11,54 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
     return teamLogosMap[teamName];
   };
 
+  // Split stats into home and away team arrays
+  const homeTeamStats = playerSeasonStats.filter(stat => stat.team === game.home_team.school);
+  const awayTeamStats = playerSeasonStats.filter(stat => stat.team === game.away_team.school);
+
   return (
     <div className="player-modal">
       <div className="player-modal-content">
         <span className="player-modal-close" onClick={closeModal}>&times;</span>
-        <h2>Player Season Stats for {game.home_team.school} vs {game.away_team.school}</h2>
+        <div className="modal-header">
+          <div className="team-header">
+            <img src={getTeamLogo(game.home_team.school)} alt={`${game.home_team.school} logo`} className="team-logo" />
+            <h2>{game.home_team.school}</h2>
+          </div>
+          <div className="separator">
+            <h2>vs</h2>
+          </div>
+          <div className="team-header">
+            <img src={getTeamLogo(game.away_team.school)} alt={`${game.away_team.school} logo`} className="team-logo" />
+            <h2>{game.away_team.school}</h2>
+          </div>
+        </div>
         <div className="player-modal-stats-container">
-          {playerSeasonStats.length > 0 ? (
-            playerSeasonStats.map((stat, index) => (
-              <div key={index} className="player-modal-stat-entry">
-                <img
-                  src={getTeamLogo(stat.team)}
-                  alt={`${stat.team} logo`}
-                  className="player-modal-team-logo"
-                />
-                <div className="player-stat-info">
+          <div className="team-stats">
+            <h3>{game.home_team.school}</h3>
+            {homeTeamStats.length > 0 ? (
+              homeTeamStats.map((stat, index) => (
+                <div key={index} className="player-modal-stat-entry">
                   <h3>{stat.player}</h3>
                   <p>{stat.statType}: {stat.stat}</p>
                 </div>
-              </div>
-            ))
-          ) : (
-            <p>No player stats available.</p>
-          )}
+              ))
+            ) : (
+              <p>No player stats available.</p>
+            )}
+          </div>
+          <div className="team-stats">
+            <h3>{game.away_team.school}</h3>
+            {awayTeamStats.length > 0 ? (
+              awayTeamStats.map((stat, index) => (
+                <div key={index} className="player-modal-stat-entry">
+                  <h3>{stat.player}</h3>
+                  <p>{stat.statType}: {stat.stat}</p>
+                </div>
+              ))
+            ) : (
+              <p>No player stats available.</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -41,6 +66,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
 };
 
 export default PlayerStatsModal;
+
 
 
 

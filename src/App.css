@@ -923,8 +923,8 @@ body {
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
-  max-width: 600px;
+  width: 90%; /* Increased width for more content space */
+  max-width: 800px; /* Increased max-width for a larger modal */
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
 }
@@ -944,25 +944,59 @@ body {
 }
 
 .player-modal-stats-container {
+  display: flex;
+  justify-content: space-between; /* Space between the two team sections */
   margin-top: 20px;
 }
 
+.team-stats {
+  width: 48%; /* Each team's stats take up half the modal width */
+}
+
 .player-modal-team-logo {
-  width: 24px; /* Set the width to your desired size */
-  height: 24px; /* Maintain aspect ratio or adjust height if necessary */
+  width: 20px; /* Reduced width for a smaller logo */
+  height: 20px; /* Maintain aspect ratio or adjust height if necessary */
   margin-right: 8px; /* Space between the logo and the text */
   vertical-align: middle; /* Aligns the logo with the text */
 }
 
 .player-modal-stat-entry {
   display: flex; /* Display logo and info inline */
-  align-items: center; /* Center align items */
-  margin-bottom: 15px;
+  align-items: center; /* Center align items vertically */
+  margin-bottom: 10px; /* Reduced margin for tighter layout */
 }
 
 .player-stat-info {
   display: inline-block; /* Keep player name and stats in a block */
 }
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.team-header {
+  display: flex;
+  align-items: center;
+}
+
+.team-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.separator {
+  margin: 0 20px; /* Increased margin for separation */
+}
+
+.separator h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
 
 /* Styles for the Home Component */
 /* Adjusting padding for the main content to avoid being hidden by the navbar */
