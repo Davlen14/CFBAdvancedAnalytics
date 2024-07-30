@@ -125,7 +125,7 @@ body {
 
 /* Home Component styles */
 .home {
-  padding-top: 100px; /* Space for navbar and scoreboard */
+  padding-top: 150px; /* Space for navbar and scoreboard */
   font-family: "vox", sans-serif;
 }
 
