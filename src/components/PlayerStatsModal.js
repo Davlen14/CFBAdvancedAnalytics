@@ -27,11 +27,14 @@ const getUniqueLeaders = (stats, statTypes) => {
   };
   
 
-  const statTypes = [
-    'PASS_COMPLETIONS', 'PASS_INT', 'PASS_PCT', 'PASS_TD', 'PASS_YPA', 'PASS_YDS',
-    'RUSH_ATT', 'RUSH_CAR', 'RUSH_LONG', 'RUSH_YPC', 'RUSH_YDS', 'RUSH_TD',
-    'REC', 'REC_YPR', 'REC_YDS', 'REC_TD', 'LONG', 'YDS'
+// Define key stat types for game outlook
+const statTypes = [
+    'COMPLETIONS', 'PASSING_TDS', 'PASSING_YARDS', 'INTERCEPTIONS',
+    'RUSHING_ATTEMPTS', 'RUSHING_TDS', 'RUSHING_YARDS',
+    'RECEPTIONS', 'RECEIVING_TDS', 'RECEIVING_YARDS',
+    'SACKS', 'TACKLES', 'INTERCEPTION_YARDS', 'TOTAL_YARDS', 'TURNOVERS'
   ];
+  
 
   // Get leaders for each stat type without repetition
 const homeTeamLeaders = getUniqueLeaders(playerSeasonStats.filter(stat => stat.team === game.home_team.school), statTypes);
