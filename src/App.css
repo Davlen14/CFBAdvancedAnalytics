@@ -148,8 +148,18 @@ body {
 }
 
 
+/* Week Filters and Scoreboard Section */
 .week-filters {
-  margin-right: 20px; /* Space from the right edge */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+  position: fixed;
+  top: 40px; /* Align with the scoreboard section */
+  left: 0;
+  z-index: 1001; /* Ensure it stays on top */
 }
 
 .week-filters select {
@@ -158,9 +168,27 @@ body {
   font-size: 16px;
   padding: 5px;
   cursor: pointer;
-  color: #333; /* Ensure text is visible */
+  color: #333;
 }
 
+/* Scoreboard Section */
+.scoreboard-section {
+  padding: 10px 0; /* Less padding for a more compact look */
+  background-color: #ffffff;
+  border-bottom: 2px solid #ddd;
+  position: fixed;
+  top: 40px; /* Align with the week filters */
+  left: 150px; /* Start after the week filters */
+  right: 0;
+  z-index: 1000; /* Below the week filters */
+}
+
+.scoreboard-container {
+  overflow-x: auto;
+  display: flex;
+  padding: 10px 0;
+  margin-left: 0; /* Align with the start of the section */
+}
 
 .scoreboard-item {
   display: flex;
@@ -206,8 +234,6 @@ body {
 .game-info span {
   margin: 2px 0; /* Space between time and channel */
 }
-
-
 
 
 /* Content Sections */
