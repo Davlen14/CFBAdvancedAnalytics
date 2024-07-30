@@ -56,7 +56,6 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
         </div>
         <div className="player-modal-stats-container">
           <div className="team-stats home-team">
-            <h3>{game.home_team.school} Stats</h3>
             <div className="stats-section">
               <h4>Passing</h4>
               {homeTeamStats.passing.length > 0 ? (
@@ -98,7 +97,6 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
             </div>
           </div>
           <div className="team-stats away-team">
-            <h3>{game.away_team.school} Stats</h3>
             <div className="stats-section">
               <h4>Passing</h4>
               {awayTeamStats.passing.length > 0 ? (
@@ -146,6 +144,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
 };
 
 export default PlayerStatsModal;
+
 
 
 
