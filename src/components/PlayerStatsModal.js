@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
+const PlayerStatsModal = ({ game, playerSeasonStats, recentGames, closeModal }) => {
   const getTeamLogo = (teamName) => {
     const teamLogosMap = {
       [game.home_team.school]: game.homeTeamLogo,
@@ -36,7 +36,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
     const topPerformer = (players, statType) => 
       players.filter(player => player.statType === statType)
              .sort((a, b) => parseFloat(b.stat) - parseFloat(a.stat))[0];
-  
+
     return {
       passing: {
         player: topPerformer(stats.passing, 'YDS'),
@@ -57,10 +57,18 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
       }
     };
   };
-  
-  
+
+  const getRecentGames = (teamName) => {
+    return recentGames.filter(game => game.team === teamName)
+                      .sort((a, b) => new Date(b.date) - new Date(a.date))
+                      .slice(0, 5);
+  };
+
   const homeTeamStats = getTopPerformers(categorizeStats(playerSeasonStats.filter(stat => stat.team === game.home_team.school)));
   const awayTeamStats = getTopPerformers(categorizeStats(playerSeasonStats.filter(stat => stat.team === game.away_team.school)));
+
+  const homeRecentGames = getRecentGames(game.home_team.school);
+  const awayRecentGames = getRecentGames(game.away_team.school);
 
   return (
     <div className="player-modal">
@@ -69,18 +77,19 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
         <div className="modal-header">
           <div className="team-header">
             <img src={getTeamLogo(game.home_team.school)} alt={`${game.home_team.school} logo`} className="team-logo" />
-            <span className="team-name">{game.home_team.school}</span> {/* Added team name */}
+            <span className="team-name">{game.home_team.school}</span>
           </div>
           <div className="separator">
             <h2>vs</h2>
           </div>
           <div className="team-header">
             <img src={getTeamLogo(game.away_team.school)} alt={`${game.away_team.school} logo`} className="team-logo" />
-            <span className="team-name">{game.away_team.school}</span> {/* Added team name */}
+            <span className="team-name">{game.away_team.school}</span>
           </div>
         </div>
         <div className="player-modal-stats-container">
           <div className="team-stats home-team">
+            {/* Passing stats for home team */}
             <div className="stats-section">
               <h4>Passing</h4>
               {homeTeamStats.passing && homeTeamStats.passing.player ? (
@@ -96,6 +105,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
                 <p>No passing stats available.</p>
               )}
             </div>
+            {/* Rushing stats for home team */}
             <div className="stats-section">
               <h4>Rushing</h4>
               {homeTeamStats.rushing && homeTeamStats.rushing.player ? (
@@ -109,6 +119,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
                 <p>No rushing stats available.</p>
               )}
             </div>
+            {/* Receiving stats for home team */}
             <div className="stats-section">
               <h4>Receiving</h4>
               {homeTeamStats.receiving && homeTeamStats.receiving.player ? (
@@ -124,6 +135,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
             </div>
           </div>
           <div className="team-stats away-team">
+            {/* Passing stats for away team */}
             <div className="stats-section">
               <h4>Passing</h4>
               {awayTeamStats.passing && awayTeamStats.passing.player ? (
@@ -139,6 +151,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
                 <p>No passing stats available.</p>
               )}
             </div>
+            {/* Rushing stats for away team */}
             <div className="stats-section">
               <h4>Rushing</h4>
               {awayTeamStats.rushing && awayTeamStats.rushing.player ? (
@@ -152,6 +165,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
                 <p>No rushing stats available.</p>
               )}
             </div>
+            {/* Receiving stats for away team */}
             <div className="stats-section">
               <h4>Receiving</h4>
               {awayTeamStats.receiving && awayTeamStats.receiving.player ? (
@@ -167,12 +181,40 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
             </div>
           </div>
         </div>
+        <div className="recent-games-container">
+          <h3>Recent Games</h3>
+          <div className="recent-games">
+            <div className="recent-games-team">
+              <h4>{game.home_team.school} Last 5 Games</h4>
+              <ul>
+                {homeRecentGames.map((recentGame, index) => (
+                  <li key={index}>
+                    <p><strong>{recentGame.opponent}</strong> ({recentGame.date})</p>
+                    <p>{recentGame.result}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="recent-games-team">
+              <h4>{game.away_team.school} Last 5 Games</h4>
+              <ul>
+                {awayRecentGames.map((recentGame, index) => (
+                  <li key={index}>
+                    <p><strong>{recentGame.opponent}</strong> ({recentGame.date})</p>
+                    <p>{recentGame.result}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
 export default PlayerStatsModal;
+
 
 
 

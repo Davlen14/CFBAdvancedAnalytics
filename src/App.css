@@ -1038,38 +1038,53 @@ body {
 .player-stat-info {
   display: inline-block;
 }
-.last-games {
+.recent-games-container {
   margin-top: 20px;
-  width: 100%;
 }
 
-.last-games h4 {
+.recent-games-container h3 {
   text-align: center;
   margin-bottom: 10px;
-  font-size: 18px;
 }
 
-.game-results {
+.recent-games {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: 20px;
 }
 
-.game-result {
-  flex: 1;
+.recent-games-team {
+  width: 48%;
+}
+
+.recent-games-team h4 {
   text-align: center;
+  margin-bottom: 10px;
+}
+
+.recent-games-team ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recent-games-team li {
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 4px;
   padding: 10px;
-  border-radius: 5px;
-  background-color: #f0f0f0;
+  margin-bottom: 10px;
 }
 
-.win {
-  background-color: #c8e6c9; /* Light green for wins */
+.recent-games-team p {
+  margin: 5px 0;
+  font-size: 14px;
 }
 
-.loss {
-  background-color: #ffcdd2; /* Light red for losses */
+.recent-games-team strong {
+  font-weight: bold;
 }
+
 
 
 /* Styles for the Home Component */
