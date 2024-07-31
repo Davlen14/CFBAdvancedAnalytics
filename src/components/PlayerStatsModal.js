@@ -33,7 +33,9 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
   };
 
   const getTopPerformers = (stats) => {
-    const topPerformer = (players, statType) => players.sort((a, b) => parseFloat(b.stat) - parseFloat(a.stat))[0];
+    const topPerformer = (players, statType) => 
+      players.filter(player => player.statType === statType)
+             .sort((a, b) => parseFloat(b.stat) - parseFloat(a.stat))[0];
   
     return {
       passing: {
@@ -55,6 +57,7 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
       }
     };
   };
+  
   
   const homeTeamStats = getTopPerformers(categorizeStats(playerSeasonStats.filter(stat => stat.team === game.home_team.school)));
   const awayTeamStats = getTopPerformers(categorizeStats(playerSeasonStats.filter(stat => stat.team === game.away_team.school)));
