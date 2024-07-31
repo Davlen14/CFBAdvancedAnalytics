@@ -52,7 +52,15 @@ body {
   font-weight: bold;
   margin-left: 10px;
 }
-
+/* Top strip styles */
+.navbar-top-strip {
+  background-color: #727272; /* Red color for the strip */
+  height: 4px; /* Adjust height as needed */
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 @media (prefers-color-scheme: dark) {
   .navbar-title {
     color: #ff6666; /* Lighter red for dark mode */
