@@ -106,7 +106,7 @@ body {
 
 @media (prefers-color-scheme: dark) {
   .nav-button {
-    background-color: #990000; /* Darker red */
+    background-color: #ff0000; /* Darker red */
   }
 
   .nav-button:hover {
