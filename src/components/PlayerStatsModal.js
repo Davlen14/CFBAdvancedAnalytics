@@ -33,29 +33,29 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
   };
 
   const getTopPerformers = (stats) => {
-    const topPerformer = (players, statType) => players.sort((a, b) => b[statType] - a[statType])[0];
-
+    const topPerformer = (players, statType) => players.sort((a, b) => parseFloat(b.stat) - parseFloat(a.stat))[0];
+  
     return {
       passing: {
-        player: topPerformer(stats.passing, 'stat'),
+        player: topPerformer(stats.passing, 'YDS'),
         completions: topPerformer(stats.passing, 'COMPLETIONS'),
         touchdowns: topPerformer(stats.passing, 'TD'),
         attempts: topPerformer(stats.passing, 'ATT'),
         interceptions: topPerformer(stats.passing, 'INT')
       },
       rushing: {
-        player: topPerformer(stats.rushing, 'stat'),
+        player: topPerformer(stats.rushing, 'YDS'),
         touchdowns: topPerformer(stats.rushing, 'TD'),
         attempts: topPerformer(stats.rushing, 'CAR')
       },
       receiving: {
-        player: topPerformer(stats.receiving, 'stat'),
+        player: topPerformer(stats.receiving, 'YDS'),
         touchdowns: topPerformer(stats.receiving, 'TD'),
         receptions: topPerformer(stats.receiving, 'REC')
       }
     };
   };
-
+  
   const homeTeamStats = getTopPerformers(categorizeStats(playerSeasonStats.filter(stat => stat.team === game.home_team.school)));
   const awayTeamStats = getTopPerformers(categorizeStats(playerSeasonStats.filter(stat => stat.team === game.away_team.school)));
 
