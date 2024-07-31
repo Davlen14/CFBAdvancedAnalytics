@@ -37,7 +37,7 @@ body {
 @media (prefers-color-scheme: dark) {
   .navbar {
     background-color: #333333; /* Dark navbar */
-    border-bottom: .5px solid #990000; /* Dark red line */
+    border-bottom: .5px solid #ff0000; /* Dark red line */
   }
 }
 
