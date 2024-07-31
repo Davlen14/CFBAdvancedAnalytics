@@ -1038,7 +1038,38 @@ body {
 .player-stat-info {
   display: inline-block;
 }
+.last-games {
+  margin-top: 20px;
+  width: 100%;
+}
 
+.last-games h4 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.game-results {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.game-result {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+}
+
+.win {
+  background-color: #c8e6c9; /* Light green for wins */
+}
+
+.loss {
+  background-color: #ffcdd2; /* Light red for losses */
+}
 
 
 /* Styles for the Home Component */
