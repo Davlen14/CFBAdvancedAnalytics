@@ -52,18 +52,10 @@ body {
   font-weight: bold;
   margin-left: 10px;
 }
-/* Top strip styles */
-.navbar-top-strip {
-  background-color: #727272; /* Red color for the strip */
-  height: 4px; /* Adjust height as needed */
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
+
 @media (prefers-color-scheme: dark) {
   .navbar-title {
-    color: #ff6666; /* Lighter red for dark mode */
+    color: #ff0000; /* Lighter red for dark mode */
   }
 }
 
@@ -629,8 +621,6 @@ body {
   }
 }
 
-
-
 /* Footer styling */
 .footer-container {
   display: flex;
@@ -690,6 +680,23 @@ body {
   margin: 0.25rem 0;
 }
 
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .footer-container {
+    background-color: #1f1f1f;
+    color: #e4e4e6;
+  }
+  .footer-links a {
+    color: #e4e4e6;
+    border-bottom: 2px solid #ff6666; /* Adjust underline color */
+  }
+  .footer-links a:hover {
+    color: #ff9999;
+  }
+  .footer-socials img {
+    filter: brightness(0.8);
+  }
+}
 
 /* Second navbar styles */
 .second-navbar {
@@ -732,6 +739,21 @@ body {
   color: #000;
 }
 
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .second-navbar {
+    background-color: #1f1f1f;
+    border-bottom: 1px solid #333;
+  }
+  .second-nav-button {
+    color: #e4e4e6;
+  }
+  .second-nav-button:hover {
+    background-color: #333;
+    color: #fff;
+  }
+}
+
 /* Overall container for the games */
 .upcoming-games-container {
   max-width: 1200px;
@@ -769,6 +791,13 @@ body {
   cursor: pointer; /* Add a pointer cursor for better UX */
 }
 
+@media (prefers-color-scheme: dark) {
+  .game-item {
+    background-color: #2c2c2e;
+    border-color: #444;
+  }
+}
+
 /* Style for the game header */
 .game-header {
   width: 100%;
@@ -781,6 +810,12 @@ body {
   font-size: 0.9em;
   color: #666;
   margin-bottom: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .game-details {
+    color: #999;
+  }
 }
 
 /* Style for the team logos */
@@ -797,9 +832,21 @@ body {
   color: #333;
 }
 
+@media (prefers-color-scheme: dark) {
+  .team-name, .vs {
+    color: #e4e4e6;
+  }
+}
+
 /* Style for the score and time */
 .game-score, .game-time {
   color: #888;
+}
+
+@media (prefers-color-scheme: dark) {
+  .game-score, .game-time {
+    color: #aaa;
+  }
 }
 
 /* Hover effect */
@@ -808,6 +855,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
 }
 
+/* Scorecards */
 .scorecards-container {
   display: flex;
   flex-wrap: wrap;
@@ -828,14 +876,22 @@ body {
   width: 45%; /* Adjust the width as needed */
 }
 
-.scorecard-time {
+@media (prefers-color-scheme: dark) {
+  .scorecard {
+    background-color: #2c2c2e;
+    border-color: #444;
+  }
+}
+
+.scorecard-time, .scorecard-network {
   font-size: 1.2em;
   color: #888;
 }
 
-.scorecard-network {
-  font-size: 1.2em;
-  color: #888;
+@media (prefers-color-scheme: dark) {
+  .scorecard-time, .scorecard-network {
+    color: #aaa;
+  }
 }
 
 .scorecard-competitors {
@@ -859,10 +915,23 @@ body {
   color: #333;
 }
 
+@media (prefers-color-scheme: dark) {
+  .scorecard-team-name {
+    color: #e4e4e6;
+  }
+}
+
 .scorecard-record {
   color: #888;
 }
 
+@media (prefers-color-scheme: dark) {
+  .scorecard-record {
+    color: #aaa;
+  }
+}
+
+/* Week Filter */
 .week-filter {
   padding: 10px 15px;
   background-color: white;
@@ -912,6 +981,7 @@ body {
   margin-right: 10px;
 }
 
+/* Player Modal */
 .player-modal {
   display: flex;
   justify-content: center;
@@ -940,6 +1010,14 @@ body {
   align-items: center;
 }
 
+@media (prefers-color-scheme: dark) {
+  .player-modal-content {
+    background-color: #2c2c2e;
+    border-color: #444;
+    color: #e4e4e6;
+  }
+}
+
 .player-modal-close {
   color: #aaa;
   align-self: flex-end;
@@ -954,6 +1032,7 @@ body {
   text-decoration: none;
 }
 
+/* Modal Header */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -962,6 +1041,7 @@ body {
   width: 100%;
 }
 
+/* Team Header */
 .team-header {
   display: flex;
   align-items: center;
@@ -978,6 +1058,7 @@ body {
   font-weight: bold;
 }
 
+/* Separator */
 .separator {
   display: flex;
   align-items: center;
@@ -989,6 +1070,8 @@ body {
   font-size: 24px;
   margin: 0;
 }
+
+/* Player Modal Stats */
 .player-modal-stats-container {
   display: flex;
   justify-content: space-between;
@@ -1012,7 +1095,7 @@ body {
   padding-left: 20px; /* Consistent spacing */
 }
 
-
+/* Stats Section */
 .stats-section {
   display: flex;
   flex-direction: column;
@@ -1030,7 +1113,14 @@ body {
   margin: 0;
 }
 
+@media (prefers-color-scheme: dark) {
+  .stat-box {
+    background-color: #333333;
+    color: #e4e4e6;
+  }
+}
 
+/* Stats Column */
 .stats-column {
   display: flex;
   flex-direction: column;
@@ -1046,6 +1136,7 @@ body {
 .player-stat-info {
   display: inline-block;
 }
+
 /* Styles for the Home Component */
 /* Adjusting padding for the main content to avoid being hidden by the navbar */
 .home {
@@ -1082,6 +1173,13 @@ body {
   text-align: center;
 }
 
+@media (prefers-color-scheme: dark) {
+  #statistics {
+    background-color: #1e1e1e;
+    color: #e4e4e6;
+  }
+}
+
 #statistics h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -1098,6 +1196,13 @@ body {
   border-radius: 8px;
   margin-bottom: 2rem;
   text-align: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  #news {
+    background-color: #2c2c2e;
+    color: #e4e4e6;
+  }
 }
 
 #news h2 {
@@ -1122,6 +1227,12 @@ footer p {
   margin: 0.5rem 0;
 }
 
+@media (prefers-color-scheme: dark) {
+  footer {
+    background-color: #1e1e1e;
+  }
+}
+
 /* Teams container styles */
 .teams-container {
   max-width: 1200px;
@@ -1130,6 +1241,13 @@ footer p {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: 20px;
   padding: 20px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .teams-container {
+    background-color: #1e1e1e;
+    color: #e4e4e6;
+  }
 }
 
 /* Responsive adjustments for the teams container */
@@ -1155,6 +1273,14 @@ footer p {
   cursor: pointer;
 }
 
+@media (prefers-color-scheme: dark) {
+  .team-card {
+    background-color: #2c2c2e;
+    border-color: #444;
+    color: #e4e4e6;
+  }
+}
+
 .team-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -1171,6 +1297,13 @@ footer p {
   font-size: 16px;
   color: #333;
 }
+
+@media (prefers-color-scheme: dark) {
+  .team-name {
+    color: #e4e4e6;
+  }
+}
+
 .conference-header {
   display: flex;
   justify-content: center;
@@ -1209,8 +1342,6 @@ footer p {
   }
 }
 
-
-
 /* Section titles */
 .section-title {
   font-size: 24px;
@@ -1227,6 +1358,13 @@ footer p {
   border-radius: 8px;
 }
 
+@media (prefers-color-scheme: dark) {
+  .news-container {
+    background-color: #1e1e1e;
+    color: #e4e4e6;
+  }
+}
+
 .news-item {
   display: flex;
   margin-bottom: 20px;
@@ -1235,6 +1373,13 @@ footer p {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
+}
+
+@media (prefers-color-scheme: dark) {
+  .news-item {
+    background-color: #2c2c2e;
+    color: #e4e4e6;
+  }
 }
 
 .news-item:hover {
@@ -1265,6 +1410,12 @@ footer p {
   margin-bottom: 10px;
 }
 
+@media (prefers-color-scheme: dark) {
+  .news-description {
+    color: #aaa;
+  }
+}
+
 .news-link-button {
   display: inline-block;
   background-color: #cc0000;
@@ -1278,6 +1429,19 @@ footer p {
 
 .news-link-button:hover {
   background-color: #990000;
+}
+
+@media (prefers-color-scheme: dark) {
+  .news-link-button {
+    background-color: #ff453a;
+  }
+  .news-link-button:hover {
+    background-color: #d93733;
+  }
+}
+
+.news-link-button:active {
+  transform: scale(0.95);
 }
 
 /* Responsive adjustments */
@@ -1323,6 +1487,16 @@ footer p {
   background-color: rgba(0, 0, 0, 0.75);
 }
 
+@media (prefers-color-scheme: dark) {
+  .Modal {
+    background-color: #2c2c2e;
+    color: #e4e4e6;
+  }
+  .Overlay {
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+}
+
 /* Team logo in modal */
 .modal-team-logo {
   width: 100px;
@@ -1351,6 +1525,15 @@ footer p {
   background: #990000;
 }
 
+@media (prefers-color-scheme: dark) {
+  .modal-button {
+    background-color: #ff453a;
+  }
+  .modal-button:hover {
+    background-color: #d93733;
+  }
+}
+
 .close-button {
   background: transparent;
   border: none;
@@ -1363,6 +1546,10 @@ footer p {
 
 .close-button:hover {
   color: #990000;
+}
+
+.close-button:focus {
+  outline: none;
 }
 
 /* Roster container styles */
@@ -1380,7 +1567,8 @@ footer p {
 .roster-container li {
   margin-bottom: 10px;
 }
-/* Container for the entire metrics component */
+
+/* Metrics Container */
 .metrics-container {
   max-width: 1200px;
   margin: 80px auto; /* Adjust the top margin to account for fixed navbar */
@@ -1390,6 +1578,13 @@ footer p {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+@media (prefers-color-scheme: dark) {
+  .metrics-container {
+    background-color: #1e1e1e;
+    color: #e4e4e6;
+  }
+}
+
 /* Section titles */
 .metrics-section-title {
   font-size: 24px;
@@ -1397,6 +1592,12 @@ footer p {
   margin: 20px 0;
   border-bottom: 2px solid #ddd; /* Underline for section titles */
   padding-bottom: 5px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .metrics-section-title {
+    border-bottom-color: #444;
+  }
 }
 
 /* Style for individual metric sections */
@@ -1426,9 +1627,21 @@ footer p {
   background-color: #f2f2f2; /* Light grey for alternate rows */
 }
 
+@media (prefers-color-scheme: dark) {
+  .metrics-table tr:nth-child(even) {
+    background-color: #2c2c2e;
+  }
+}
+
 .metrics-table tr:hover {
   background-color: #e6e6e6; /* Light grey for hover effect */
   cursor: pointer;
+}
+
+@media (prefers-color-scheme: dark) {
+  .metrics-table tr:hover {
+    background-color: #3a3a3c;
+  }
 }
 
 /* Chart container */
@@ -1448,6 +1661,14 @@ footer p {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+@media (prefers-color-scheme: dark) {
+  .metric-card {
+    background-color: #2c2c2e;
+    border-color: #444;
+    color: #e4e4e6;
+  }
+}
+
 .metric-card h3 {
   font-size: 20px;
   font-weight: bold;
@@ -1457,6 +1678,12 @@ footer p {
 .metric-card p {
   font-size: 16px;
   color: #555;
+}
+
+@media (prefers-color-scheme: dark) {
+  .metric-card p {
+    color: #aaa;
+  }
 }
 
 /* Filters */
@@ -1474,12 +1701,27 @@ footer p {
   border: 1px solid #ddd;
 }
 
+@media (prefers-color-scheme: dark) {
+  .filters select, .filters input {
+    background-color: #333333;
+    color: #e4e4e6;
+    border-color: #444444;
+  }
+}
+
 /* Expanded game details */
 .game-details {
   background-color: #f9f9f9;
   padding: 10px;
   border: 1px solid #ddd;
   margin-top: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .game-details {
+    background-color: #1e1e1e;
+    border-color: #444;
+  }
 }
 
 /* Responsive adjustments */
@@ -1532,6 +1774,7 @@ footer p {
     font-size: 12px; /* Further adjusted font size for very small screens */
   }
 }
+
 /* App.css */
 
 /* Schedule Container */
@@ -1544,6 +1787,13 @@ footer p {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+@media (prefers-color-scheme: dark) {
+  .schedules-container {
+    background-color: #1e1e1e;
+    color: #e4e4e6;
+  }
+}
+
 /* Dropdown styling */
 .dropdown__control {
   border-radius: 4px;
@@ -1553,9 +1803,24 @@ footer p {
   margin-bottom: 15px;
 }
 
+@media (prefers-color-scheme: dark) {
+  .dropdown__control {
+    background-color: #333333;
+    color: #e4e4e6;
+    border-color: #444444;
+  }
+}
+
 .dropdown__menu {
   border-radius: 4px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  .dropdown__menu {
+    background-color: #333333;
+    color: #e4e4e6;
+  }
 }
 
 .dropdown__option {
@@ -1597,6 +1862,13 @@ footer p {
 
 .schedule-item:hover {
   transform: scale(1.02);
+}
+
+@media (prefers-color-scheme: dark) {
+  .schedule-item {
+    background-color: #2c2c2e;
+    color: #e4e4e6;
+  }
 }
 
 .team-logo {
@@ -1644,6 +1916,12 @@ footer p {
 .game-tv {
   margin-top: 5px; /* Added margin to the top */
   font-size: 14px; /* Adjusted font size */
+}
+
+@media (prefers-color-scheme: dark) {
+  .game-date, .game-time, .game-venue, .game-tv {
+    color: #aaa;
+  }
 }
 
 /* Media queries for responsiveness */
@@ -1699,18 +1977,21 @@ footer p {
   color: #333;
 }
 
-/* Modal container */
-.modal {
-  display: block; /* Show the modal */
-  position: fixed;
-  z-index: 1000; /* Ensure it is on top of other elements */
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+@media (prefers-color-scheme: dark) {
+  .dropdown__control {
+    background-color: #333333;
+    color: #e4e4e6;
+    border-color: #444444;
+  }
+  .dropdown__option--is-focused {
+    background-color: #444444;
+  }
+  .dropdown__option--is-selected {
+    background-color: #555555;
+  }
+  .dropdown__single-value, .dropdown__placeholder {
+    color: #e4e4e6;
+  }
 }
 
 /* Modal container */
@@ -1725,6 +2006,12 @@ footer p {
   overflow: auto;
   background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+@media (prefers-color-scheme: dark) {
+  .modal {
+    background-color: rgba(0, 0, 0, 0.75);
+  }
 }
 
 /* Modal content box */
@@ -1738,6 +2025,14 @@ footer p {
   overflow-y: auto; /* Enable vertical scrolling */
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Box shadow */
+}
+
+@media (prefers-color-scheme: dark) {
+  .modal-content {
+    background-color: #2c2c2e;
+    border-color: #444;
+    color: #e4e4e6;
+  }
 }
 
 /* Close button */
@@ -1755,6 +2050,12 @@ footer p {
   cursor: pointer;
 }
 
+@media (prefers-color-scheme: dark) {
+  .close {
+    color: #e4e4e6;
+  }
+}
+
 /* Modal header */
 .modal-header {
   display: flex;
@@ -1762,6 +2063,12 @@ footer p {
   align-items: center;
   padding: 1rem;
   border-bottom: 1px solid #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+  .modal-header {
+    border-bottom-color: #444;
+  }
 }
 
 .team-info {
@@ -1814,6 +2121,15 @@ footer p {
   overflow-y: auto;
 }
 
+@media (prefers-color-scheme: dark) {
+  .tab-button {
+    background-color: #ff453a;
+  }
+  .tab-button:hover {
+    background-color: #d93733;
+  }
+}
+
 /* Tables */
 table {
   width: 100%;
@@ -1833,12 +2149,31 @@ table th {
   font-size: 1rem;
 }
 
+@media (prefers-color-scheme: dark) {
+  table th {
+    background-color: #444;
+    color: #e4e4e6;
+  }
+}
+
 table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
+@media (prefers-color-scheme: dark) {
+  table tbody tr:nth-child(even) {
+    background-color: #333;
+  }
+}
+
 table tbody tr:hover {
   background-color: #d6e9f7;
+}
+
+@media (prefers-color-scheme: dark) {
+  table tbody tr:hover {
+    background-color: #444;
+  }
 }
 
 /* Modal footer */
@@ -1847,6 +2182,12 @@ table tbody tr:hover {
   justify-content: flex-end;
   padding: 1rem;
   border-top: 1px solid #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+  .modal-footer {
+    border-top-color: #444;
+  }
 }
 
 .close-button {
@@ -1862,6 +2203,15 @@ table tbody tr:hover {
 
 .close-button:hover {
   background: #c82333;
+}
+
+@media (prefers-color-scheme: dark) {
+  .close-button {
+    background-color: #ff453a;
+  }
+  .close-button:hover {
+    background-color: #d93733;
+  }
 }
 
 /* Media Queries for Mobile Responsiveness */
@@ -1890,6 +2240,11 @@ table tbody tr:hover {
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  table th, table td {
+    border-color: #444;
+  }
+}
 
 table th {
   background-color: #f2f2f2;
@@ -1900,12 +2255,34 @@ table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
+@media (prefers-color-scheme: dark) {
+  table tbody tr:nth-child(even) {
+    background-color: #333;
+  }
+}
+
+table tbody tr:hover {
+  background-color: #d6e9f7;
+}
+
+@media (prefers-color-scheme: dark) {
+  table tbody tr:hover {
+    background-color: #444;
+  }
+}
+
 /* Modal footer */
 .modal-footer {
   display: flex;
   justify-content: flex-end;
   padding: 1rem;
   border-top: 1px solid #ccc;
+}
+
+@media (prefers-color-scheme: dark) {
+  .modal-footer {
+    border-top-color: #444;
+  }
 }
 
 .close-button {
@@ -1920,6 +2297,16 @@ table tbody tr:nth-child(even) {
 .close-button:hover {
   background: #ff3333;
 }
+
+@media (prefers-color-scheme: dark) {
+  .close-button {
+    background-color: #ff453a;
+  }
+  .close-button:hover {
+    background-color: #d93733;
+  }
+}
+
 /* Tooltip container */
 .tooltip {
   position: absolute;
@@ -1934,10 +2321,10 @@ table tbody tr:nth-child(even) {
   transition: opacity 0.2s ease-in-out;
 }
 
-/* Show the tooltip */
 .tooltip-visible {
   opacity: 1;
 }
+
 /* Existing styles */
 /* ... */
 
@@ -2076,6 +2463,7 @@ table tbody tr:nth-child(even) {
   color: #333;
 }
 
+/* Filters Section */
 .filters-section {
   display: flex;
   flex-direction: column;
@@ -2088,6 +2476,14 @@ table tbody tr:nth-child(even) {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow */
+}
+
+@media (prefers-color-scheme: dark) {
+  .team-selection .react-select__control {
+    background-color: #333333;
+    color: #e4e4e6;
+    border-color: #444444;
+  }
 }
 
 .team-selection .react-select__option img {
@@ -2116,6 +2512,14 @@ table tbody tr:nth-child(even) {
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow */
 }
 
+@media (prefers-color-scheme: dark) {
+  .team-selection, .season-range-selector, .statistics-dropdown {
+    background-color: #333333;
+    color: #e4e4e6;
+    border-color: #444444;
+  }
+}
+
 .compare-button {
   background-color: #ff0000;
   color: white;
@@ -2140,6 +2544,7 @@ table tbody tr:nth-child(even) {
   margin-top: 20px;
 }
 
+/* Key Insights and Other Sections */
 .key-insights,
 .trending-analyses,
 .featured-metrics,
@@ -2168,7 +2573,7 @@ table tbody tr:nth-child(even) {
   color: #333;
 }
 
-/* Team logo and conference logo */
+/* Team logo and conference logo in metric card */
 .metric-card img.team-logo {
   width: 50px;
   height: 50px;
@@ -2178,7 +2583,6 @@ table tbody tr:nth-child(even) {
   width: 30px;
   height: 30px;
 }
-/* app.css */
 
 
 

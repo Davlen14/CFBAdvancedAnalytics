@@ -8,6 +8,7 @@ import SchedulesComponent from './components/SchedulesComponent';
 import GamedayGPTComponent from './components/GamedayGPTComponent'; // Import GamedayGPTComponent
 import './App.css';
 
+// Icons for buttons
 import { FaHome, FaChartBar, FaUsers, FaFootballBall, FaCalendarAlt, FaRobot } from 'react-icons/fa';
 
 function App() {
@@ -20,7 +21,6 @@ function App() {
     <Router>
       <div className="navbar">
         <div className="navbar-content">
-          <div className="navbar-top-strip"></div> {/* Add this line */}
           <h1 className="navbar-title">Game Day Analytics</h1>
           <button className="hamburger-menu" onClick={toggleMenu}>
             &#9776;
@@ -60,7 +60,6 @@ function App() {
 }
 
 export default App;
-
 
 
 
