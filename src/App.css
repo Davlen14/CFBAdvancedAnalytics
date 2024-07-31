@@ -960,9 +960,14 @@ body {
 }
 
 .team-logo {
-  width: 40px;
-  height: 40px;
+  width: 50px; /* Increased size for better visibility */
+  height: 50px;
   margin-right: 10px;
+}
+
+.team-name {
+  font-size: 24px; /* Increased font size for prominence */
+  font-weight: bold;
 }
 
 .separator {
@@ -976,13 +981,12 @@ body {
   font-size: 24px;
   margin: 0;
 }
-
 .player-modal-stats-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
   margin-top: 20px;
-  gap: 20px; /* Add some gap between the two sets of stats */
+  gap: 20px; /* Ensure gap between the two sets of stats */
 }
 
 .team-stats {
@@ -993,11 +997,13 @@ body {
 
 .home-team {
   border-right: 1px solid #ddd;
+  padding-right: 20px; /* Add padding to create space between the border and content */
 }
 
 .away-team {
-  padding-left: 20px;
+  padding-left: 20px; /* Consistent spacing */
 }
+
 
 .stats-section {
   display: flex;

@@ -69,12 +69,14 @@ const PlayerStatsModal = ({ game, playerSeasonStats, closeModal }) => {
         <div className="modal-header">
           <div className="team-header">
             <img src={getTeamLogo(game.home_team.school)} alt={`${game.home_team.school} logo`} className="team-logo" />
+            <span className="team-name">{game.home_team.school}</span> {/* Added team name */}
           </div>
           <div className="separator">
             <h2>vs</h2>
           </div>
           <div className="team-header">
             <img src={getTeamLogo(game.away_team.school)} alt={`${game.away_team.school} logo`} className="team-logo" />
+            <span className="team-name">{game.away_team.school}</span> {/* Added team name */}
           </div>
         </div>
         <div className="player-modal-stats-container">
