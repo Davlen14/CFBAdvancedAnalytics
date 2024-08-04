@@ -470,6 +470,25 @@ app.get('/api/stats/player/game', async (req, res) => {
   }
 });
 
+app.get('/api/college-football/lines', async (req, res) => {
+  try {
+    const { year, seasonType, week, team } = req.query;
+    if (!year || !seasonType) {
+      return res.status(400).json({ error: 'year and seasonType query parameters are required' });
+    }
+
+    const params = { year, seasonType };
+    if (week) params.week = week;
+    if (team) params.team = team;
+
+    const response = await apiClient.get('/lines', { params });
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error fetching game lines:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.get('/api/college-football/game/box/advanced', async (req, res) => {
   try {
     const { gameId } = req.query;
