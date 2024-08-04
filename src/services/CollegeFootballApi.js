@@ -209,14 +209,13 @@ export async function getPlayerGameStats(year, week, seasonType, team, conferenc
   const params = { year, week, seasonType, team, conference, category, gameId };
   return makeGetRequest('/api/stats/player/game', params);
 }
-// Function to get game lines
-export async function getGameLines(year, seasonType, week, team) {
+
+export async function getGameLines(year, seasonType, team) {
   const params = {};
   if (year) params.year = year;
   if (seasonType) params.seasonType = seasonType;
-  if (week) params.week = week;
   if (team) params.team = team;
-  return makeGetRequest('/api/lines', params);
+  return makeGetRequest('/api/college-football/lines', params);
 }
 
 
